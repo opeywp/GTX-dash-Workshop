@@ -6,74 +6,952 @@
   <title>GTX Workshop</title>
 
   <style>
+    * {
+      box-sizing: border-box;
+    }
+
     body {
-      font-family: Arial, sans-serif;
       margin: 0;
-      padding: 24px;
-      background: #f5f5f5;
-      color: #111;
+      font-family: Arial, Helvetica, sans-serif;
+      background: #0b0b0d;
+      color: #f5f5f5;
     }
 
-    header {
-      margin-bottom: 30px;
-    }
-
-    h1 {
-      margin-bottom: 8px;
-    }
-
-    .card {
-      background: white;
-      padding: 20px;
-      margin-bottom: 16px;
-      border-radius: 16px;
-      box-shadow: 0 2px 8px rgba(0,0,0,0.08);
-    }
-
-    .card h2 {
-      margin-top: 0;
+    button,
+    input,
+    textarea {
+      font: inherit;
     }
 
     button {
-      padding: 12px 18px;
-      border: none;
-      border-radius: 10px;
       cursor: pointer;
+    }
+
+    .app {
+      min-height: 100vh;
+      display: flex;
+    }
+
+    /* SIDEBAR */
+
+    .sidebar {
+      width: 240px;
+      min-height: 100vh;
+      background: #111114;
+      border-right: 1px solid #242429;
+      padding: 24px 16px;
+      position: fixed;
+      left: 0;
+      top: 0;
+      bottom: 0;
+    }
+
+    .logo {
+      font-size: 22px;
+      font-weight: 800;
+      letter-spacing: 1px;
+      margin-bottom: 35px;
+      padding: 0 10px;
+    }
+
+    .logo span {
+      color: #8d8dff;
+    }
+
+    .nav {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    .nav button {
+      width: 100%;
+      background: transparent;
+      color: #aaaab2;
+      border: 0;
+      padding: 13px 14px;
+      text-align: left;
+      border-radius: 10px;
+    }
+
+    .nav button:hover,
+    .nav button.active {
+      background: #202025;
+      color: white;
+    }
+
+    .sidebar-bottom {
+      position: absolute;
+      left: 16px;
+      right: 16px;
+      bottom: 24px;
+    }
+
+    /* MAIN */
+
+    .main {
+      margin-left: 240px;
+      width: calc(100% - 240px);
+      min-height: 100vh;
+    }
+
+    .topbar {
+      height: 72px;
+      border-bottom: 1px solid #242429;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 30px;
+      background: #0b0b0d;
+    }
+
+    .topbar-title {
+      font-weight: 700;
+    }
+
+    .status {
+      font-size: 13px;
+      color: #9c9ca5;
+    }
+
+    .content {
+      padding: 34px;
+      max-width: 1200px;
+      margin: auto;
+    }
+
+    .page {
+      display: none;
+    }
+
+    .page.active {
+      display: block;
+    }
+
+    .hero {
+      margin-bottom: 30px;
+    }
+
+    .hero h1 {
+      font-size: 36px;
+      margin: 0 0 10px;
+    }
+
+    .hero p {
+      color: #9999a3;
+      margin: 0;
+      font-size: 16px;
+    }
+
+    /* CARDS */
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 18px;
+    }
+
+    .card {
+      background: #141418;
+      border: 1px solid #242429;
+      border-radius: 16px;
+      padding: 22px;
+    }
+
+    .card:hover {
+      border-color: #36363f;
+    }
+
+    .card h2 {
+      margin: 0 0 8px;
+      font-size: 20px;
+    }
+
+    .card p {
+      color: #9999a3;
+      line-height: 1.5;
+    }
+
+    .card-icon {
+      font-size: 25px;
+      margin-bottom: 18px;
+    }
+
+    /* BUTTONS */
+
+    .btn {
+      border: 0;
+      border-radius: 10px;
+      padding: 11px 17px;
+      background: #f2f2f2;
+      color: #111;
+      font-weight: 700;
+    }
+
+    .btn:hover {
+      opacity: 0.88;
+    }
+
+    .btn.secondary {
+      background: #242429;
+      color: white;
+    }
+
+    .btn.danger {
+      background: #352020;
+      color: #ffaaaa;
+    }
+
+    /* PROJECTS */
+
+    .section-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 15px;
+      margin-bottom: 22px;
+    }
+
+    .section-header h1 {
+      margin: 0;
+      font-size: 30px;
+    }
+
+    .projects {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 16px;
+    }
+
+    .project-card {
+      background: #141418;
+      border: 1px solid #242429;
+      border-radius: 15px;
+      padding: 20px;
+    }
+
+    .project-card h3 {
+      margin-top: 0;
+    }
+
+    .project-card p {
+      color: #9999a3;
+      min-height: 42px;
+    }
+
+    .project-actions {
+      display: flex;
+      gap: 8px;
+      margin-top: 18px;
+    }
+
+    /* FORMS */
+
+    .form-card {
+      max-width: 650px;
+      background: #141418;
+      border: 1px solid #242429;
+      border-radius: 16px;
+      padding: 25px;
+    }
+
+    label {
+      display: block;
+      margin-bottom: 8px;
+      font-weight: 700;
+    }
+
+    input,
+    textarea {
+      width: 100%;
+      background: #0d0d10;
+      border: 1px solid #2b2b32;
+      color: white;
+      border-radius: 10px;
+      padding: 13px;
+      margin-bottom: 18px;
+      outline: none;
+    }
+
+    input:focus,
+    textarea:focus {
+      border-color: #6666ff;
+    }
+
+    textarea {
+      min-height: 130px;
+      resize: vertical;
+    }
+
+    /* AI */
+
+    .ai-container {
+      max-width: 850px;
+    }
+
+    .ai-output {
+      min-height: 260px;
+      background: #111114;
+      border: 1px solid #242429;
+      border-radius: 16px;
+      padding: 22px;
+      margin-bottom: 16px;
+      color: #d0d0d7;
+      line-height: 1.6;
+      white-space: pre-wrap;
+    }
+
+    /* SETTINGS */
+
+    .setting {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 18px 0;
+      border-bottom: 1px solid #242429;
+    }
+
+    .setting:last-child {
+      border-bottom: 0;
+    }
+
+    .setting-title {
+      font-weight: 700;
+    }
+
+    .setting-description {
+      color: #888891;
+      font-size: 13px;
+      margin-top: 5px;
+    }
+
+    /* EMPTY STATE */
+
+    .empty {
+      text-align: center;
+      padding: 60px 20px;
+      background: #141418;
+      border: 1px dashed #303038;
+      border-radius: 16px;
+      color: #9999a3;
+    }
+
+    /* MOBILE */
+
+    @media (max-width: 800px) {
+      .sidebar {
+        width: 100%;
+        height: auto;
+        min-height: 0;
+        position: relative;
+        border-right: 0;
+        border-bottom: 1px solid #242429;
+        padding: 15px;
+      }
+
+      .logo {
+        margin-bottom: 12px;
+      }
+
+      .nav {
+        flex-direction: row;
+        overflow-x: auto;
+      }
+
+      .nav button {
+        white-space: nowrap;
+      }
+
+      .sidebar-bottom {
+        display: none;
+      }
+
+      .app {
+        display: block;
+      }
+
+      .main {
+        margin-left: 0;
+        width: 100%;
+      }
+
+      .topbar {
+        padding: 0 18px;
+      }
+
+      .content {
+        padding: 22px 16px;
+      }
+
+      .grid,
+      .projects {
+        grid-template-columns: 1fr;
+      }
+
+      .hero h1 {
+        font-size: 29px;
+      }
     }
   </style>
 </head>
 
 <body>
 
-  <header>
-    <h1>GTX Workshop</h1>
-    <p>Your workspace for building ideas, projects, and AI systems.</p>
-  </header>
+<div class="app">
 
-  <div class="card">
-    <h2>Projects</h2>
-    <p>Create and manage your projects.</p>
-    <script>
-  function openProjects() {
-    alert("Projects screen coming next!");
-  }
-</script>
-  </div>
+  <aside class="sidebar">
 
-  <div class="card">
-    <h2>AI Builder</h2>
-    <p>Build and develop AI-powered ideas.</p>
-    <button>Open AI Builder</button>
-  </div>
+    <div class="logo">
+      GTX <span>Workshop</span>
+    </div>
 
-  <div class="card">
-    <h2>Workshop</h2>
-    <p>Your central place for creating and experimenting.</p>
-  </div>
+    <nav class="nav">
+      <button class="active" onclick="showPage('home', this)">🏠 Home</button>
+      <button onclick="showPage('projects', this)">📁 Projects</button>
+      <button onclick="showPage('ai', this)">🤖 AI Builder</button>
+      <button onclick="showPage('workshop', this)">🛠 Workshop</button>
+      <button onclick="showPage('settings', this)">⚙️ Settings</button>
+    </nav>
+
+    <div class="sidebar-bottom">
+      <div class="status">GTX Workshop v1.0</div>
+    </div>
+
+  </aside>
+
+  <main class="main">
+
+    <div class="topbar">
+      <div class="topbar-title" id="pageTitle">Home Dashboard</div>
+      <div class="status">Workspace Ready</div>
+    </div>
+
+    <div class="content">
+
+      <!-- HOME -->
+
+      <section id="home" class="page active">
+
+        <div class="hero">
+          <h1>GTX Workshop</h1>
+          <p>Your workspace for building projects, tools, and AI systems.</p>
+        </div>
+
+        <div class="grid">
+
+          <div class="card">
+            <div class="card-icon">📁</div>
+            <h2>Projects</h2>
+            <p>Create and manage your projects in one place.</p>
+            <button class="btn" onclick="showPageById('projects')">
+              Open Projects
+            </button>
+          </div>
+
+          <div class="card">
+            <div class="card-icon">🤖</div>
+            <h2>AI Builder</h2>
+            <p>Build and develop AI-powered ideas.</p>
+            <button class="btn" onclick="showPageById('ai')">
+              Open AI Builder
+            </button>
+          </div>
+
+          <div class="card">
+            <div class="card-icon">🛠</div>
+            <h2>Workshop</h2>
+            <p>Your central place for creating and experimenting.</p>
+            <button class="btn secondary" onclick="showPageById('workshop')">
+              Open Workshop
+            </button>
+          </div>
+
+          <div class="card">
+            <div class="card-icon">📊</div>
+            <h2>Workspace</h2>
+            <p id="projectCount">0 projects created.</p>
+          </div>
+
+        </div>
+
+      </section>
+
+
+      <!-- PROJECTS -->
+
+      <section id="projects" class="page">
+
+        <div class="section-header">
+          <h1>Projects</h1>
+          <button class="btn" onclick="showPageById('new-project')">
+            + New Project
+          </button>
+        </div>
+
+        <div id="projectList" class="projects"></div>
+
+      </section>
+
+
+      <!-- NEW PROJECT -->
+
+      <section id="new-project" class="page">
+
+        <div class="section-header">
+          <h1>Create Project</h1>
+          <button class="btn secondary" onclick="showPageById('projects')">
+            Back
+          </button>
+        </div>
+
+        <div class="form-card">
+
+          <label for="projectName">Project name</label>
+          <input
+            id="projectName"
+            type="text"
+            placeholder="Example: Iconic Ego"
+          >
+
+          <label for="projectDescription">Description</label>
+          <textarea
+            id="projectDescription"
+            placeholder="What are you building?"
+          ></textarea>
+
+          <button class="btn" onclick="createProject()">
+            Create Project
+          </button>
+
+        </div>
+
+      </section>
+
+
+      <!-- AI BUILDER -->
+
+      <section id="ai" class="page">
+
+        <div class="hero">
+          <h1>AI Builder</h1>
+          <p>Your interface for building AI-powered systems.</p>
+        </div>
+
+        <div class="ai-container">
+
+          <div id="aiOutput" class="ai-output">
+GTX AI Builder ready.
+
+Enter an instruction below to begin.
+          </div>
+
+          <textarea
+            id="aiInput"
+            placeholder="Tell GTX AI what you want to build..."
+          ></textarea>
+
+          <button class="btn" onclick="runAI()">
+            Run AI
+          </button>
+
+        </div>
+
+      </section>
+
+
+      <!-- WORKSHOP -->
+
+      <section id="workshop" class="page">
+
+        <div class="hero">
+          <h1>Workshop</h1>
+          <p>Tools and systems for building your ideas.</p>
+        </div>
+
+        <div class="grid">
+
+          <div class="card">
+            <div class="card-icon">📝</div>
+            <h2>Notes</h2>
+            <p>Capture ideas, plans, and project information.</p>
+            <button class="btn secondary">
+              Notes
+            </button>
+          </div>
+
+          <div class="card">
+            <div class="card-icon">✅</div>
+            <h2>Tasks</h2>
+            <p>Organize the work that needs to be completed.</p>
+            <button class="btn secondary">
+              Tasks
+            </button>
+          </div>
+
+          <div class="card">
+            <div class="card-icon">🧪</div>
+            <h2>Experiments</h2>
+            <p>Test new concepts and prototypes.</p>
+            <button class="btn secondary">
+              Experiments
+            </button>
+          </div>
+
+          <div class="card">
+            <div class="card-icon">🧠</div>
+            <h2>AI Layers</h2>
+            <p>Prepare the architecture for the GTX AI system.</p>
+            <button class="btn secondary">
+              AI Layers
+            </button>
+          </div>
+
+        </div>
+
+      </section>
+
+
+      <!-- SETTINGS -->
+
+      <section id="settings" class="page">
+
+        <div class="hero">
+          <h1>Settings</h1>
+          <p>Manage your GTX Workshop workspace.</p>
+        </div>
+
+        <div class="card">
+
+          <div class="setting">
+            <div>
+              <div class="setting-title">Workspace</div>
+              <div class="setting-description">
+                GTX Workshop
+              </div>
+            </div>
+          </div>
+
+          <div class="setting">
+            <div>
+              <div class="setting-title">Version</div>
+              <div class="setting-description">
+                Version 1.0
+              </div>
+            </div>
+          </div>
+
+          <div class="setting">
+            <div>
+              <div class="setting-title">Storage</div>
+              <div class="setting-description">
+                Projects are currently stored locally in this browser.
+              </div>
+            </div>
+          </div>
+
+        </div>
+
+      </section>
+
+    </div>
+
+  </main>
+
+</div>
+
+
 <script>
-  function openProjects() {
-    alert("Projects screen coming next!");
+
+  /* PAGE NAVIGATION */
+
+  const pageNames = {
+    home: "Home Dashboard",
+    projects: "Projects",
+    "new-project": "Create Project",
+    ai: "AI Builder",
+    workshop: "Workshop",
+    settings: "Settings"
+  };
+
+  function showPage(pageId, button) {
+
+    document.querySelectorAll(".page").forEach(page => {
+      page.classList.remove("active");
+    });
+
+    const page = document.getElementById(pageId);
+
+    if (page) {
+      page.classList.add("active");
+    }
+
+    document.querySelectorAll(".nav button").forEach(btn => {
+      btn.classList.remove("active");
+    });
+
+    if (button) {
+      button.classList.add("active");
+    }
+
+    document.getElementById("pageTitle").textContent =
+      pageNames[pageId] || "GTX Workshop";
+
+    if (pageId === "projects") {
+      renderProjects();
+    }
   }
+
+
+  function showPageById(pageId) {
+
+    const buttons = document.querySelectorAll(".nav button");
+
+    let matchingButton = null;
+
+    buttons.forEach(button => {
+
+      if (
+        button.textContent.toLowerCase().includes(
+          pageId === "ai" ? "ai builder" : pageId
+        )
+      ) {
+        matchingButton = button;
+      }
+
+    });
+
+    showPage(pageId, matchingButton);
+  }
+
+
+  /* PROJECT STORAGE */
+
+  function getProjects() {
+
+    const saved = localStorage.getItem("gtxProjects");
+
+    if (!saved) {
+      return [];
+    }
+
+    try {
+      return JSON.parse(saved);
+    } catch {
+      return [];
+    }
+  }
+
+
+  function saveProjects(projects) {
+
+    localStorage.setItem(
+      "gtxProjects",
+      JSON.stringify(projects)
+    );
+
+  }
+
+
+  /* CREATE PROJECT */
+
+  function createProject() {
+
+    const name =
+      document.getElementById("projectName").value.trim();
+
+    const description =
+      document.getElementById("projectDescription").value.trim();
+
+    if (!name) {
+      alert("Please enter a project name.");
+      return;
+    }
+
+    const projects = getProjects();
+
+    projects.push({
+      id: Date.now(),
+      name: name,
+      description: description || "No description yet."
+    });
+
+    saveProjects(projects);
+
+    document.getElementById("projectName").value = "";
+    document.getElementById("projectDescription").value = "";
+
+    renderProjects();
+
+    showPageById("projects");
+
+    updateProjectCount();
+  }
+
+
+  /* DISPLAY PROJECTS */
+
+  function renderProjects() {
+
+    const container =
+      document.getElementById("projectList");
+
+    const projects = getProjects();
+
+    container.innerHTML = "";
+
+    if (projects.length === 0) {
+
+      container.innerHTML = `
+        <div class="empty">
+          <h2>No projects yet</h2>
+          <p>Create your first GTX Workshop project.</p>
+        </div>
+      `;
+
+      updateProjectCount();
+      return;
+    }
+
+    projects.forEach(project => {
+
+      const card = document.createElement("div");
+
+      card.className = "project-card";
+
+      card.innerHTML = `
+        <h3>${escapeHTML(project.name)}</h3>
+        <p>${escapeHTML(project.description)}</p>
+
+        <div class="project-actions">
+
+          <button
+            class="btn secondary"
+            onclick="openProject(${project.id})"
+          >
+            Open
+          </button>
+
+          <button
+            class="btn danger"
+            onclick="deleteProject(${project.id})"
+          >
+            Delete
+          </button>
+
+        </div>
+      `;
+
+      container.appendChild(card);
+
+    });
+
+    updateProjectCount();
+  }
+
+
+  /* OPEN PROJECT */
+
+  function openProject(id) {
+
+    const projects = getProjects();
+
+    const project = projects.find(
+      project => project.id === id
+    );
+
+    if (!project) {
+      return;
+    }
+
+    alert(
+      "Project: " +
+      project.name +
+      "\n\nProject workspace will be expanded in the next stage."
+    );
+  }
+
+
+  /* DELETE PROJECT */
+
+  function deleteProject(id) {
+
+    const confirmed =
+      confirm("Delete this project?");
+
+    if (!confirmed) {
+      return;
+    }
+
+    const projects = getProjects().filter(
+      project => project.id !== id
+    );
+
+    saveProjects(projects);
+
+    renderProjects();
+    updateProjectCount();
+  }
+
+
+  /* PROJECT COUNT */
+
+  function updateProjectCount() {
+
+    const count = getProjects().length;
+
+    const text =
+      count === 1
+        ? "1 project created."
+        : count + " projects created.";
+
+    document.getElementById("projectCount").textContent = text;
+  }
+
+
+  /* BASIC AI PLACEHOLDER */
+
+  function runAI() {
+
+    const input =
+      document.getElementById("aiInput").value.trim();
+
+    const output =
+      document.getElementById("aiOutput");
+
+    if (!input) {
+      output.textContent =
+        "Enter an instruction first.";
+      return;
+    }
+
+    output.textContent =
+      "GTX AI Builder received your instruction.\n\n" +
+      "Instruction:\n" +
+      input +
+      "\n\n" +
+      "AI connection is not connected yet. " +
+      "This interface is ready for the real GTX AI backend.";
+  }
+
+
+  /* SECURITY */
+
+  function escapeHTML(text) {
+
+    const div = document.createElement("div");
+
+    div.textContent = text;
+
+    return div.innerHTML;
+  }
+
+
+  /* STARTUP */
+
+  renderProjects();
+  updateProjectCount();
+
 </script>
+
 </body>
 </html>
