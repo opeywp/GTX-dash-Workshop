@@ -19,7 +19,8 @@
 
     button,
     input,
-    textarea {
+    textarea,
+    select {
       font: inherit;
     }
 
@@ -33,7 +34,6 @@
     }
 
     /* SIDEBAR */
-
     .sidebar {
       width: 240px;
       min-height: 100vh;
@@ -44,6 +44,7 @@
       left: 0;
       top: 0;
       bottom: 0;
+      z-index: 10;
     }
 
     .logo {
@@ -88,7 +89,6 @@
     }
 
     /* MAIN */
-
     .main {
       margin-left: 240px;
       width: calc(100% - 240px);
@@ -103,6 +103,9 @@
       justify-content: space-between;
       padding: 0 30px;
       background: #0b0b0d;
+      position: sticky;
+      top: 0;
+      z-index: 5;
     }
 
     .topbar-title {
@@ -116,7 +119,7 @@
 
     .content {
       padding: 34px;
-      max-width: 1200px;
+      max-width: 1250px;
       margin: auto;
     }
 
@@ -144,7 +147,6 @@
     }
 
     /* CARDS */
-
     .grid {
       display: grid;
       grid-template-columns: repeat(2, 1fr);
@@ -178,7 +180,6 @@
     }
 
     /* BUTTONS */
-
     .btn {
       border: 0;
       border-radius: 10px;
@@ -202,14 +203,19 @@
       color: #ffaaaa;
     }
 
-    /* PROJECTS */
+    .btn.small {
+      padding: 8px 12px;
+      font-size: 13px;
+    }
 
+    /* HEADERS */
     .section-header {
       display: flex;
       justify-content: space-between;
       align-items: center;
       gap: 15px;
       margin-bottom: 22px;
+      flex-wrap: wrap;
     }
 
     .section-header h1 {
@@ -217,6 +223,7 @@
       font-size: 30px;
     }
 
+    /* PROJECTS */
     .projects {
       display: grid;
       grid-template-columns: repeat(3, 1fr);
@@ -237,18 +244,19 @@
     .project-card p {
       color: #9999a3;
       min-height: 42px;
+      line-height: 1.5;
     }
 
     .project-actions {
       display: flex;
       gap: 8px;
       margin-top: 18px;
+      flex-wrap: wrap;
     }
 
     /* FORMS */
-
     .form-card {
-      max-width: 650px;
+      max-width: 700px;
       background: #141418;
       border: 1px solid #242429;
       border-radius: 16px;
@@ -262,7 +270,8 @@
     }
 
     input,
-    textarea {
+    textarea,
+    select {
       width: 100%;
       background: #0d0d10;
       border: 1px solid #2b2b32;
@@ -274,7 +283,8 @@
     }
 
     input:focus,
-    textarea:focus {
+    textarea:focus,
+    select:focus {
       border-color: #6666ff;
     }
 
@@ -284,9 +294,8 @@
     }
 
     /* AI */
-
     .ai-container {
-      max-width: 850px;
+      max-width: 900px;
     }
 
     .ai-output {
@@ -301,14 +310,168 @@
       white-space: pre-wrap;
     }
 
-    /* SETTINGS */
+    /* WORKSPACE */
+    .workspace-header {
+      background: #141418;
+      border: 1px solid #242429;
+      border-radius: 16px;
+      padding: 24px;
+      margin-bottom: 20px;
+    }
 
+    .workspace-header h1 {
+      margin: 0 0 8px;
+    }
+
+    .workspace-header p {
+      margin: 0;
+      color: #9999a3;
+      line-height: 1.5;
+    }
+
+    .workspace-tabs {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+      margin-top: 22px;
+    }
+
+    .workspace-tab {
+      background: #242429;
+      color: #aaaab2;
+      border: 0;
+      padding: 10px 14px;
+      border-radius: 9px;
+    }
+
+    .workspace-tab:hover,
+    .workspace-tab.active {
+      background: #303039;
+      color: white;
+    }
+
+    .workspace-panel {
+      display: none;
+    }
+
+    .workspace-panel.active {
+      display: block;
+    }
+
+    .workspace-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 16px;
+    }
+
+    /* ITEMS */
+    .item-list {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .item {
+      background: #141418;
+      border: 1px solid #242429;
+      border-radius: 12px;
+      padding: 16px;
+    }
+
+    .item h3 {
+      margin: 0 0 6px;
+      font-size: 16px;
+    }
+
+    .item p {
+      color: #9999a3;
+      margin: 0 0 12px;
+      white-space: pre-wrap;
+      line-height: 1.5;
+    }
+
+    .item-meta {
+      font-size: 12px;
+      color: #777780;
+      margin-bottom: 12px;
+    }
+
+    .item-actions {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+
+    .completed {
+      opacity: 0.6;
+    }
+
+    .completed h3 {
+      text-decoration: line-through;
+    }
+
+    /* CODE */
+    .code-editor {
+      width: 100%;
+      min-height: 420px;
+      background: #09090b;
+      color: #d8d8df;
+      border: 1px solid #292930;
+      border-radius: 12px;
+      padding: 18px;
+      font-family: "Courier New", monospace;
+      font-size: 14px;
+      line-height: 1.6;
+      resize: vertical;
+      tab-size: 2;
+    }
+
+    .code-toolbar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 12px;
+      flex-wrap: wrap;
+    }
+
+    .code-status {
+      color: #888891;
+      font-size: 13px;
+    }
+
+    /* ACTIVITY */
+    .activity-list {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .activity-entry {
+      background: #141418;
+      border: 1px solid #242429;
+      border-radius: 12px;
+      padding: 15px;
+    }
+
+    .activity-entry strong {
+      display: block;
+      margin-bottom: 5px;
+    }
+
+    .activity-entry span {
+      color: #777780;
+      font-size: 12px;
+    }
+
+    /* SETTINGS */
     .setting {
       display: flex;
       justify-content: space-between;
       align-items: center;
       padding: 18px 0;
       border-bottom: 1px solid #242429;
+      gap: 20px;
     }
 
     .setting:last-child {
@@ -326,7 +489,6 @@
     }
 
     /* EMPTY STATE */
-
     .empty {
       text-align: center;
       padding: 60px 20px;
@@ -334,9 +496,30 @@
       border: 1px dashed #303038;
       border-radius: 16px;
       color: #9999a3;
+      grid-column: 1 / -1;
+    }
+
+    /* NOTICE */
+    .notice {
+      background: #16161b;
+      border: 1px solid #2b2b34;
+      border-radius: 12px;
+      padding: 15px;
+      color: #a5a5ae;
+      line-height: 1.5;
+      margin-bottom: 18px;
     }
 
     /* MOBILE */
+    @media (max-width: 900px) {
+      .projects {
+        grid-template-columns: repeat(2, 1fr);
+      }
+
+      .workspace-grid {
+        grid-template-columns: 1fr;
+      }
+    }
 
     @media (max-width: 800px) {
       .sidebar {
@@ -399,6 +582,7 @@
 
 <div class="app">
 
+  <!-- SIDEBAR -->
   <aside class="sidebar">
 
     <div class="logo">
@@ -406,70 +590,133 @@
     </div>
 
     <nav class="nav">
-      <button class="active" onclick="showPage('home', this)">🏠 Home</button>
-      <button onclick="showPage('projects', this)">📁 Projects</button>
-      <button onclick="showPage('ai', this)">🤖 AI Builder</button>
-      <button onclick="showPage('workshop', this)">🛠 Workshop</button>
-      <button onclick="showPage('settings', this)">⚙️ Settings</button>
+      <button class="active" onclick="showPage('home', this)">
+        🏠 Home
+      </button>
+
+      <button onclick="showPage('projects', this)">
+        📁 Projects
+      </button>
+
+      <button onclick="showPage('ai', this)">
+        🤖 AI Builder
+      </button>
+
+      <button onclick="showPage('workshop', this)">
+        🛠 Workshop
+      </button>
+
+      <button onclick="showPage('settings', this)">
+        ⚙️ Settings
+      </button>
     </nav>
 
     <div class="sidebar-bottom">
-      <div class="status">GTX Workshop v1.0</div>
+      <div class="status">
+        GTX Workshop v1.1
+      </div>
     </div>
 
   </aside>
 
+
+  <!-- MAIN -->
   <main class="main">
 
     <div class="topbar">
-      <div class="topbar-title" id="pageTitle">Home Dashboard</div>
-      <div class="status">Workspace Ready</div>
+      <div class="topbar-title" id="pageTitle">
+        Home Dashboard
+      </div>
+
+      <div class="status">
+        <span id="systemStatus">Workspace Ready</span>
+      </div>
     </div>
+
 
     <div class="content">
 
       <!-- HOME -->
-
       <section id="home" class="page active">
 
         <div class="hero">
           <h1>GTX Workshop</h1>
-          <p>Your workspace for building projects, tools, and AI systems.</p>
+          <p>
+            Your workspace for building projects, tools, and AI systems.
+          </p>
         </div>
+
 
         <div class="grid">
 
           <div class="card">
             <div class="card-icon">📁</div>
+
             <h2>Projects</h2>
-            <p>Create and manage your projects in one place.</p>
-            <button class="btn" onclick="showPageById('projects')">
+
+            <p>
+              Create, manage, and open your GTX projects.
+            </p>
+
+            <button
+              class="btn"
+              onclick="showPageById('projects')"
+            >
               Open Projects
             </button>
           </div>
 
+
           <div class="card">
             <div class="card-icon">🤖</div>
+
             <h2>AI Builder</h2>
-            <p>Build and develop AI-powered ideas.</p>
-            <button class="btn" onclick="showPageById('ai')">
+
+            <p>
+              Build and develop AI-powered ideas.
+            </p>
+
+            <button
+              class="btn"
+              onclick="showPageById('ai')"
+            >
               Open AI Builder
             </button>
           </div>
 
+
           <div class="card">
             <div class="card-icon">🛠</div>
+
             <h2>Workshop</h2>
-            <p>Your central place for creating and experimenting.</p>
-            <button class="btn secondary" onclick="showPageById('workshop')">
+
+            <p>
+              Your central place for creating and experimenting.
+            </p>
+
+            <button
+              class="btn secondary"
+              onclick="showPageById('workshop')"
+            >
               Open Workshop
             </button>
           </div>
 
+
           <div class="card">
+
             <div class="card-icon">📊</div>
+
             <h2>Workspace</h2>
-            <p id="projectCount">0 projects created.</p>
+
+            <p id="projectCount">
+              0 projects created.
+            </p>
+
+            <p id="activityCount">
+              0 activities recorded.
+            </p>
+
           </div>
 
         </div>
@@ -478,48 +725,73 @@
 
 
       <!-- PROJECTS -->
-
       <section id="projects" class="page">
 
         <div class="section-header">
+
           <h1>Projects</h1>
-          <button class="btn" onclick="showPageById('new-project')">
+
+          <button
+            class="btn"
+            onclick="showPageById('new-project')"
+          >
             + New Project
           </button>
+
         </div>
 
-        <div id="projectList" class="projects"></div>
+        <div
+          id="projectList"
+          class="projects"
+        ></div>
 
       </section>
 
 
       <!-- NEW PROJECT -->
-
       <section id="new-project" class="page">
 
         <div class="section-header">
+
           <h1>Create Project</h1>
-          <button class="btn secondary" onclick="showPageById('projects')">
+
+          <button
+            class="btn secondary"
+            onclick="showPageById('projects')"
+          >
             Back
           </button>
+
         </div>
+
 
         <div class="form-card">
 
-          <label for="projectName">Project name</label>
+          <label for="projectName">
+            Project name
+          </label>
+
           <input
             id="projectName"
             type="text"
             placeholder="Example: Iconic Ego"
           >
 
-          <label for="projectDescription">Description</label>
+
+          <label for="projectDescription">
+            Description
+          </label>
+
           <textarea
             id="projectDescription"
             placeholder="What are you building?"
           ></textarea>
 
-          <button class="btn" onclick="createProject()">
+
+          <button
+            class="btn"
+            onclick="createProject()"
+          >
             Create Project
           </button>
 
@@ -528,29 +800,502 @@
       </section>
 
 
-      <!-- AI BUILDER -->
+      <!-- PROJECT WORKSPACE -->
+      <section id="workspace" class="page">
 
+        <div class="section-header">
+
+          <button
+            class="btn secondary"
+            onclick="showPageById('projects')"
+          >
+            ← Back to Projects
+          </button>
+
+        </div>
+
+
+        <div class="workspace-header">
+
+          <h1 id="workspaceProjectName">
+            Project Workspace
+          </h1>
+
+          <p id="workspaceProjectDescription">
+            Project information.
+          </p>
+
+
+          <div class="workspace-tabs">
+
+            <button
+              class="workspace-tab active"
+              onclick="showWorkspaceTab('overview', this)"
+            >
+              Overview
+            </button>
+
+            <button
+              class="workspace-tab"
+              onclick="showWorkspaceTab('notes', this)"
+            >
+              📝 Notes
+            </button>
+
+            <button
+              class="workspace-tab"
+              onclick="showWorkspaceTab('tasks', this)"
+            >
+              ✅ Tasks
+            </button>
+
+            <button
+              class="workspace-tab"
+              onclick="showWorkspaceTab('experiments', this)"
+            >
+              🧪 Experiments
+            </button>
+
+            <button
+              class="workspace-tab"
+              onclick="showWorkspaceTab('code', this)"
+            >
+              💻 Code
+            </button>
+
+            <button
+              class="workspace-tab"
+              onclick="showWorkspaceTab('activity', this)"
+            >
+              📜 Activity
+            </button>
+
+          </div>
+
+        </div>
+
+
+        <!-- OVERVIEW -->
+        <div
+          id="workspace-overview"
+          class="workspace-panel active"
+        >
+
+          <div class="workspace-grid">
+
+            <div class="card">
+
+              <div class="card-icon">🧠</div>
+
+              <h2>Project Context</h2>
+
+              <p>
+                This workspace contains the information,
+                tasks, notes, experiments, and code connected
+                to this project.
+              </p>
+
+            </div>
+
+
+            <div class="card">
+
+              <div class="card-icon">📊</div>
+
+              <h2>Project Status</h2>
+
+              <p id="workspaceStats">
+                Loading project information...
+              </p>
+
+            </div>
+
+
+            <div class="card">
+
+              <div class="card-icon">🤖</div>
+
+              <h2>Future AI Integration</h2>
+
+              <p>
+                The future GTX AI will be able to use the
+                project context stored here to understand
+                what is being built.
+              </p>
+
+            </div>
+
+
+            <div class="card">
+
+              <div class="card-icon">💻</div>
+
+              <h2>Code Workspace</h2>
+
+              <p>
+                The foundation for the future GTX AI coding
+                environment is included in this version.
+              </p>
+
+              <button
+                class="btn secondary"
+                onclick="showWorkspaceTab('code')"
+              >
+                Open Code
+              </button>
+
+            </div>
+
+          </div>
+
+        </div>
+
+
+        <!-- NOTES -->
+        <div
+          id="workspace-notes"
+          class="workspace-panel"
+        >
+
+          <div class="section-header">
+
+            <h2>Project Notes</h2>
+
+            <button
+              class="btn"
+              onclick="showNoteForm()"
+            >
+              + Add Note
+            </button>
+
+          </div>
+
+
+          <div
+            id="noteForm"
+            class="form-card"
+            style="display:none; margin-bottom:20px;"
+          >
+
+            <label for="noteTitle">
+              Note title
+            </label>
+
+            <input
+              id="noteTitle"
+              type="text"
+              placeholder="Example: Main idea"
+            >
+
+
+            <label for="noteContent">
+              Note
+            </label>
+
+            <textarea
+              id="noteContent"
+              placeholder="Write your project information..."
+            ></textarea>
+
+
+            <button
+              class="btn"
+              onclick="addNote()"
+            >
+              Save Note
+            </button>
+
+            <button
+              class="btn secondary"
+              onclick="hideNoteForm()"
+            >
+              Cancel
+            </button>
+
+          </div>
+
+
+          <div
+            id="notesList"
+            class="item-list"
+          ></div>
+
+        </div>
+
+
+        <!-- TASKS -->
+        <div
+          id="workspace-tasks"
+          class="workspace-panel"
+        >
+
+          <div class="section-header">
+
+            <h2>Project Tasks</h2>
+
+            <button
+              class="btn"
+              onclick="showTaskForm()"
+            >
+              + Add Task
+            </button>
+
+          </div>
+
+
+          <div
+            id="taskForm"
+            class="form-card"
+            style="display:none; margin-bottom:20px;"
+          >
+
+            <label for="taskTitle">
+              Task
+            </label>
+
+            <input
+              id="taskTitle"
+              type="text"
+              placeholder="Example: Build project dashboard"
+            >
+
+
+            <label for="taskDescription">
+              Description
+            </label>
+
+            <textarea
+              id="taskDescription"
+              placeholder="What needs to be completed?"
+            ></textarea>
+
+
+            <button
+              class="btn"
+              onclick="addTask()"
+            >
+              Save Task
+            </button>
+
+            <button
+              class="btn secondary"
+              onclick="hideTaskForm()"
+            >
+              Cancel
+            </button>
+
+          </div>
+
+
+          <div
+            id="tasksList"
+            class="item-list"
+          ></div>
+
+        </div>
+
+
+        <!-- EXPERIMENTS -->
+        <div
+          id="workspace-experiments"
+          class="workspace-panel"
+        >
+
+          <div class="section-header">
+
+            <h2>Experiments</h2>
+
+            <button
+              class="btn"
+              onclick="showExperimentForm()"
+            >
+              + New Experiment
+            </button>
+
+          </div>
+
+
+          <div
+            id="experimentForm"
+            class="form-card"
+            style="display:none; margin-bottom:20px;"
+          >
+
+            <label for="experimentTitle">
+              Experiment name
+            </label>
+
+            <input
+              id="experimentTitle"
+              type="text"
+              placeholder="Example: Test new AI workflow"
+            >
+
+
+            <label for="experimentDescription">
+              Description
+            </label>
+
+            <textarea
+              id="experimentDescription"
+              placeholder="What are you testing?"
+            ></textarea>
+
+
+            <button
+              class="btn"
+              onclick="addExperiment()"
+            >
+              Save Experiment
+            </button>
+
+            <button
+              class="btn secondary"
+              onclick="hideExperimentForm()"
+            >
+              Cancel
+            </button>
+
+          </div>
+
+
+          <div
+            id="experimentsList"
+            class="item-list"
+          ></div>
+
+        </div>
+
+
+        <!-- CODE -->
+        <div
+          id="workspace-code"
+          class="workspace-panel"
+        >
+
+          <div class="section-header">
+
+            <div>
+              <h2>Code Workspace</h2>
+
+              <p class="status">
+                Foundation for future GTX AI coding integration.
+              </p>
+            </div>
+
+          </div>
+
+
+          <div class="notice">
+
+            <strong>V1.1 Code Foundation</strong><br>
+
+            This editor is intentionally local for now.
+            The future GTX AI will be connected through a
+            controlled coding system with permissions,
+            change previews, version history, and approval
+            before code is applied.
+
+          </div>
+
+
+          <div class="card">
+
+            <div class="code-toolbar">
+
+              <div class="code-status" id="codeStatus">
+                Local project code
+              </div>
+
+              <div>
+
+                <button
+                  class="btn small"
+                  onclick="saveProjectCode()"
+                >
+                  Save Code
+                </button>
+
+                <button
+                  class="btn secondary small"
+                  onclick="loadProjectCode()"
+                >
+                  Reload
+                </button>
+
+              </div>
+
+            </div>
+
+
+            <textarea
+              id="projectCode"
+              class="code-editor"
+              spellcheck="false"
+              placeholder="// Project code will live here..."
+            ></textarea>
+
+          </div>
+
+        </div>
+
+
+        <!-- ACTIVITY -->
+        <div
+          id="workspace-activity"
+          class="workspace-panel"
+        >
+
+          <div class="section-header">
+
+            <h2>Project Activity</h2>
+
+          </div>
+
+
+          <div
+            id="projectActivityList"
+            class="activity-list"
+          ></div>
+
+        </div>
+
+      </section>
+
+
+      <!-- AI BUILDER -->
       <section id="ai" class="page">
 
         <div class="hero">
+
           <h1>AI Builder</h1>
-          <p>Your interface for building AI-powered systems.</p>
+
+          <p>
+            Your interface for building AI-powered systems.
+          </p>
+
         </div>
+
 
         <div class="ai-container">
 
-          <div id="aiOutput" class="ai-output">
-GTX AI Builder ready.
+          <div
+            id="aiOutput"
+            class="ai-output"
+          >GTX AI Builder ready.
+Enter an instruction below to begin.</div>
 
-Enter an instruction below to begin.
-          </div>
 
           <textarea
             id="aiInput"
             placeholder="Tell GTX AI what you want to build..."
           ></textarea>
 
-          <button class="btn" onclick="runAI()">
+
+          <button
+            class="btn"
+            onclick="runAI()"
+          >
             Run AI
           </button>
 
@@ -560,50 +1305,98 @@ Enter an instruction below to begin.
 
 
       <!-- WORKSHOP -->
-
       <section id="workshop" class="page">
 
         <div class="hero">
+
           <h1>Workshop</h1>
-          <p>Tools and systems for building your ideas.</p>
+
+          <p>
+            Tools and systems for building your ideas.
+          </p>
+
         </div>
+
 
         <div class="grid">
 
           <div class="card">
+
             <div class="card-icon">📝</div>
+
             <h2>Notes</h2>
-            <p>Capture ideas, plans, and project information.</p>
-            <button class="btn secondary">
+
+            <p>
+              Capture ideas, plans, and project information.
+            </p>
+
+            <button
+              class="btn secondary"
+              onclick="openFirstProjectTab('notes')"
+            >
               Notes
             </button>
+
           </div>
 
+
           <div class="card">
+
             <div class="card-icon">✅</div>
+
             <h2>Tasks</h2>
-            <p>Organize the work that needs to be completed.</p>
-            <button class="btn secondary">
+
+            <p>
+              Organize the work that needs to be completed.
+            </p>
+
+            <button
+              class="btn secondary"
+              onclick="openFirstProjectTab('tasks')"
+            >
               Tasks
             </button>
+
           </div>
 
+
           <div class="card">
+
             <div class="card-icon">🧪</div>
+
             <h2>Experiments</h2>
-            <p>Test new concepts and prototypes.</p>
-            <button class="btn secondary">
+
+            <p>
+              Test new concepts and prototypes.
+            </p>
+
+            <button
+              class="btn secondary"
+              onclick="openFirstProjectTab('experiments')"
+            >
               Experiments
             </button>
+
           </div>
 
+
           <div class="card">
+
             <div class="card-icon">🧠</div>
+
             <h2>AI Layers</h2>
-            <p>Prepare the architecture for the GTX AI system.</p>
-            <button class="btn secondary">
+
+            <p>
+              Prepare the architecture for the GTX AI system.
+            </p>
+
+            <button
+              class="btn secondary"
+              onclick="showPageById('ai')"
+            >
               AI Layers
             </button>
+
           </div>
 
         </div>
@@ -612,41 +1405,87 @@ Enter an instruction below to begin.
 
 
       <!-- SETTINGS -->
-
       <section id="settings" class="page">
 
         <div class="hero">
+
           <h1>Settings</h1>
-          <p>Manage your GTX Workshop workspace.</p>
+
+          <p>
+            Manage your GTX Workshop workspace.
+          </p>
+
         </div>
+
 
         <div class="card">
 
           <div class="setting">
+
             <div>
-              <div class="setting-title">Workspace</div>
+
+              <div class="setting-title">
+                Workspace
+              </div>
+
               <div class="setting-description">
                 GTX Workshop
               </div>
+
             </div>
+
           </div>
 
-          <div class="setting">
-            <div>
-              <div class="setting-title">Version</div>
-              <div class="setting-description">
-                Version 1.0
-              </div>
-            </div>
-          </div>
 
           <div class="setting">
+
             <div>
-              <div class="setting-title">Storage</div>
-              <div class="setting-description">
-                Projects are currently stored locally in this browser.
+
+              <div class="setting-title">
+                Version
               </div>
+
+              <div class="setting-description">
+                Version 1.1
+              </div>
+
             </div>
+
+          </div>
+
+
+          <div class="setting">
+
+            <div>
+
+              <div class="setting-title">
+                Storage
+              </div>
+
+              <div class="setting-description">
+                Project information is currently stored
+                locally in this browser.
+              </div>
+
+            </div>
+
+          </div>
+
+
+          <div class="setting">
+
+            <div>
+
+              <div class="setting-title">
+                Development History
+              </div>
+
+              <div class="setting-description">
+                Current development baseline: V1.0 → V1.1
+              </div>
+
+            </div>
+
           </div>
 
         </div>
@@ -662,83 +1501,182 @@ Enter an instruction below to begin.
 
 <script>
 
-  /* PAGE NAVIGATION */
+  /* ==========================================
+     GTX WORKSHOP V1.1
+     Based on GTX Workshop V1.0
+     ========================================== */
+
+
+  /* PAGE NAMES */
 
   const pageNames = {
+
     home: "Home Dashboard",
+
     projects: "Projects",
+
     "new-project": "Create Project",
+
+    workspace: "Project Workspace",
+
     ai: "AI Builder",
+
     workshop: "Workshop",
+
     settings: "Settings"
+
   };
+
+
+  /* CURRENT PROJECT */
+
+  let currentProjectId = null;
+
+
+  /* ==========================================
+     PAGE NAVIGATION
+     ========================================== */
 
   function showPage(pageId, button) {
 
-    document.querySelectorAll(".page").forEach(page => {
-      page.classList.remove("active");
-    });
+    document
+      .querySelectorAll(".page")
+      .forEach(page => {
+        page.classList.remove("active");
+      });
 
-    const page = document.getElementById(pageId);
+
+    const page =
+      document.getElementById(pageId);
+
 
     if (page) {
       page.classList.add("active");
     }
 
-    document.querySelectorAll(".nav button").forEach(btn => {
-      btn.classList.remove("active");
-    });
+
+    document
+      .querySelectorAll(".nav button")
+      .forEach(btn => {
+        btn.classList.remove("active");
+      });
+
 
     if (button) {
       button.classList.add("active");
     }
 
-    document.getElementById("pageTitle").textContent =
-      pageNames[pageId] || "GTX Workshop";
+
+    document
+      .getElementById("pageTitle")
+      .textContent =
+      pageNames[pageId] ||
+      "GTX Workshop";
+
 
     if (pageId === "projects") {
       renderProjects();
     }
+
+
+    if (pageId === "home") {
+      updateProjectCount();
+      updateActivityCount();
+    }
+
   }
 
 
   function showPageById(pageId) {
 
-    const buttons = document.querySelectorAll(".nav button");
+    const buttons =
+      document.querySelectorAll(".nav button");
+
 
     let matchingButton = null;
 
+
     buttons.forEach(button => {
 
+      const text =
+        button.textContent
+          .toLowerCase();
+
+
       if (
-        button.textContent.toLowerCase().includes(
-          pageId === "ai" ? "ai builder" : pageId
-        )
+        pageId === "ai" &&
+        text.includes("ai builder")
+      ) {
+        matchingButton = button;
+      }
+
+
+      else if (
+        pageId === "projects" &&
+        text.includes("projects")
+      ) {
+        matchingButton = button;
+      }
+
+
+      else if (
+        pageId === "workshop" &&
+        text.includes("workshop")
+      ) {
+        matchingButton = button;
+      }
+
+
+      else if (
+        pageId === "settings" &&
+        text.includes("settings")
+      ) {
+        matchingButton = button;
+      }
+
+
+      else if (
+        pageId === "home" &&
+        text.includes("home")
       ) {
         matchingButton = button;
       }
 
     });
 
+
     showPage(pageId, matchingButton);
+
   }
 
 
-  /* PROJECT STORAGE */
+  /* ==========================================
+     LOCAL STORAGE HELPERS
+     ========================================== */
 
   function getProjects() {
 
-    const saved = localStorage.getItem("gtxProjects");
+    const saved =
+      localStorage.getItem("gtxProjects");
+
 
     if (!saved) {
       return [];
     }
 
+
     try {
+
       return JSON.parse(saved);
-    } catch {
-      return [];
+
     }
+
+    catch {
+
+      return [];
+
+    }
+
   }
 
 
@@ -752,75 +1690,276 @@ Enter an instruction below to begin.
   }
 
 
-  /* CREATE PROJECT */
+  function getActivities() {
+
+    const saved =
+      localStorage.getItem(
+        "gtxWorkshopActivities"
+      );
+
+
+    if (!saved) {
+      return [];
+    }
+
+
+    try {
+
+      return JSON.parse(saved);
+
+    }
+
+    catch {
+
+      return [];
+
+    }
+
+  }
+
+
+  function saveActivities(activities) {
+
+    localStorage.setItem(
+      "gtxWorkshopActivities",
+      JSON.stringify(activities)
+    );
+
+  }
+
+
+  /* ==========================================
+     ACTIVITY SYSTEM
+     ========================================== */
+
+  function addActivity(
+    action,
+    projectId = null
+  ) {
+
+    const activities =
+      getActivities();
+
+
+    activities.unshift({
+
+      id: Date.now(),
+
+      action: action,
+
+      projectId: projectId,
+
+      date: new Date().toLocaleString()
+
+    });
+
+
+    if (activities.length > 200) {
+      activities.splice(200);
+    }
+
+
+    saveActivities(activities);
+
+    updateActivityCount();
+
+  }
+
+
+  function updateActivityCount() {
+
+    const count =
+      getActivities().length;
+
+
+    const element =
+      document.getElementById(
+        "activityCount"
+      );
+
+
+    if (element) {
+
+      element.textContent =
+        count === 1
+          ? "1 activity recorded."
+          : count + " activities recorded.";
+
+    }
+
+  }
+
+
+  /* ==========================================
+     CREATE PROJECT
+     ========================================== */
 
   function createProject() {
 
     const name =
-      document.getElementById("projectName").value.trim();
+      document
+        .getElementById("projectName")
+        .value
+        .trim();
+
 
     const description =
-      document.getElementById("projectDescription").value.trim();
+      document
+        .getElementById("projectDescription")
+        .value
+        .trim();
+
 
     if (!name) {
-      alert("Please enter a project name.");
+
+      alert(
+        "Please enter a project name."
+      );
+
       return;
+
     }
 
-    const projects = getProjects();
 
-    projects.push({
+    const projects =
+      getProjects();
+
+
+    const project = {
+
       id: Date.now(),
+
       name: name,
-      description: description || "No description yet."
-    });
+
+      description:
+        description ||
+        "No description yet.",
+
+      createdAt:
+        new Date().toLocaleString(),
+
+      notes: [],
+
+      tasks: [],
+
+      experiments: [],
+
+      code: "",
+
+      activity: []
+
+    };
+
+
+    projects.push(project);
+
 
     saveProjects(projects);
 
-    document.getElementById("projectName").value = "";
-    document.getElementById("projectDescription").value = "";
+
+    document
+      .getElementById("projectName")
+      .value = "";
+
+
+    document
+      .getElementById("projectDescription")
+      .value = "";
+
+
+    addProjectActivity(
+      project.id,
+      "Project created."
+    );
+
+
+    addActivity(
+      "Created project: " +
+      project.name,
+      project.id
+    );
+
 
     renderProjects();
 
+
     showPageById("projects");
 
+
     updateProjectCount();
+
   }
 
 
-  /* DISPLAY PROJECTS */
+  /* ==========================================
+     DISPLAY PROJECTS
+     ========================================== */
 
   function renderProjects() {
 
     const container =
-      document.getElementById("projectList");
+      document.getElementById(
+        "projectList"
+      );
 
-    const projects = getProjects();
+
+    const projects =
+      getProjects();
+
 
     container.innerHTML = "";
+
 
     if (projects.length === 0) {
 
       container.innerHTML = `
+
         <div class="empty">
+
           <h2>No projects yet</h2>
-          <p>Create your first GTX Workshop project.</p>
+
+          <p>
+            Create your first GTX Workshop project.
+          </p>
+
         </div>
+
       `;
 
+
       updateProjectCount();
+
       return;
+
     }
+
 
     projects.forEach(project => {
 
-      const card = document.createElement("div");
+      const card =
+        document.createElement(
+          "div"
+        );
 
-      card.className = "project-card";
+
+      card.className =
+        "project-card";
+
 
       card.innerHTML = `
-        <h3>${escapeHTML(project.name)}</h3>
-        <p>${escapeHTML(project.description)}</p>
+
+        <h3>
+          ${escapeHTML(project.name)}
+        </h3>
+
+        <p>
+          ${escapeHTML(project.description)}
+        </p>
+
+        <div class="item-meta">
+          Created:
+          ${escapeHTML(project.createdAt || "Unknown")}
+        </div>
 
         <div class="project-actions">
 
@@ -839,117 +1978,1757 @@ Enter an instruction below to begin.
           </button>
 
         </div>
+
       `;
+
 
       container.appendChild(card);
 
     });
 
+
     updateProjectCount();
+
   }
 
 
-  /* OPEN PROJECT */
+  /* ==========================================
+     OPEN PROJECT
+     ========================================== */
 
   function openProject(id) {
 
-    const projects = getProjects();
+    const projects =
+      getProjects();
 
-    const project = projects.find(
-      project => project.id === id
-    );
+
+    const project =
+      projects.find(
+        project =>
+          project.id === id
+      );
+
 
     if (!project) {
       return;
     }
 
-    alert(
-      "Project: " +
-      project.name +
-      "\n\nProject workspace will be expanded in the next stage."
+
+    currentProjectId = id;
+
+
+    document
+      .getElementById(
+        "workspaceProjectName"
+      )
+      .textContent =
+      project.name;
+
+
+    document
+      .getElementById(
+        "workspaceProjectDescription"
+      )
+      .textContent =
+      project.description;
+
+
+    renderWorkspace();
+
+
+    showPageById("workspace");
+
+
+    showWorkspaceTab("overview");
+
+
+    addActivity(
+      "Opened project: " +
+      project.name,
+      project.id
     );
+
   }
 
 
-  /* DELETE PROJECT */
+  /* ==========================================
+     DELETE PROJECT
+     ========================================== */
 
   function deleteProject(id) {
 
+    const projects =
+      getProjects();
+
+
+    const project =
+      projects.find(
+        project =>
+          project.id === id
+      );
+
+
+    if (!project) {
+      return;
+    }
+
+
     const confirmed =
-      confirm("Delete this project?");
+      confirm(
+        "Delete this project?"
+      );
+
 
     if (!confirmed) {
       return;
     }
 
-    const projects = getProjects().filter(
-      project => project.id !== id
+
+    const remaining =
+      projects.filter(
+        project =>
+          project.id !== id
+      );
+
+
+    saveProjects(remaining);
+
+
+    addActivity(
+      "Deleted project: " +
+      project.name
     );
 
-    saveProjects(projects);
+
+    if (
+      currentProjectId === id
+    ) {
+
+      currentProjectId = null;
+
+    }
+
 
     renderProjects();
+
     updateProjectCount();
+
   }
 
 
-  /* PROJECT COUNT */
+  /* ==========================================
+     PROJECT COUNT
+     ========================================== */
 
   function updateProjectCount() {
 
-    const count = getProjects().length;
+    const count =
+      getProjects().length;
+
 
     const text =
       count === 1
         ? "1 project created."
-        : count + " projects created.";
+        : count +
+          " projects created.";
 
-    document.getElementById("projectCount").textContent = text;
+
+    const element =
+      document.getElementById(
+        "projectCount"
+      );
+
+
+    if (element) {
+
+      element.textContent =
+        text;
+
+    }
+
   }
 
 
-  /* BASIC AI PLACEHOLDER */
+  /* ==========================================
+     WORKSPACE
+     ========================================== */
+
+  function getCurrentProject() {
+
+    if (
+      currentProjectId === null
+    ) {
+      return null;
+    }
+
+
+    return getProjects().find(
+      project =>
+        project.id ===
+        currentProjectId
+    ) || null;
+
+  }
+
+
+  function updateCurrentProject(
+    updatedProject
+  ) {
+
+    const projects =
+      getProjects();
+
+
+    const index =
+      projects.findIndex(
+        project =>
+          project.id ===
+          updatedProject.id
+      );
+
+
+    if (index === -1) {
+      return;
+    }
+
+
+    projects[index] =
+      updatedProject;
+
+
+    saveProjects(projects);
+
+  }
+
+
+  function renderWorkspace() {
+
+    const project =
+      getCurrentProject();
+
+
+    if (!project) {
+      return;
+    }
+
+
+    document
+      .getElementById(
+        "workspaceProjectName"
+      )
+      .textContent =
+      project.name;
+
+
+    document
+      .getElementById(
+        "workspaceProjectDescription"
+      )
+      .textContent =
+      project.description;
+
+
+    renderNotes();
+
+    renderTasks();
+
+    renderExperiments();
+
+    loadProjectCode();
+
+    renderProjectActivity();
+
+    updateWorkspaceStats();
+
+  }
+
+
+  function updateWorkspaceStats() {
+
+    const project =
+      getCurrentProject();
+
+
+    if (!project) {
+      return;
+    }
+
+
+    const notes =
+      project.notes.length;
+
+
+    const tasks =
+      project.tasks.length;
+
+
+    const completedTasks =
+      project.tasks.filter(
+        task =>
+          task.completed
+      ).length;
+
+
+    const experiments =
+      project.experiments.length;
+
+
+    document
+      .getElementById(
+        "workspaceStats"
+      )
+      .textContent =
+      notes +
+      " notes • " +
+      tasks +
+      " tasks (" +
+      completedTasks +
+      " completed) • " +
+      experiments +
+      " experiments.";
+
+  }
+
+
+  /* ==========================================
+     WORKSPACE TABS
+     ========================================== */
+
+  function showWorkspaceTab(
+    tabId,
+    button = null
+  ) {
+
+    document
+      .querySelectorAll(
+        ".workspace-panel"
+      )
+      .forEach(panel => {
+
+        panel.classList.remove(
+          "active"
+        );
+
+      });
+
+
+    const panel =
+      document.getElementById(
+        "workspace-" +
+        tabId
+      );
+
+
+    if (panel) {
+
+      panel.classList.add(
+        "active"
+      );
+
+    }
+
+
+    document
+      .querySelectorAll(
+        ".workspace-tab"
+      )
+      .forEach(tab => {
+
+        tab.classList.remove(
+          "active"
+        );
+
+      });
+
+
+    if (button) {
+
+      button.classList.add(
+        "active"
+      );
+
+    }
+
+    else {
+
+      const tabs =
+        document.querySelectorAll(
+          ".workspace-tab"
+        );
+
+
+      tabs.forEach(tab => {
+
+        if (
+          tab.textContent
+            .toLowerCase()
+            .includes(
+              tabId === "overview"
+                ? "overview"
+                : tabId
+            )
+        ) {
+
+          tab.classList.add(
+            "active"
+          );
+
+        }
+
+      });
+
+    }
+
+
+    if (tabId === "notes") {
+      renderNotes();
+    }
+
+
+    if (tabId === "tasks") {
+      renderTasks();
+    }
+
+
+    if (tabId === "experiments") {
+      renderExperiments();
+    }
+
+
+    if (tabId === "activity") {
+      renderProjectActivity();
+    }
+
+
+    if (tabId === "code") {
+      loadProjectCode();
+    }
+
+  }
+
+
+  /* ==========================================
+     NOTES
+     ========================================== */
+
+  function showNoteForm() {
+
+    document
+      .getElementById(
+        "noteForm"
+      )
+      .style.display =
+      "block";
+
+  }
+
+
+  function hideNoteForm() {
+
+    document
+      .getElementById(
+        "noteForm"
+      )
+      .style.display =
+      "none";
+
+  }
+
+
+  function addNote() {
+
+    const project =
+      getCurrentProject();
+
+
+    if (!project) {
+      return;
+    }
+
+
+    const title =
+      document
+        .getElementById(
+          "noteTitle"
+        )
+        .value
+        .trim();
+
+
+    const content =
+      document
+        .getElementById(
+          "noteContent"
+        )
+        .value
+        .trim();
+
+
+    if (!title) {
+
+      alert(
+        "Please enter a note title."
+      );
+
+      return;
+
+    }
+
+
+    project.notes.push({
+
+      id: Date.now(),
+
+      title: title,
+
+      content:
+        content ||
+        "No content yet.",
+
+      createdAt:
+        new Date().toLocaleString()
+
+    });
+
+
+    updateCurrentProject(
+      project
+    );
+
+
+    addProjectActivity(
+      project.id,
+      "Added note: " +
+      title
+    );
+
+
+    addActivity(
+      "Added note to " +
+      project.name +
+      ": " +
+      title,
+      project.id
+    );
+
+
+    document
+      .getElementById(
+        "noteTitle"
+      )
+      .value = "";
+
+
+    document
+      .getElementById(
+        "noteContent"
+      )
+      .value = "";
+
+
+    hideNoteForm();
+
+    renderNotes();
+
+    updateWorkspaceStats();
+
+  }
+
+
+  function renderNotes() {
+
+    const container =
+      document.getElementById(
+        "notesList"
+      );
+
+
+    const project =
+      getCurrentProject();
+
+
+    if (!container) {
+      return;
+    }
+
+
+    if (!project) {
+
+      container.innerHTML = `
+        <div class="empty">
+          Open a project to view notes.
+        </div>
+      `;
+
+      return;
+
+    }
+
+
+    container.innerHTML = "";
+
+
+    if (
+      project.notes.length === 0
+    ) {
+
+      container.innerHTML = `
+        <div class="empty">
+          <h2>No notes yet</h2>
+          <p>
+            Add your first piece of project information.
+          </p>
+        </div>
+      `;
+
+      return;
+
+    }
+
+
+    project.notes.forEach(note => {
+
+      const item =
+        document.createElement(
+          "div"
+        );
+
+
+      item.className =
+        "item";
+
+
+      item.innerHTML = `
+
+        <h3>
+          ${escapeHTML(note.title)}
+        </h3>
+
+        <p>
+          ${escapeHTML(note.content)}
+        </p>
+
+        <div class="item-meta">
+          ${escapeHTML(note.createdAt)}
+        </div>
+
+        <div class="item-actions">
+
+          <button
+            class="btn danger small"
+            onclick="deleteNote(${note.id})"
+          >
+            Delete
+          </button>
+
+        </div>
+
+      `;
+
+
+      container.appendChild(item);
+
+    });
+
+  }
+
+
+  function deleteNote(id) {
+
+    const project =
+      getCurrentProject();
+
+
+    if (!project) {
+      return;
+    }
+
+
+    const note =
+      project.notes.find(
+        note =>
+          note.id === id
+      );
+
+
+    if (!note) {
+      return;
+    }
+
+
+    project.notes =
+      project.notes.filter(
+        note =>
+          note.id !== id
+      );
+
+
+    updateCurrentProject(
+      project
+    );
+
+
+    addProjectActivity(
+      project.id,
+      "Deleted note: " +
+      note.title
+    );
+
+
+    renderNotes();
+
+    updateWorkspaceStats();
+
+  }
+
+
+  /* ==========================================
+     TASKS
+     ========================================== */
+
+  function showTaskForm() {
+
+    document
+      .getElementById(
+        "taskForm"
+      )
+      .style.display =
+      "block";
+
+  }
+
+
+  function hideTaskForm() {
+
+    document
+      .getElementById(
+        "taskForm"
+      )
+      .style.display =
+      "none";
+
+  }
+
+
+  function addTask() {
+
+    const project =
+      getCurrentProject();
+
+
+    if (!project) {
+      return;
+    }
+
+
+    const title =
+      document
+        .getElementById(
+          "taskTitle"
+        )
+        .value
+        .trim();
+
+
+    const description =
+      document
+        .getElementById(
+          "taskDescription"
+        )
+        .value
+        .trim();
+
+
+    if (!title) {
+
+      alert(
+        "Please enter a task."
+      );
+
+      return;
+
+    }
+
+
+    project.tasks.push({
+
+      id: Date.now(),
+
+      title: title,
+
+      description:
+        description ||
+        "No description yet.",
+
+      completed: false,
+
+      createdAt:
+        new Date().toLocaleString()
+
+    });
+
+
+    updateCurrentProject(
+      project
+    );
+
+
+    addProjectActivity(
+      project.id,
+      "Added task: " +
+      title
+    );
+
+
+    addActivity(
+      "Added task to " +
+      project.name +
+      ": " +
+      title,
+      project.id
+    );
+
+
+    document
+      .getElementById(
+        "taskTitle"
+      )
+      .value = "";
+
+
+    document
+      .getElementById(
+        "taskDescription"
+      )
+      .value = "";
+
+
+    hideTaskForm();
+
+    renderTasks();
+
+    updateWorkspaceStats();
+
+  }
+
+
+  function renderTasks() {
+
+    const container =
+      document.getElementById(
+        "tasksList"
+      );
+
+
+    const project =
+      getCurrentProject();
+
+
+    if (!container) {
+      return;
+    }
+
+
+    if (!project) {
+
+      container.innerHTML = `
+        <div class="empty">
+          Open a project to view tasks.
+        </div>
+      `;
+
+      return;
+
+    }
+
+
+    container.innerHTML = "";
+
+
+    if (
+      project.tasks.length === 0
+    ) {
+
+      container.innerHTML = `
+        <div class="empty">
+          <h2>No tasks yet</h2>
+          <p>
+            Add the work that needs to be completed.
+          </p>
+        </div>
+      `;
+
+      return;
+
+    }
+
+
+    project.tasks.forEach(task => {
+
+      const item =
+        document.createElement(
+          "div"
+        );
+
+
+      item.className =
+        "item" +
+        (
+          task.completed
+            ? " completed"
+            : ""
+        );
+
+
+      item.innerHTML = `
+
+        <h3>
+          ${escapeHTML(task.title)}
+        </h3>
+
+        <p>
+          ${escapeHTML(task.description)}
+        </p>
+
+        <div class="item-meta">
+          ${escapeHTML(task.createdAt)}
+        </div>
+
+        <div class="item-actions">
+
+          <button
+            class="btn small"
+            onclick="toggleTask(${task.id})"
+          >
+            ${
+              task.completed
+                ? "Mark Incomplete"
+                : "Complete"
+            }
+          </button>
+
+          <button
+            class="btn danger small"
+            onclick="deleteTask(${task.id})"
+          >
+            Delete
+          </button>
+
+        </div>
+
+      `;
+
+
+      container.appendChild(item);
+
+    });
+
+  }
+
+
+  function toggleTask(id) {
+
+    const project =
+      getCurrentProject();
+
+
+    if (!project) {
+      return;
+    }
+
+
+    const task =
+      project.tasks.find(
+        task =>
+          task.id === id
+      );
+
+
+    if (!task) {
+      return;
+    }
+
+
+    task.completed =
+      !task.completed;
+
+
+    updateCurrentProject(
+      project
+    );
+
+
+    addProjectActivity(
+      project.id,
+      task.completed
+        ? "Completed task: " +
+          task.title
+        : "Reopened task: " +
+          task.title
+    );
+
+
+    renderTasks();
+
+    updateWorkspaceStats();
+
+  }
+
+
+  function deleteTask(id) {
+
+    const project =
+      getCurrentProject();
+
+
+    if (!project) {
+      return;
+    }
+
+
+    const task =
+      project.tasks.find(
+        task =>
+          task.id === id
+      );
+
+
+    if (!task) {
+      return;
+    }
+
+
+    project.tasks =
+      project.tasks.filter(
+        task =>
+          task.id !== id
+      );
+
+
+    updateCurrentProject(
+      project
+    );
+
+
+    addProjectActivity(
+      project.id,
+      "Deleted task: " +
+      task.title
+    );
+
+
+    renderTasks();
+
+    updateWorkspaceStats();
+
+  }
+
+
+  /* ==========================================
+     EXPERIMENTS
+     ========================================== */
+
+  function showExperimentForm() {
+
+    document
+      .getElementById(
+        "experimentForm"
+      )
+      .style.display =
+      "block";
+
+  }
+
+
+  function hideExperimentForm() {
+
+    document
+      .getElementById(
+        "experimentForm"
+      )
+      .style.display =
+      "none";
+
+  }
+
+
+  function addExperiment() {
+
+    const project =
+      getCurrentProject();
+
+
+    if (!project) {
+      return;
+    }
+
+
+    const title =
+      document
+        .getElementById(
+          "experimentTitle"
+        )
+        .value
+        .trim();
+
+
+    const description =
+      document
+        .getElementById(
+          "experimentDescription"
+        )
+        .value
+        .trim();
+
+
+    if (!title) {
+
+      alert(
+        "Please enter an experiment name."
+      );
+
+      return;
+
+    }
+
+
+    project.experiments.push({
+
+      id: Date.now(),
+
+      title: title,
+
+      description:
+        description ||
+        "No description yet.",
+
+      status: "Planned",
+
+      createdAt:
+        new Date().toLocaleString()
+
+    });
+
+
+    updateCurrentProject(
+      project
+    );
+
+
+    addProjectActivity(
+      project.id,
+      "Created experiment: " +
+      title
+    );
+
+
+    addActivity(
+      "Created experiment in " +
+      project.name +
+      ": " +
+      title,
+      project.id
+    );
+
+
+    document
+      .getElementById(
+        "experimentTitle"
+      )
+      .value = "";
+
+
+    document
+      .getElementById(
+        "experimentDescription"
+      )
+      .value = "";
+
+
+    hideExperimentForm();
+
+    renderExperiments();
+
+    updateWorkspaceStats();
+
+  }
+
+
+  function renderExperiments() {
+
+    const container =
+      document.getElementById(
+        "experimentsList"
+      );
+
+
+    const project =
+      getCurrentProject();
+
+
+    if (!container) {
+      return;
+    }
+
+
+    if (!project) {
+
+      container.innerHTML = `
+        <div class="empty">
+          Open a project to view experiments.
+        </div>
+      `;
+
+      return;
+
+    }
+
+
+    container.innerHTML = "";
+
+
+    if (
+      project.experiments.length === 0
+    ) {
+
+      container.innerHTML = `
+        <div class="empty">
+          <h2>No experiments yet</h2>
+          <p>
+            Create an experiment to test a concept or prototype.
+          </p>
+        </div>
+      `;
+
+      return;
+
+    }
+
+
+    project.experiments.forEach(
+      experiment => {
+
+        const item =
+          document.createElement(
+            "div"
+          );
+
+
+        item.className =
+          "item";
+
+
+        item.innerHTML = `
+
+          <h3>
+            ${escapeHTML(experiment.title)}
+          </h3>
+
+          <p>
+            ${escapeHTML(experiment.description)}
+          </p>
+
+          <div class="item-meta">
+            Status:
+            ${escapeHTML(experiment.status)}
+            •
+            ${escapeHTML(experiment.createdAt)}
+          </div>
+
+          <div class="item-actions">
+
+            <button
+              class="btn small"
+              onclick="toggleExperimentStatus(${experiment.id})"
+            >
+              Change Status
+            </button>
+
+            <button
+              class="btn danger small"
+              onclick="deleteExperiment(${experiment.id})"
+            >
+              Delete
+            </button>
+
+          </div>
+
+        `;
+
+
+        container.appendChild(item);
+
+      }
+    );
+
+  }
+
+
+  function toggleExperimentStatus(
+    id
+  ) {
+
+    const project =
+      getCurrentProject();
+
+
+    if (!project) {
+      return;
+    }
+
+
+    const experiment =
+      project.experiments.find(
+        experiment =>
+          experiment.id === id
+      );
+
+
+    if (!experiment) {
+      return;
+    }
+
+
+    const statuses = [
+      "Planned",
+      "Running",
+      "Completed"
+    ];
+
+
+    const currentIndex =
+      statuses.indexOf(
+        experiment.status
+      );
+
+
+    experiment.status =
+      statuses[
+        (currentIndex + 1) %
+        statuses.length
+      ];
+
+
+    updateCurrentProject(
+      project
+    );
+
+
+    addProjectActivity(
+      project.id,
+      "Changed experiment status: " +
+      experiment.title +
+      " → " +
+      experiment.status
+    );
+
+
+    renderExperiments();
+
+  }
+
+
+  function deleteExperiment(id) {
+
+    const project =
+      getCurrentProject();
+
+
+    if (!project) {
+      return;
+    }
+
+
+    const experiment =
+      project.experiments.find(
+        experiment =>
+          experiment.id === id
+      );
+
+
+    if (!experiment) {
+      return;
+    }
+
+
+    project.experiments =
+      project.experiments.filter(
+        experiment =>
+          experiment.id !== id
+      );
+
+
+    updateCurrentProject(
+      project
+    );
+
+
+    addProjectActivity(
+      project.id,
+      "Deleted experiment: " +
+      experiment.title
+    );
+
+
+    renderExperiments();
+
+    updateWorkspaceStats();
+
+  }
+
+
+  /* ==========================================
+     PROJECT CODE
+     ========================================== */
+
+  function loadProjectCode() {
+
+    const project =
+      getCurrentProject();
+
+
+    const editor =
+      document.getElementById(
+        "projectCode"
+      );
+
+
+    if (!project || !editor) {
+      return;
+    }
+
+
+    editor.value =
+      project.code || "";
+
+
+    document
+      .getElementById(
+        "codeStatus"
+      )
+      .textContent =
+      "Local project code loaded.";
+
+  }
+
+
+  function saveProjectCode() {
+
+    const project =
+      getCurrentProject();
+
+
+    const editor =
+      document.getElementById(
+        "projectCode"
+      );
+
+
+    if (!project || !editor) {
+      return;
+    }
+
+
+    project.code =
+      editor.value;
+
+
+    updateCurrentProject(
+      project
+    );
+
+
+    addProjectActivity(
+      project.id,
+      "Saved project code."
+    );
+
+
+    addActivity(
+      "Saved code in " +
+      project.name,
+      project.id
+    );
+
+
+    document
+      .getElementById(
+        "codeStatus"
+      )
+      .textContent =
+      "Code saved locally.";
+
+  }
+
+
+  /* ==========================================
+     PROJECT ACTIVITY
+     ========================================== */
+
+  function addProjectActivity(
+    projectId,
+    message
+  ) {
+
+    const projects =
+      getProjects();
+
+
+    const project =
+      projects.find(
+        project =>
+          project.id ===
+          projectId
+      );
+
+
+    if (!project) {
+      return;
+    }
+
+
+    if (!project.activity) {
+      project.activity = [];
+    }
+
+
+    project.activity.unshift({
+
+      id: Date.now(),
+
+      message: message,
+
+      date:
+        new Date().toLocaleString()
+
+    });
+
+
+    if (
+      project.activity.length > 100
+    ) {
+
+      project.activity.splice(
+        100
+      );
+
+    }
+
+
+    updateCurrentProject(
+      project
+    );
+
+  }
+
+
+  function renderProjectActivity() {
+
+    const container =
+      document.getElementById(
+        "projectActivityList"
+      );
+
+
+    const project =
+      getCurrentProject();
+
+
+    if (!container) {
+      return;
+    }
+
+
+    if (!project) {
+
+      container.innerHTML = `
+        <div class="empty">
+          Open a project to view activity.
+        </div>
+      `;
+
+      return;
+
+    }
+
+
+    container.innerHTML = "";
+
+
+    const activity =
+      project.activity || [];
+
+
+    if (activity.length === 0) {
+
+      container.innerHTML = `
+        <div class="empty">
+          <h2>No activity yet</h2>
+          <p>
+            Project activity will appear here.
+          </p>
+        </div>
+      `;
+
+      return;
+
+    }
+
+
+    activity.forEach(entry => {
+
+      const item =
+        document.createElement(
+          "div"
+        );
+
+
+      item.className =
+        "activity-entry";
+
+
+      item.innerHTML = `
+
+        <strong>
+          ${escapeHTML(entry.message)}
+        </strong>
+
+        <span>
+          ${escapeHTML(entry.date)}
+        </span>
+
+      `;
+
+
+      container.appendChild(item);
+
+    });
+
+  }
+
+
+  /* ==========================================
+     WORKSHOP SHORTCUTS
+     ========================================== */
+
+  function openFirstProjectTab(
+    tab
+  ) {
+
+    const projects =
+      getProjects();
+
+
+    if (
+      projects.length === 0
+    ) {
+
+      alert(
+        "Create a project first."
+      );
+
+      showPageById(
+        "new-project"
+      );
+
+      return;
+
+    }
+
+
+    openProject(
+      projects[0].id
+    );
+
+
+    setTimeout(
+      () => {
+        showWorkspaceTab(tab);
+      },
+      50
+    );
+
+  }
+
+
+  /* ==========================================
+     BASIC AI PLACEHOLDER
+     ========================================== */
 
   function runAI() {
 
     const input =
-      document.getElementById("aiInput").value.trim();
+      document
+        .getElementById(
+          "aiInput"
+        )
+        .value
+        .trim();
+
 
     const output =
-      document.getElementById("aiOutput");
+      document.getElementById(
+        "aiOutput"
+      );
+
 
     if (!input) {
+
       output.textContent =
         "Enter an instruction first.";
+
       return;
+
     }
+
 
     output.textContent =
       "GTX AI Builder received your instruction.\n\n" +
+
       "Instruction:\n" +
+
       input +
+
       "\n\n" +
-      "AI connection is not connected yet. " +
-      "This interface is ready for the real GTX AI backend.";
+
+      "AI connection is not connected yet.\n\n" +
+
+      "V1.1 prepares the Workshop structure that the future GTX AI can use for project context, notes, tasks, experiments, and code.";
+
   }
 
 
-  /* SECURITY */
+  /* ==========================================
+     SECURITY
+     ========================================== */
 
   function escapeHTML(text) {
 
-    const div = document.createElement("div");
+    const div =
+      document.createElement(
+        "div"
+      );
 
-    div.textContent = text;
+
+    div.textContent =
+      text;
+
 
     return div.innerHTML;
+
   }
 
 
-  /* STARTUP */
+  /* ==========================================
+     STARTUP
+     ========================================== */
 
   renderProjects();
+
   updateProjectCount();
+
+  updateActivityCount();
+
 
 </script>
 
