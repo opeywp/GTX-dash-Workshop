@@ -464,6 +464,37 @@
       font-size: 12px;
     }
 
+    /* DEVELOPMENT HISTORY */
+    .history-list {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .history-entry {
+      background: #111114;
+      border: 1px solid #242429;
+      border-radius: 12px;
+      padding: 18px;
+    }
+
+    .history-version {
+      font-size: 17px;
+      font-weight: 800;
+      margin-bottom: 6px;
+    }
+
+    .history-date {
+      color: #777780;
+      font-size: 12px;
+      margin-bottom: 10px;
+    }
+
+    .history-description {
+      color: #9999a3;
+      line-height: 1.5;
+    }
+
     /* SETTINGS */
     .setting {
       display: flex;
@@ -487,37 +518,7 @@
       font-size: 13px;
       margin-top: 5px;
     }
-/* DEVELOPMENT HISTORY */
 
-.history-list {
-  display: flex;
-  flex-direction: column;
-  gap: 12px;
-}
-
-.history-entry {
-  background: #111114;
-  border: 1px solid #242429;
-  border-radius: 12px;
-  padding: 18px;
-}
-
-.history-version {
-  font-size: 17px;
-  font-weight: 800;
-  margin-bottom: 6px;
-}
-
-.history-date {
-  color: #777780;
-  font-size: 12px;
-  margin-bottom: 10px;
-}
-
-.history-description {
-  color: #9999a3;
-  line-height: 1.5;
-}
     /* EMPTY STATE */
     .empty {
       text-align: center;
@@ -620,6 +621,7 @@
     </div>
 
     <nav class="nav">
+
       <button class="active" onclick="showPage('home', this)">
         🏠 Home
       </button>
@@ -639,11 +641,12 @@
       <button onclick="showPage('settings', this)">
         ⚙️ Settings
       </button>
+
     </nav>
 
     <div class="sidebar-bottom">
       <div class="status">
-        GTX Workshop v1.1
+        GTX Workshop v1.2
       </div>
     </div>
 
@@ -654,13 +657,17 @@
   <main class="main">
 
     <div class="topbar">
+
       <div class="topbar-title" id="pageTitle">
         Home Dashboard
       </div>
 
       <div class="status">
-        <span id="systemStatus">Workspace Ready</span>
+        <span id="systemStatus">
+          Workspace Ready
+        </span>
       </div>
+
     </div>
 
 
@@ -670,19 +677,29 @@
       <section id="home" class="page active">
 
         <div class="hero">
-          <h1>GTX Workshop</h1>
+
+          <h1>
+            GTX Workshop
+          </h1>
+
           <p>
             Your workspace for building projects, tools, and AI systems.
           </p>
+
         </div>
 
 
         <div class="grid">
 
           <div class="card">
-            <div class="card-icon">📁</div>
 
-            <h2>Projects</h2>
+            <div class="card-icon">
+              📁
+            </div>
+
+            <h2>
+              Projects
+            </h2>
 
             <p>
               Create, manage, and open your GTX projects.
@@ -694,13 +711,19 @@
             >
               Open Projects
             </button>
+
           </div>
 
 
           <div class="card">
-            <div class="card-icon">🤖</div>
 
-            <h2>AI Builder</h2>
+            <div class="card-icon">
+              🤖
+            </div>
+
+            <h2>
+              AI Builder
+            </h2>
 
             <p>
               Build and develop AI-powered ideas.
@@ -712,13 +735,19 @@
             >
               Open AI Builder
             </button>
+
           </div>
 
 
           <div class="card">
-            <div class="card-icon">🛠</div>
 
-            <h2>Workshop</h2>
+            <div class="card-icon">
+              🛠
+            </div>
+
+            <h2>
+              Workshop
+            </h2>
 
             <p>
               Your central place for creating and experimenting.
@@ -730,14 +759,19 @@
             >
               Open Workshop
             </button>
+
           </div>
 
 
           <div class="card">
 
-            <div class="card-icon">📊</div>
+            <div class="card-icon">
+              📊
+            </div>
 
-            <h2>Workspace</h2>
+            <h2>
+              Workspace
+            </h2>
 
             <p id="projectCount">
               0 projects created.
@@ -759,7 +793,9 @@
 
         <div class="section-header">
 
-          <h1>Projects</h1>
+          <h1>
+            Projects
+          </h1>
 
           <button
             class="btn"
@@ -769,6 +805,7 @@
           </button>
 
         </div>
+
 
         <div
           id="projectList"
@@ -783,7 +820,9 @@
 
         <div class="section-header">
 
-          <h1>Create Project</h1>
+          <h1>
+            Create Project
+          </h1>
 
           <button
             class="btn secondary"
@@ -915,9 +954,13 @@
 
             <div class="card">
 
-              <div class="card-icon">🧠</div>
+              <div class="card-icon">
+                🧠
+              </div>
 
-              <h2>Project Context</h2>
+              <h2>
+                Project Context
+              </h2>
 
               <p>
                 This workspace contains the information,
@@ -930,9 +973,13 @@
 
             <div class="card">
 
-              <div class="card-icon">📊</div>
+              <div class="card-icon">
+                📊
+              </div>
 
-              <h2>Project Status</h2>
+              <h2>
+                Project Status
+              </h2>
 
               <p id="workspaceStats">
                 Loading project information...
@@ -943,9 +990,13 @@
 
             <div class="card">
 
-              <div class="card-icon">🤖</div>
+              <div class="card-icon">
+                🤖
+              </div>
 
-              <h2>Future AI Integration</h2>
+              <h2>
+                Future AI Integration
+              </h2>
 
               <p>
                 The future GTX AI will be able to use the
@@ -958,9 +1009,13 @@
 
             <div class="card">
 
-              <div class="card-icon">💻</div>
+              <div class="card-icon">
+                💻
+              </div>
 
-              <h2>Code Workspace</h2>
+              <h2>
+                Code Workspace
+              </h2>
 
               <p>
                 The foundation for the future GTX AI coding
@@ -989,7 +1044,9 @@
 
           <div class="section-header">
 
-            <h2>Project Notes</h2>
+            <h2>
+              Project Notes
+            </h2>
 
             <button
               class="btn"
@@ -1061,7 +1118,9 @@
 
           <div class="section-header">
 
-            <h2>Project Tasks</h2>
+            <h2>
+              Project Tasks
+            </h2>
 
             <button
               class="btn"
@@ -1133,7 +1192,9 @@
 
           <div class="section-header">
 
-            <h2>Experiments</h2>
+            <h2>
+              Experiments
+            </h2>
 
             <button
               class="btn"
@@ -1206,11 +1267,15 @@
           <div class="section-header">
 
             <div>
-              <h2>Code Workspace</h2>
+
+              <h2>
+                Code Workspace
+              </h2>
 
               <p class="status">
                 Foundation for future GTX AI coding integration.
               </p>
+
             </div>
 
           </div>
@@ -1218,7 +1283,11 @@
 
           <div class="notice">
 
-            <strong>V1.1 Code Foundation</strong><br>
+            <strong>
+              V1.2 Code Foundation
+            </strong>
+
+            <br>
 
             This editor is intentionally local for now.
             The future GTX AI will be connected through a
@@ -1233,7 +1302,10 @@
 
             <div class="code-toolbar">
 
-              <div class="code-status" id="codeStatus">
+              <div
+                class="code-status"
+                id="codeStatus"
+              >
                 Local project code
               </div>
 
@@ -1278,7 +1350,9 @@
 
           <div class="section-header">
 
-            <h2>Project Activity</h2>
+            <h2>
+              Project Activity
+            </h2>
 
           </div>
 
@@ -1298,7 +1372,9 @@
 
         <div class="hero">
 
-          <h1>AI Builder</h1>
+          <h1>
+            AI Builder
+          </h1>
 
           <p>
             Your interface for building AI-powered systems.
@@ -1339,7 +1415,9 @@ Enter an instruction below to begin.</div>
 
         <div class="hero">
 
-          <h1>Workshop</h1>
+          <h1>
+            Workshop
+          </h1>
 
           <p>
             Tools and systems for building your ideas.
@@ -1352,9 +1430,13 @@ Enter an instruction below to begin.</div>
 
           <div class="card">
 
-            <div class="card-icon">📝</div>
+            <div class="card-icon">
+              📝
+            </div>
 
-            <h2>Notes</h2>
+            <h2>
+              Notes
+            </h2>
 
             <p>
               Capture ideas, plans, and project information.
@@ -1372,9 +1454,13 @@ Enter an instruction below to begin.</div>
 
           <div class="card">
 
-            <div class="card-icon">✅</div>
+            <div class="card-icon">
+              ✅
+            </div>
 
-            <h2>Tasks</h2>
+            <h2>
+              Tasks
+            </h2>
 
             <p>
               Organize the work that needs to be completed.
@@ -1392,9 +1478,13 @@ Enter an instruction below to begin.</div>
 
           <div class="card">
 
-            <div class="card-icon">🧪</div>
+            <div class="card-icon">
+              🧪
+            </div>
 
-            <h2>Experiments</h2>
+            <h2>
+              Experiments
+            </h2>
 
             <p>
               Test new concepts and prototypes.
@@ -1412,9 +1502,13 @@ Enter an instruction below to begin.</div>
 
           <div class="card">
 
-            <div class="card-icon">🧠</div>
+            <div class="card-icon">
+              🧠
+            </div>
 
-            <h2>AI Layers</h2>
+            <h2>
+              AI Layers
+            </h2>
 
             <p>
               Prepare the architecture for the GTX AI system.
@@ -1439,7 +1533,9 @@ Enter an instruction below to begin.</div>
 
         <div class="hero">
 
-          <h1>Settings</h1>
+          <h1>
+            Settings
+          </h1>
 
           <p>
             Manage your GTX Workshop workspace.
@@ -1476,7 +1572,7 @@ Enter an instruction below to begin.</div>
               </div>
 
               <div class="setting-description">
-                Version 1.1
+                Version 1.2
               </div>
 
             </div>
@@ -1511,12 +1607,18 @@ Enter an instruction below to begin.</div>
               </div>
 
               <div class="setting-description">
-                Current development baseline: V1.0 → V1.1
+                Read-only record of GTX Workshop development milestones.
               </div>
 
             </div>
 
           </div>
+
+
+          <div
+            id="developmentHistoryList"
+            class="history-list"
+          ></div>
 
         </div>
 
@@ -1532,9 +1634,14 @@ Enter an instruction below to begin.</div>
 <script>
 
   /* ==========================================
-     GTX WORKSHOP V1.1
-     Based on GTX Workshop V1.0
+     GTX WORKSHOP V1.2
+     Based on GTX Workshop V1.1
      ========================================== */
+
+
+  /* WORKSHOP VERSION */
+
+  const WORKSHOP_VERSION = "1.2";
 
 
   /* PAGE NAMES */
@@ -1572,7 +1679,9 @@ Enter an instruction below to begin.</div>
     document
       .querySelectorAll(".page")
       .forEach(page => {
+
         page.classList.remove("active");
+
       });
 
 
@@ -1581,19 +1690,25 @@ Enter an instruction below to begin.</div>
 
 
     if (page) {
+
       page.classList.add("active");
+
     }
 
 
     document
       .querySelectorAll(".nav button")
       .forEach(btn => {
+
         btn.classList.remove("active");
+
       });
 
 
     if (button) {
+
       button.classList.add("active");
+
     }
 
 
@@ -1605,13 +1720,25 @@ Enter an instruction below to begin.</div>
 
 
     if (pageId === "projects") {
+
       renderProjects();
+
     }
 
 
     if (pageId === "home") {
+
       updateProjectCount();
+
       updateActivityCount();
+
+    }
+
+
+    if (pageId === "settings") {
+
+      renderDevelopmentHistory();
+
     }
 
   }
@@ -1637,7 +1764,9 @@ Enter an instruction below to begin.</div>
         pageId === "ai" &&
         text.includes("ai builder")
       ) {
+
         matchingButton = button;
+
       }
 
 
@@ -1645,7 +1774,9 @@ Enter an instruction below to begin.</div>
         pageId === "projects" &&
         text.includes("projects")
       ) {
+
         matchingButton = button;
+
       }
 
 
@@ -1653,7 +1784,9 @@ Enter an instruction below to begin.</div>
         pageId === "workshop" &&
         text.includes("workshop")
       ) {
+
         matchingButton = button;
+
       }
 
 
@@ -1661,7 +1794,9 @@ Enter an instruction below to begin.</div>
         pageId === "settings" &&
         text.includes("settings")
       ) {
+
         matchingButton = button;
+
       }
 
 
@@ -1669,13 +1804,18 @@ Enter an instruction below to begin.</div>
         pageId === "home" &&
         text.includes("home")
       ) {
+
         matchingButton = button;
+
       }
 
     });
 
 
-    showPage(pageId, matchingButton);
+    showPage(
+      pageId,
+      matchingButton
+    );
 
   }
 
@@ -1691,13 +1831,47 @@ Enter an instruction below to begin.</div>
 
 
     if (!saved) {
+
       return [];
+
     }
 
 
     try {
 
-      return JSON.parse(saved);
+      const projects =
+        JSON.parse(saved);
+
+
+      return projects.map(
+        project => {
+
+          if (!project.notes) {
+            project.notes = [];
+          }
+
+          if (!project.tasks) {
+            project.tasks = [];
+          }
+
+          if (!project.experiments) {
+            project.experiments = [];
+          }
+
+          if (
+            typeof project.code !== "string"
+          ) {
+            project.code = "";
+          }
+
+          if (!project.activity) {
+            project.activity = [];
+          }
+
+          return project;
+
+        }
+      );
 
     }
 
@@ -1729,7 +1903,9 @@ Enter an instruction below to begin.</div>
 
 
     if (!saved) {
+
       return [];
+
     }
 
 
@@ -1785,7 +1961,9 @@ Enter an instruction below to begin.</div>
 
 
     if (activities.length > 200) {
+
       activities.splice(200);
+
     }
 
 
@@ -1813,7 +1991,8 @@ Enter an instruction below to begin.</div>
       element.textContent =
         count === 1
           ? "1 activity recorded."
-          : count + " activities recorded.";
+          : count +
+            " activities recorded.";
 
     }
 
@@ -1946,7 +2125,9 @@ Enter an instruction below to begin.</div>
 
         <div class="empty">
 
-          <h2>No projects yet</h2>
+          <h2>
+            No projects yet
+          </h2>
 
           <p>
             Create your first GTX Workshop project.
@@ -2040,7 +2221,9 @@ Enter an instruction below to begin.</div>
 
 
     if (!project) {
+
       return;
+
     }
 
 
@@ -2099,7 +2282,9 @@ Enter an instruction below to begin.</div>
 
 
     if (!project) {
+
       return;
+
     }
 
 
@@ -2110,7 +2295,9 @@ Enter an instruction below to begin.</div>
 
 
     if (!confirmed) {
+
       return;
+
     }
 
 
@@ -2188,7 +2375,9 @@ Enter an instruction below to begin.</div>
     if (
       currentProjectId === null
     ) {
+
       return null;
+
     }
 
 
@@ -2218,7 +2407,9 @@ Enter an instruction below to begin.</div>
 
 
     if (index === -1) {
+
       return;
+
     }
 
 
@@ -2238,7 +2429,9 @@ Enter an instruction below to begin.</div>
 
 
     if (!project) {
+
       return;
+
     }
 
 
@@ -2280,7 +2473,9 @@ Enter an instruction below to begin.</div>
 
 
     if (!project) {
+
       return;
+
     }
 
 
@@ -2411,27 +2606,37 @@ Enter an instruction below to begin.</div>
 
 
     if (tabId === "notes") {
+
       renderNotes();
+
     }
 
 
     if (tabId === "tasks") {
+
       renderTasks();
+
     }
 
 
     if (tabId === "experiments") {
+
       renderExperiments();
+
     }
 
 
     if (tabId === "activity") {
+
       renderProjectActivity();
+
     }
 
 
     if (tabId === "code") {
+
       loadProjectCode();
+
     }
 
   }
@@ -2472,7 +2677,9 @@ Enter an instruction below to begin.</div>
 
 
     if (!project) {
+
       return;
+
     }
 
 
@@ -2578,16 +2785,20 @@ Enter an instruction below to begin.</div>
 
 
     if (!container) {
+
       return;
+
     }
 
 
     if (!project) {
 
       container.innerHTML = `
+
         <div class="empty">
           Open a project to view notes.
         </div>
+
       `;
 
       return;
@@ -2603,12 +2814,19 @@ Enter an instruction below to begin.</div>
     ) {
 
       container.innerHTML = `
+
         <div class="empty">
-          <h2>No notes yet</h2>
+
+          <h2>
+            No notes yet
+          </h2>
+
           <p>
             Add your first piece of project information.
           </p>
+
         </div>
+
       `;
 
       return;
@@ -2670,7 +2888,9 @@ Enter an instruction below to begin.</div>
 
 
     if (!project) {
+
       return;
+
     }
 
 
@@ -2682,7 +2902,9 @@ Enter an instruction below to begin.</div>
 
 
     if (!note) {
+
       return;
+
     }
 
 
@@ -2747,7 +2969,9 @@ Enter an instruction below to begin.</div>
 
 
     if (!project) {
+
       return;
+
     }
 
 
@@ -2855,16 +3079,20 @@ Enter an instruction below to begin.</div>
 
 
     if (!container) {
+
       return;
+
     }
 
 
     if (!project) {
 
       container.innerHTML = `
+
         <div class="empty">
           Open a project to view tasks.
         </div>
+
       `;
 
       return;
@@ -2880,12 +3108,19 @@ Enter an instruction below to begin.</div>
     ) {
 
       container.innerHTML = `
+
         <div class="empty">
-          <h2>No tasks yet</h2>
+
+          <h2>
+            No tasks yet
+          </h2>
+
           <p>
             Add the work that needs to be completed.
           </p>
+
         </div>
+
       `;
 
       return;
@@ -2963,7 +3198,9 @@ Enter an instruction below to begin.</div>
 
 
     if (!project) {
+
       return;
+
     }
 
 
@@ -2975,7 +3212,9 @@ Enter an instruction below to begin.</div>
 
 
     if (!task) {
+
       return;
+
     }
 
 
@@ -3012,7 +3251,9 @@ Enter an instruction below to begin.</div>
 
 
     if (!project) {
+
       return;
+
     }
 
 
@@ -3024,7 +3265,9 @@ Enter an instruction below to begin.</div>
 
 
     if (!task) {
+
       return;
+
     }
 
 
@@ -3089,7 +3332,9 @@ Enter an instruction below to begin.</div>
 
 
     if (!project) {
+
       return;
+
     }
 
 
@@ -3197,16 +3442,20 @@ Enter an instruction below to begin.</div>
 
 
     if (!container) {
+
       return;
+
     }
 
 
     if (!project) {
 
       container.innerHTML = `
+
         <div class="empty">
           Open a project to view experiments.
         </div>
+
       `;
 
       return;
@@ -3222,12 +3471,19 @@ Enter an instruction below to begin.</div>
     ) {
 
       container.innerHTML = `
+
         <div class="empty">
-          <h2>No experiments yet</h2>
+
+          <h2>
+            No experiments yet
+          </h2>
+
           <p>
             Create an experiment to test a concept or prototype.
           </p>
+
         </div>
+
       `;
 
       return;
@@ -3303,7 +3559,9 @@ Enter an instruction below to begin.</div>
 
 
     if (!project) {
+
       return;
+
     }
 
 
@@ -3315,7 +3573,9 @@ Enter an instruction below to begin.</div>
 
 
     if (!experiment) {
+
       return;
+
     }
 
 
@@ -3365,7 +3625,9 @@ Enter an instruction below to begin.</div>
 
 
     if (!project) {
+
       return;
+
     }
 
 
@@ -3377,7 +3639,9 @@ Enter an instruction below to begin.</div>
 
 
     if (!experiment) {
+
       return;
+
     }
 
 
@@ -3424,7 +3688,9 @@ Enter an instruction below to begin.</div>
 
 
     if (!project || !editor) {
+
       return;
+
     }
 
 
@@ -3455,7 +3721,9 @@ Enter an instruction below to begin.</div>
 
 
     if (!project || !editor) {
+
       return;
+
     }
 
 
@@ -3513,12 +3781,16 @@ Enter an instruction below to begin.</div>
 
 
     if (!project) {
+
       return;
+
     }
 
 
     if (!project.activity) {
+
       project.activity = [];
+
     }
 
 
@@ -3565,16 +3837,20 @@ Enter an instruction below to begin.</div>
 
 
     if (!container) {
+
       return;
+
     }
 
 
     if (!project) {
 
       container.innerHTML = `
+
         <div class="empty">
           Open a project to view activity.
         </div>
+
       `;
 
       return;
@@ -3592,12 +3868,19 @@ Enter an instruction below to begin.</div>
     if (activity.length === 0) {
 
       container.innerHTML = `
+
         <div class="empty">
-          <h2>No activity yet</h2>
+
+          <h2>
+            No activity yet
+          </h2>
+
           <p>
             Project activity will appear here.
           </p>
+
         </div>
+
       `;
 
       return;
@@ -3657,9 +3940,11 @@ Enter an instruction below to begin.</div>
         "Create a project first."
       );
 
+
       showPageById(
         "new-project"
       );
+
 
       return;
 
@@ -3673,7 +3958,9 @@ Enter an instruction below to begin.</div>
 
     setTimeout(
       () => {
+
         showWorkspaceTab(tab);
+
       },
       50
     );
@@ -3723,7 +4010,103 @@ Enter an instruction below to begin.</div>
 
       "AI connection is not connected yet.\n\n" +
 
-      "V1.1 prepares the Workshop structure that the future GTX AI can use for project context, notes, tasks, experiments, and code.";
+      "V1.2 prepares the Workshop structure that the future GTX AI can use for project context, notes, tasks, experiments, code, and development history.";
+
+  }
+
+
+  /* ==========================================
+     DEVELOPMENT HISTORY
+     ========================================== */
+
+  const developmentHistory = [
+
+    {
+      version: "V0.0",
+      date: "Initial Foundation",
+      description:
+        "The original starting point for the GTX Workshop concept and its development structure."
+    },
+
+
+    {
+      version: "V1.0",
+      date: "GTX Workshop V1.0",
+      description:
+        "Created the first GTX Workshop interface with navigation, Projects, AI Builder, Workshop, and Settings."
+    },
+
+
+    {
+      version: "V1.1",
+      date: "GTX Workshop V1.1",
+      description:
+        "Introduced functional project workspaces with Notes, Tasks, Experiments, Code, project Activity, local storage, and the foundation for future GTX AI coding integration."
+    },
+
+
+    {
+      version: "V1.2",
+      date: "GTX Workshop V1.2",
+      description:
+        "Added the read-only Development History system so the Workshop can display its own development milestones."
+    }
+
+  ];
+
+
+  function renderDevelopmentHistory() {
+
+    const container =
+      document.getElementById(
+        "developmentHistoryList"
+      );
+
+
+    if (!container) {
+
+      return;
+
+    }
+
+
+    container.innerHTML = "";
+
+
+    developmentHistory.forEach(
+      entry => {
+
+        const item =
+          document.createElement(
+            "div"
+          );
+
+
+        item.className =
+          "history-entry";
+
+
+        item.innerHTML = `
+
+          <div class="history-version">
+            ${escapeHTML(entry.version)}
+          </div>
+
+          <div class="history-date">
+            ${escapeHTML(entry.date)}
+          </div>
+
+          <div class="history-description">
+            ${escapeHTML(entry.description)}
+          </div>
+
+        `;
+
+
+        container.appendChild(item);
+
+      }
+    );
 
   }
 
