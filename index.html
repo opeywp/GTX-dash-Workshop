@@ -3,18 +3,41 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>GTX Workshop</title>
+  <meta name="theme-color" content="#0b0b0d">
+  <title>GTX Workshop V1.3</title>
 
   <style>
     * {
       box-sizing: border-box;
     }
 
+    :root {
+      --bg: #0b0b0d;
+      --panel: #141418;
+      --panel-2: #111114;
+      --panel-3: #09090b;
+      --border: #242429;
+      --border-light: #303039;
+      --text: #f5f5f5;
+      --muted: #9999a3;
+      --muted-2: #777780;
+      --accent: #8d8dff;
+      --accent-2: #6666ff;
+      --success: #8de1a6;
+      --warning: #e8c878;
+      --danger: #ffaaaa;
+      --sidebar-width: 250px;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
     body {
       margin: 0;
       font-family: Arial, Helvetica, sans-serif;
-      background: #0b0b0d;
-      color: #f5f5f5;
+      background: var(--bg);
+      color: var(--text);
     }
 
     button,
@@ -28,23 +51,37 @@
       cursor: pointer;
     }
 
+    button:disabled {
+      cursor: not-allowed;
+      opacity: 0.45;
+    }
+
+    ::selection {
+      background: #45456b;
+      color: white;
+    }
+
     .app {
       min-height: 100vh;
       display: flex;
     }
 
-    /* SIDEBAR */
+    /* ==========================================
+       SIDEBAR
+       ========================================== */
+
     .sidebar {
-      width: 240px;
+      width: var(--sidebar-width);
       min-height: 100vh;
       background: #111114;
-      border-right: 1px solid #242429;
+      border-right: 1px solid var(--border);
       padding: 24px 16px;
       position: fixed;
       left: 0;
       top: 0;
       bottom: 0;
-      z-index: 10;
+      z-index: 20;
+      overflow-y: auto;
     }
 
     .logo {
@@ -56,13 +93,27 @@
     }
 
     .logo span {
-      color: #8d8dff;
+      color: var(--accent);
+    }
+
+    .version-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 11px;
+      color: var(--muted-2);
+      background: #19191e;
+      border: 1px solid var(--border);
+      padding: 5px 8px;
+      border-radius: 999px;
+      margin-left: 10px;
+      vertical-align: middle;
     }
 
     .nav {
       display: flex;
       flex-direction: column;
-      gap: 8px;
+      gap: 7px;
     }
 
     .nav button {
@@ -73,6 +124,7 @@
       padding: 13px 14px;
       text-align: left;
       border-radius: 10px;
+      transition: 0.15s ease;
     }
 
     .nav button:hover,
@@ -88,24 +140,45 @@
       bottom: 24px;
     }
 
-    /* MAIN */
+    .system-indicator {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      color: var(--muted-2);
+      font-size: 12px;
+    }
+
+    .system-dot {
+      width: 7px;
+      height: 7px;
+      border-radius: 50%;
+      background: var(--success);
+      box-shadow: 0 0 8px rgba(141, 225, 166, 0.35);
+    }
+
+    /* ==========================================
+       MAIN
+       ========================================== */
+
     .main {
-      margin-left: 240px;
-      width: calc(100% - 240px);
+      margin-left: var(--sidebar-width);
+      width: calc(100% - var(--sidebar-width));
       min-height: 100vh;
     }
 
     .topbar {
       height: 72px;
-      border-bottom: 1px solid #242429;
+      border-bottom: 1px solid var(--border);
       display: flex;
       align-items: center;
       justify-content: space-between;
+      gap: 20px;
       padding: 0 30px;
-      background: #0b0b0d;
+      background: rgba(11, 11, 13, 0.94);
+      backdrop-filter: blur(12px);
       position: sticky;
       top: 0;
-      z-index: 5;
+      z-index: 15;
     }
 
     .topbar-title {
@@ -114,12 +187,19 @@
 
     .status {
       font-size: 13px;
-      color: #9c9ca5;
+      color: var(--muted);
+    }
+
+    .topbar-status {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      white-space: nowrap;
     }
 
     .content {
       padding: 34px;
-      max-width: 1250px;
+      max-width: 1450px;
       margin: auto;
     }
 
@@ -131,6 +211,10 @@
       display: block;
     }
 
+    /* ==========================================
+       HERO
+       ========================================== */
+
     .hero {
       margin-bottom: 30px;
     }
@@ -141,12 +225,15 @@
     }
 
     .hero p {
-      color: #9999a3;
+      color: var(--muted);
       margin: 0;
       font-size: 16px;
     }
 
-    /* CARDS */
+    /* ==========================================
+       CARDS
+       ========================================== */
+
     .grid {
       display: grid;
       grid-template-columns: repeat(2, 1fr);
@@ -154,10 +241,11 @@
     }
 
     .card {
-      background: #141418;
-      border: 1px solid #242429;
+      background: var(--panel);
+      border: 1px solid var(--border);
       border-radius: 16px;
       padding: 22px;
+      transition: border-color 0.15s ease;
     }
 
     .card:hover {
@@ -170,7 +258,7 @@
     }
 
     .card p {
-      color: #9999a3;
+      color: var(--muted);
       line-height: 1.5;
     }
 
@@ -179,7 +267,21 @@
       margin-bottom: 18px;
     }
 
-    /* BUTTONS */
+    .stat-number {
+      font-size: 32px;
+      font-weight: 800;
+      margin-bottom: 5px;
+    }
+
+    .stat-label {
+      color: var(--muted);
+      font-size: 13px;
+    }
+
+    /* ==========================================
+       BUTTONS
+       ========================================== */
+
     .btn {
       border: 0;
       border-radius: 10px;
@@ -187,10 +289,12 @@
       background: #f2f2f2;
       color: #111;
       font-weight: 700;
+      transition: 0.15s ease;
     }
 
     .btn:hover {
       opacity: 0.88;
+      transform: translateY(-1px);
     }
 
     .btn.secondary {
@@ -198,9 +302,25 @@
       color: white;
     }
 
+    .btn.ghost {
+      background: transparent;
+      color: #c7c7cf;
+      border: 1px solid var(--border);
+    }
+
     .btn.danger {
       background: #352020;
-      color: #ffaaaa;
+      color: var(--danger);
+    }
+
+    .btn.success {
+      background: #1b3423;
+      color: var(--success);
+    }
+
+    .btn.warning {
+      background: #352f1b;
+      color: var(--warning);
     }
 
     .btn.small {
@@ -208,7 +328,10 @@
       font-size: 13px;
     }
 
-    /* HEADERS */
+    /* ==========================================
+       HEADERS
+       ========================================== */
+
     .section-header {
       display: flex;
       justify-content: space-between;
@@ -218,12 +341,19 @@
       flex-wrap: wrap;
     }
 
-    .section-header h1 {
+    .section-header h1,
+    .section-header h2 {
       margin: 0;
+    }
+
+    .section-header h1 {
       font-size: 30px;
     }
 
-    /* PROJECTS */
+    /* ==========================================
+       PROJECTS
+       ========================================== */
+
     .projects {
       display: grid;
       grid-template-columns: repeat(3, 1fr);
@@ -231,8 +361,8 @@
     }
 
     .project-card {
-      background: #141418;
-      border: 1px solid #242429;
+      background: var(--panel);
+      border: 1px solid var(--border);
       border-radius: 15px;
       padding: 20px;
     }
@@ -242,7 +372,7 @@
     }
 
     .project-card p {
-      color: #9999a3;
+      color: var(--muted);
       min-height: 42px;
       line-height: 1.5;
     }
@@ -254,11 +384,32 @@
       flex-wrap: wrap;
     }
 
-    /* FORMS */
+    .project-badges {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      margin-top: 12px;
+    }
+
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      border: 1px solid var(--border);
+      background: #19191e;
+      color: var(--muted);
+      border-radius: 999px;
+      padding: 4px 8px;
+      font-size: 11px;
+    }
+
+    /* ==========================================
+       FORMS
+       ========================================== */
+
     .form-card {
-      max-width: 700px;
-      background: #141418;
-      border: 1px solid #242429;
+      max-width: 750px;
+      background: var(--panel);
+      border: 1px solid var(--border);
       border-radius: 16px;
       padding: 25px;
     }
@@ -285,7 +436,7 @@
     input:focus,
     textarea:focus,
     select:focus {
-      border-color: #6666ff;
+      border-color: var(--accent-2);
     }
 
     textarea {
@@ -293,27 +444,65 @@
       resize: vertical;
     }
 
-    /* AI */
+    /* ==========================================
+       AI
+       ========================================== */
+
     .ai-container {
-      max-width: 900px;
+      max-width: 1000px;
     }
 
     .ai-output {
       min-height: 260px;
       background: #111114;
-      border: 1px solid #242429;
+      border: 1px solid var(--border);
       border-radius: 16px;
       padding: 22px;
       margin-bottom: 16px;
       color: #d0d0d7;
       line-height: 1.6;
       white-space: pre-wrap;
+      overflow-wrap: anywhere;
     }
 
-    /* WORKSPACE */
+    .ai-layout {
+      display: grid;
+      grid-template-columns: 1.5fr 0.8fr;
+      gap: 16px;
+    }
+
+    .ai-context-box {
+      background: var(--panel);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 18px;
+    }
+
+    .ai-context-box h3 {
+      margin-top: 0;
+    }
+
+    .context-line {
+      display: flex;
+      justify-content: space-between;
+      gap: 10px;
+      border-bottom: 1px solid var(--border);
+      padding: 10px 0;
+      color: var(--muted);
+      font-size: 13px;
+    }
+
+    .context-line:last-child {
+      border-bottom: 0;
+    }
+
+    /* ==========================================
+       WORKSPACE
+       ========================================== */
+
     .workspace-header {
-      background: #141418;
-      border: 1px solid #242429;
+      background: var(--panel);
+      border: 1px solid var(--border);
       border-radius: 16px;
       padding: 24px;
       margin-bottom: 20px;
@@ -325,8 +514,15 @@
 
     .workspace-header p {
       margin: 0;
-      color: #9999a3;
+      color: var(--muted);
       line-height: 1.5;
+    }
+
+    .workspace-project-meta {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-top: 15px;
     }
 
     .workspace-tabs {
@@ -364,7 +560,10 @@
       gap: 16px;
     }
 
-    /* ITEMS */
+    /* ==========================================
+       ITEMS
+       ========================================== */
+
     .item-list {
       display: flex;
       flex-direction: column;
@@ -372,8 +571,8 @@
     }
 
     .item {
-      background: #141418;
-      border: 1px solid #242429;
+      background: var(--panel);
+      border: 1px solid var(--border);
       border-radius: 12px;
       padding: 16px;
     }
@@ -384,7 +583,7 @@
     }
 
     .item p {
-      color: #9999a3;
+      color: var(--muted);
       margin: 0 0 12px;
       white-space: pre-wrap;
       line-height: 1.5;
@@ -392,7 +591,7 @@
 
     .item-meta {
       font-size: 12px;
-      color: #777780;
+      color: var(--muted-2);
       margin-bottom: 12px;
     }
 
@@ -410,37 +609,292 @@
       text-decoration: line-through;
     }
 
-    /* CODE */
-    .code-editor {
+    /* ==========================================
+       CODE WORKSPACE
+       ========================================== */
+
+    .code-shell {
+      display: grid;
+      grid-template-columns: 210px minmax(0, 1fr);
+      min-height: 650px;
+      background: #0a0a0c;
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      overflow: hidden;
+    }
+
+    .file-sidebar {
+      background: #101014;
+      border-right: 1px solid var(--border);
+      padding: 12px;
+    }
+
+    .file-sidebar-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 8px;
+      margin-bottom: 12px;
+      padding: 4px;
+    }
+
+    .file-sidebar-title {
+      font-size: 12px;
+      color: var(--muted);
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 0.7px;
+    }
+
+    .file-list {
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+    }
+
+    .file-btn {
+      border: 0;
+      background: transparent;
+      color: #aaaab2;
+      border-radius: 8px;
+      padding: 9px 10px;
+      text-align: left;
       width: 100%;
-      min-height: 420px;
-      background: #09090b;
-      color: #d8d8df;
-      border: 1px solid #292930;
-      border-radius: 12px;
-      padding: 18px;
-      font-family: "Courier New", monospace;
-      font-size: 14px;
-      line-height: 1.6;
-      resize: vertical;
-      tab-size: 2;
+      font-size: 13px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .file-btn:hover,
+    .file-btn.active {
+      background: #222229;
+      color: white;
+    }
+
+    .file-icon {
+      opacity: 0.7;
+    }
+
+    .code-main {
+      min-width: 0;
+      display: flex;
+      flex-direction: column;
     }
 
     .code-toolbar {
+      min-height: 54px;
       display: flex;
       justify-content: space-between;
       align-items: center;
       gap: 10px;
-      margin-bottom: 12px;
+      padding: 9px 12px;
+      border-bottom: 1px solid var(--border);
+      background: #101014;
       flex-wrap: wrap;
     }
 
+    .code-toolbar-left,
+    .code-toolbar-right {
+      display: flex;
+      align-items: center;
+      gap: 7px;
+      flex-wrap: wrap;
+    }
+
+    .code-file-name {
+      font-size: 13px;
+      color: #d8d8df;
+      font-weight: 700;
+    }
+
     .code-status {
-      color: #888891;
+      color: var(--muted-2);
+      font-size: 12px;
+    }
+
+    .code-editor-wrap {
+      flex: 1;
+      min-height: 0;
+      display: flex;
+    }
+
+    .line-numbers {
+      width: 48px;
+      flex-shrink: 0;
+      background: #0d0d10;
+      border-right: 1px solid #1f1f24;
+      color: #4f4f58;
+      padding: 17px 8px 17px 0;
+      font: 14px/1.6 "Courier New", monospace;
+      text-align: right;
+      user-select: none;
+      overflow: hidden;
+      white-space: pre;
+    }
+
+    .code-editor {
+      width: 100%;
+      min-height: 540px;
+      flex: 1;
+      background: #09090b;
+      color: #d8d8df;
+      border: 0;
+      border-radius: 0;
+      padding: 17px;
+      margin: 0;
+      font-family: "Courier New", monospace;
+      font-size: 14px;
+      line-height: 1.6;
+      resize: none;
+      tab-size: 2;
+      outline: none;
+      white-space: pre;
+      overflow: auto;
+    }
+
+    .code-bottom {
+      border-top: 1px solid var(--border);
+      background: #101014;
+      padding: 9px 12px;
+      display: flex;
+      justify-content: space-between;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+
+    .workspace-code-layout {
+      display: grid;
+      grid-template-columns: minmax(0, 1.15fr) minmax(360px, 0.85fr);
+      gap: 16px;
+      align-items: stretch;
+    }
+
+    .preview-card,
+    .console-card {
+      background: var(--panel);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      overflow: hidden;
+    }
+
+    .preview-header,
+    .console-header {
+      padding: 12px 14px;
+      border-bottom: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+
+    .preview-title,
+    .console-title {
+      font-size: 13px;
+      font-weight: 800;
+    }
+
+    .preview-frame-wrap {
+      background: white;
+      min-height: 400px;
+    }
+
+    #previewFrame {
+      width: 100%;
+      height: 450px;
+      border: 0;
+      display: block;
+      background: white;
+    }
+
+    .console-output {
+      min-height: 160px;
+      max-height: 280px;
+      overflow: auto;
+      padding: 12px;
+      font: 12px/1.5 "Courier New", monospace;
+      background: #09090b;
+      color: #bdbdc6;
+      white-space: pre-wrap;
+    }
+
+    .console-line {
+      margin-bottom: 7px;
+    }
+
+    .console-line.error {
+      color: var(--danger);
+    }
+
+    .console-line.info {
+      color: #aaaacb;
+    }
+
+    .console-line.success {
+      color: var(--success);
+    }
+
+    .version-list {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      margin-top: 12px;
+    }
+
+    .version-entry {
+      background: #101014;
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 11px;
+    }
+
+    .version-entry-header {
+      display: flex;
+      justify-content: space-between;
+      gap: 10px;
+      margin-bottom: 6px;
+      flex-wrap: wrap;
+    }
+
+    .version-entry-title {
+      font-weight: 700;
       font-size: 13px;
     }
 
-    /* ACTIVITY */
+    .version-entry-meta {
+      color: var(--muted-2);
+      font-size: 11px;
+    }
+
+    .version-entry-description {
+      color: var(--muted);
+      font-size: 12px;
+      margin-bottom: 8px;
+    }
+
+    /* ==========================================
+       DEVELOPMENT PANEL
+       ========================================== */
+
+    .development-strip {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 12px;
+      flex-wrap: wrap;
+      padding: 13px 15px;
+      background: #111114;
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      margin-bottom: 18px;
+    }
+
+    /* ==========================================
+       ACTIVITY
+       ========================================== */
+
     .activity-list {
       display: flex;
       flex-direction: column;
@@ -448,8 +902,8 @@
     }
 
     .activity-entry {
-      background: #141418;
-      border: 1px solid #242429;
+      background: var(--panel);
+      border: 1px solid var(--border);
       border-radius: 12px;
       padding: 15px;
     }
@@ -460,11 +914,14 @@
     }
 
     .activity-entry span {
-      color: #777780;
+      color: var(--muted-2);
       font-size: 12px;
     }
 
-    /* DEVELOPMENT HISTORY */
+    /* ==========================================
+       HISTORY
+       ========================================== */
+
     .history-list {
       display: flex;
       flex-direction: column;
@@ -473,7 +930,7 @@
 
     .history-entry {
       background: #111114;
-      border: 1px solid #242429;
+      border: 1px solid var(--border);
       border-radius: 12px;
       padding: 18px;
     }
@@ -485,23 +942,26 @@
     }
 
     .history-date {
-      color: #777780;
+      color: var(--muted-2);
       font-size: 12px;
       margin-bottom: 10px;
     }
 
     .history-description {
-      color: #9999a3;
+      color: var(--muted);
       line-height: 1.5;
     }
 
-    /* SETTINGS */
+    /* ==========================================
+       SETTINGS
+       ========================================== */
+
     .setting {
       display: flex;
       justify-content: space-between;
       align-items: center;
       padding: 18px 0;
-      border-bottom: 1px solid #242429;
+      border-bottom: 1px solid var(--border);
       gap: 20px;
     }
 
@@ -517,20 +977,19 @@
       color: #888891;
       font-size: 13px;
       margin-top: 5px;
+      line-height: 1.45;
     }
 
-    /* EMPTY STATE */
-    .empty {
-      text-align: center;
-      padding: 60px 20px;
-      background: #141418;
-      border: 1px dashed #303038;
-      border-radius: 16px;
-      color: #9999a3;
-      grid-column: 1 / -1;
+    .settings-actions {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
     }
 
-    /* NOTICE */
+    /* ==========================================
+       NOTICE / EMPTY
+       ========================================== */
+
     .notice {
       background: #16161b;
       border: 1px solid #2b2b34;
@@ -541,14 +1000,152 @@
       margin-bottom: 18px;
     }
 
-    /* MOBILE */
-    @media (max-width: 900px) {
+    .notice strong {
+      color: #d4d4dc;
+    }
+
+    .empty {
+      text-align: center;
+      padding: 60px 20px;
+      background: var(--panel);
+      border: 1px dashed #303038;
+      border-radius: 16px;
+      color: var(--muted);
+      grid-column: 1 / -1;
+    }
+
+    /* ==========================================
+       SEARCH
+       ========================================== */
+
+    .search-box {
+      max-width: 350px;
+      margin: 0;
+    }
+
+    .search-box input {
+      margin: 0;
+    }
+
+    /* ==========================================
+       MODAL
+       ========================================== */
+
+    .modal-backdrop {
+      position: fixed;
+      inset: 0;
+      background: rgba(0, 0, 0, 0.7);
+      display: none;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+      z-index: 100;
+    }
+
+    .modal-backdrop.active {
+      display: flex;
+    }
+
+    .modal {
+      width: min(600px, 100%);
+      max-height: 90vh;
+      overflow: auto;
+      background: #141418;
+      border: 1px solid #303038;
+      border-radius: 16px;
+      padding: 22px;
+      box-shadow: 0 20px 80px rgba(0, 0, 0, 0.5);
+    }
+
+    .modal-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 15px;
+      margin-bottom: 18px;
+    }
+
+    .modal-header h2 {
+      margin: 0;
+    }
+
+    .close-btn {
+      background: #242429;
+      border: 0;
+      color: white;
+      width: 34px;
+      height: 34px;
+      border-radius: 8px;
+    }
+
+    /* ==========================================
+       TOAST
+       ========================================== */
+
+    .toast-container {
+      position: fixed;
+      right: 20px;
+      bottom: 20px;
+      z-index: 200;
+      display: flex;
+      flex-direction: column;
+      gap: 9px;
+      width: min(360px, calc(100vw - 40px));
+    }
+
+    .toast {
+      background: #19191e;
+      border: 1px solid #303038;
+      border-radius: 12px;
+      padding: 13px 15px;
+      color: #e2e2e7;
+      box-shadow: 0 10px 35px rgba(0, 0, 0, 0.35);
+      animation: toastIn 0.18s ease;
+      font-size: 13px;
+    }
+
+    .toast.success {
+      border-color: #31563b;
+    }
+
+    .toast.error {
+      border-color: #613434;
+    }
+
+    @keyframes toastIn {
+      from {
+        opacity: 0;
+        transform: translateY(8px);
+      }
+
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    /* ==========================================
+       RESPONSIVE
+       ========================================== */
+
+    @media (max-width: 1150px) {
       .projects {
         grid-template-columns: repeat(2, 1fr);
       }
 
+      .workspace-code-layout,
+      .ai-layout {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    @media (max-width: 900px) {
       .workspace-grid {
         grid-template-columns: 1fr;
+      }
+
+      .code-shell {
+        grid-template-columns: 170px minmax(0, 1fr);
       }
     }
 
@@ -559,7 +1156,7 @@
         min-height: 0;
         position: relative;
         border-right: 0;
-        border-bottom: 1px solid #242429;
+        border-bottom: 1px solid var(--border);
         padding: 15px;
       }
 
@@ -605,6 +1202,56 @@
       .hero h1 {
         font-size: 29px;
       }
+
+      .code-shell {
+        grid-template-columns: 1fr;
+      }
+
+      .file-sidebar {
+        border-right: 0;
+        border-bottom: 1px solid var(--border);
+      }
+
+      .file-list {
+        flex-direction: row;
+        overflow-x: auto;
+      }
+
+      .file-btn {
+        width: auto;
+        min-width: 125px;
+      }
+
+      #previewFrame {
+        height: 350px;
+      }
+    }
+
+    @media (max-width: 500px) {
+      .topbar {
+        height: auto;
+        min-height: 64px;
+        padding-top: 12px;
+        padding-bottom: 12px;
+      }
+
+      .topbar-status {
+        display: none;
+      }
+
+      .code-toolbar,
+      .code-bottom {
+        align-items: flex-start;
+      }
+
+      .workspace-tabs {
+        overflow-x: auto;
+        flex-wrap: nowrap;
+      }
+
+      .workspace-tab {
+        white-space: nowrap;
+      }
     }
   </style>
 </head>
@@ -613,11 +1260,15 @@
 
 <div class="app">
 
-  <!-- SIDEBAR -->
+  <!-- ==========================================
+       SIDEBAR
+       ========================================== -->
+
   <aside class="sidebar">
 
     <div class="logo">
       GTX <span>Workshop</span>
+      <span class="version-pill">V1.3</span>
     </div>
 
     <nav class="nav">
@@ -645,15 +1296,22 @@
     </nav>
 
     <div class="sidebar-bottom">
-      <div class="status">
-        GTX Workshop v1.2
+      <div class="system-indicator">
+        <span class="system-dot"></span>
+        <span>GTX System Ready</span>
+      </div>
+      <div class="status" style="margin-top:8px;">
+        Local workspace • V1.3
       </div>
     </div>
 
   </aside>
 
 
-  <!-- MAIN -->
+  <!-- ==========================================
+       MAIN
+       ========================================== -->
+
   <main class="main">
 
     <div class="topbar">
@@ -662,10 +1320,9 @@
         Home Dashboard
       </div>
 
-      <div class="status">
-        <span id="systemStatus">
-          Workspace Ready
-        </span>
+      <div class="topbar-status status">
+        <span class="system-dot"></span>
+        <span id="systemStatus">Workspace Ready</span>
       </div>
 
     </div>
@@ -673,19 +1330,18 @@
 
     <div class="content">
 
-      <!-- HOME -->
+      <!-- ==========================================
+           HOME
+           ========================================== -->
+
       <section id="home" class="page active">
 
         <div class="hero">
-
-          <h1>
-            GTX Workshop
-          </h1>
+          <h1>GTX Workshop</h1>
 
           <p>
-            Your workspace for building projects, tools, and AI systems.
+            Your workspace for building projects, tools, prototypes, and AI systems.
           </p>
-
         </div>
 
 
@@ -693,16 +1349,14 @@
 
           <div class="card">
 
-            <div class="card-icon">
-              📁
-            </div>
+            <div class="card-icon">📁</div>
 
-            <h2>
-              Projects
-            </h2>
+            <h2>Projects</h2>
 
             <p>
               Create, manage, and open your GTX projects.
+              Every project now contains its own context,
+              notes, tasks, experiments, code, versions, and activity.
             </p>
 
             <button
@@ -717,16 +1371,13 @@
 
           <div class="card">
 
-            <div class="card-icon">
-              🤖
-            </div>
+            <div class="card-icon">🤖</div>
 
-            <h2>
-              AI Builder
-            </h2>
+            <h2>AI Builder</h2>
 
             <p>
-              Build and develop AI-powered ideas.
+              Prepare instructions for the future GTX AI system
+              and inspect the project context available to it.
             </p>
 
             <button
@@ -741,16 +1392,13 @@
 
           <div class="card">
 
-            <div class="card-icon">
-              🛠
-            </div>
+            <div class="card-icon">🛠</div>
 
-            <h2>
-              Workshop
-            </h2>
+            <h2>Workshop</h2>
 
             <p>
-              Your central place for creating and experimenting.
+              Your central place for creating, testing,
+              organizing, and experimenting with ideas.
             </p>
 
             <button
@@ -765,17 +1413,15 @@
 
           <div class="card">
 
-            <div class="card-icon">
-              📊
+            <div class="card-icon">📊</div>
+
+            <h2>Workspace</h2>
+
+            <div class="stat-number" id="homeProjectNumber">0</div>
+
+            <div class="stat-label">
+              Projects created
             </div>
-
-            <h2>
-              Workspace
-            </h2>
-
-            <p id="projectCount">
-              0 projects created.
-            </p>
 
             <p id="activityCount">
               0 activities recorded.
@@ -785,24 +1431,65 @@
 
         </div>
 
+
+        <div style="height:18px;"></div>
+
+
+        <div class="development-strip">
+
+          <div>
+            <strong>GTX Workshop V1.3</strong>
+            <div class="status">
+              Code Workspace + Project Context + Version System
+            </div>
+          </div>
+
+          <button
+            class="btn secondary small"
+            onclick="showPageById('settings')"
+          >
+            View Development History
+          </button>
+
+        </div>
+
       </section>
 
 
-      <!-- PROJECTS -->
+      <!-- ==========================================
+           PROJECTS
+           ========================================== -->
+
       <section id="projects" class="page">
 
         <div class="section-header">
 
-          <h1>
-            Projects
-          </h1>
+          <div>
+            <h1>Projects</h1>
+            <div class="status">
+              Your local GTX project database.
+            </div>
+          </div>
 
-          <button
-            class="btn"
-            onclick="showPageById('new-project')"
-          >
-            + New Project
-          </button>
+          <div style="display:flex;gap:8px;align-items:center;flex-wrap:wrap;">
+
+            <div class="search-box">
+              <input
+                id="projectSearch"
+                type="text"
+                placeholder="Search projects..."
+                oninput="renderProjects()"
+              >
+            </div>
+
+            <button
+              class="btn"
+              onclick="showPageById('new-project')"
+            >
+              + New Project
+            </button>
+
+          </div>
 
         </div>
 
@@ -815,14 +1502,15 @@
       </section>
 
 
-      <!-- NEW PROJECT -->
+      <!-- ==========================================
+           NEW PROJECT
+           ========================================== -->
+
       <section id="new-project" class="page">
 
         <div class="section-header">
 
-          <h1>
-            Create Project
-          </h1>
+          <h1>Create Project</h1>
 
           <button
             class="btn secondary"
@@ -869,7 +1557,10 @@
       </section>
 
 
-      <!-- PROJECT WORKSPACE -->
+      <!-- ==========================================
+           PROJECT WORKSPACE
+           ========================================== -->
+
       <section id="workspace" class="page">
 
         <div class="section-header">
@@ -880,6 +1571,24 @@
           >
             ← Back to Projects
           </button>
+
+          <div style="display:flex;gap:8px;flex-wrap:wrap;">
+
+            <button
+              class="btn ghost small"
+              onclick="openProjectContextModal()"
+            >
+              🧠 Project Context
+            </button>
+
+            <button
+              class="btn ghost small"
+              onclick="exportCurrentProject()"
+            >
+              Export Project
+            </button>
+
+          </div>
 
         </div>
 
@@ -893,6 +1602,12 @@
           <p id="workspaceProjectDescription">
             Project information.
           </p>
+
+
+          <div
+            id="workspaceProjectMeta"
+            class="workspace-project-meta"
+          ></div>
 
 
           <div class="workspace-tabs">
@@ -944,7 +1659,10 @@
         </div>
 
 
-        <!-- OVERVIEW -->
+        <!-- ==========================================
+             OVERVIEW
+             ========================================== -->
+
         <div
           id="workspace-overview"
           class="workspace-panel active"
@@ -954,32 +1672,31 @@
 
             <div class="card">
 
-              <div class="card-icon">
-                🧠
-              </div>
+              <div class="card-icon">🧠</div>
 
-              <h2>
-                Project Context
-              </h2>
+              <h2>Project Context</h2>
 
               <p>
-                This workspace contains the information,
-                tasks, notes, experiments, and code connected
-                to this project.
+                This project now acts as a structured context
+                container. Notes, tasks, experiments, code,
+                versions, and activity are connected to it.
               </p>
+
+              <button
+                class="btn secondary"
+                onclick="openProjectContextModal()"
+              >
+                Inspect Context
+              </button>
 
             </div>
 
 
             <div class="card">
 
-              <div class="card-icon">
-                📊
-              </div>
+              <div class="card-icon">📊</div>
 
-              <h2>
-                Project Status
-              </h2>
+              <h2>Project Status</h2>
 
               <p id="workspaceStats">
                 Loading project information...
@@ -990,40 +1707,41 @@
 
             <div class="card">
 
-              <div class="card-icon">
-                🤖
-              </div>
+              <div class="card-icon">🤖</div>
 
-              <h2>
-                Future AI Integration
-              </h2>
+              <h2>AI Builder</h2>
 
               <p>
-                The future GTX AI will be able to use the
-                project context stored here to understand
-                what is being built.
+                V1.3 creates a structured foundation for
+                future GTX AI operations. The AI can later
+                receive controlled project context and proposed
+                changes before anything is applied.
               </p>
+
+              <button
+                class="btn secondary"
+                onclick="openAIForProject()"
+              >
+                Open AI Builder
+              </button>
 
             </div>
 
 
             <div class="card">
 
-              <div class="card-icon">
-                💻
-              </div>
+              <div class="card-icon">💻</div>
 
-              <h2>
-                Code Workspace
-              </h2>
+              <h2>Code Workspace</h2>
 
               <p>
-                The foundation for the future GTX AI coding
-                environment is included in this version.
+                Work with HTML, CSS, and JavaScript files,
+                run a local preview, inspect the console,
+                save versions, and restore previous states.
               </p>
 
               <button
-                class="btn secondary"
+                class="btn"
                 onclick="showWorkspaceTab('code')"
               >
                 Open Code
@@ -1036,7 +1754,10 @@
         </div>
 
 
-        <!-- NOTES -->
+        <!-- ==========================================
+             NOTES
+             ========================================== -->
+
         <div
           id="workspace-notes"
           class="workspace-panel"
@@ -1044,9 +1765,7 @@
 
           <div class="section-header">
 
-            <h2>
-              Project Notes
-            </h2>
+            <h2>Project Notes</h2>
 
             <button
               class="btn"
@@ -1061,7 +1780,7 @@
           <div
             id="noteForm"
             class="form-card"
-            style="display:none; margin-bottom:20px;"
+            style="display:none;margin-bottom:20px;"
           >
 
             <label for="noteTitle">
@@ -1110,7 +1829,10 @@
         </div>
 
 
-        <!-- TASKS -->
+        <!-- ==========================================
+             TASKS
+             ========================================== -->
+
         <div
           id="workspace-tasks"
           class="workspace-panel"
@@ -1118,9 +1840,7 @@
 
           <div class="section-header">
 
-            <h2>
-              Project Tasks
-            </h2>
+            <h2>Project Tasks</h2>
 
             <button
               class="btn"
@@ -1135,7 +1855,7 @@
           <div
             id="taskForm"
             class="form-card"
-            style="display:none; margin-bottom:20px;"
+            style="display:none;margin-bottom:20px;"
           >
 
             <label for="taskTitle">
@@ -1184,7 +1904,10 @@
         </div>
 
 
-        <!-- EXPERIMENTS -->
+        <!-- ==========================================
+             EXPERIMENTS
+             ========================================== -->
+
         <div
           id="workspace-experiments"
           class="workspace-panel"
@@ -1192,9 +1915,7 @@
 
           <div class="section-header">
 
-            <h2>
-              Experiments
-            </h2>
+            <h2>Experiments</h2>
 
             <button
               class="btn"
@@ -1209,7 +1930,7 @@
           <div
             id="experimentForm"
             class="form-card"
-            style="display:none; margin-bottom:20px;"
+            style="display:none;margin-bottom:20px;"
           >
 
             <label for="experimentTitle">
@@ -1258,7 +1979,10 @@
         </div>
 
 
-        <!-- CODE -->
+        <!-- ==========================================
+             CODE WORKSPACE
+             ========================================== -->
+
         <div
           id="workspace-code"
           class="workspace-panel"
@@ -1267,14 +1991,28 @@
           <div class="section-header">
 
             <div>
-
-              <h2>
-                Code Workspace
-              </h2>
+              <h2>Code Workspace</h2>
 
               <p class="status">
-                Foundation for future GTX AI coding integration.
+                Local development environment for GTX projects.
               </p>
+            </div>
+
+            <div style="display:flex;gap:8px;flex-wrap:wrap;">
+
+              <button
+                class="btn secondary small"
+                onclick="saveCurrentFile()"
+              >
+                Save File
+              </button>
+
+              <button
+                class="btn small"
+                onclick="runProject()"
+              >
+                ▶ Run
+              </button>
 
             </div>
 
@@ -1283,66 +2021,263 @@
 
           <div class="notice">
 
-            <strong>
-              V1.2 Code Foundation
-            </strong>
+            <strong>GTX Workshop V1.3 Code System</strong>
 
             <br>
 
-            This editor is intentionally local for now.
-            The future GTX AI will be connected through a
-            controlled coding system with permissions,
-            change previews, version history, and approval
-            before code is applied.
+            The Code Workspace now supports separate HTML,
+            CSS, and JavaScript files, local execution through
+            an isolated preview, a console, saved project
+            versions, and restoration. The AI Builder does not
+            silently modify project code.
 
           </div>
 
 
-          <div class="card">
+          <div class="code-shell">
 
-            <div class="code-toolbar">
+            <aside class="file-sidebar">
 
-              <div
-                class="code-status"
-                id="codeStatus"
-              >
-                Local project code
-              </div>
+              <div class="file-sidebar-header">
 
-              <div>
-
-                <button
-                  class="btn small"
-                  onclick="saveProjectCode()"
-                >
-                  Save Code
-                </button>
+                <span class="file-sidebar-title">
+                  Files
+                </span>
 
                 <button
                   class="btn secondary small"
-                  onclick="loadProjectCode()"
+                  onclick="addCodeFile()"
+                  title="Add file"
                 >
-                  Reload
+                  +
                 </button>
+
+              </div>
+
+
+              <div
+                id="fileList"
+                class="file-list"
+              ></div>
+
+
+              <div style="margin-top:15px;">
+
+                <button
+                  class="btn ghost small"
+                  style="width:100%;"
+                  onclick="openVersionManager()"
+                >
+                  🕘 Versions
+                </button>
+
+              </div>
+
+            </aside>
+
+
+            <div class="code-main">
+
+              <div class="code-toolbar">
+
+                <div class="code-toolbar-left">
+
+                  <span
+                    id="codeFileName"
+                    class="code-file-name"
+                  >
+                    index.html
+                  </span>
+
+                  <span
+                    id="codeStatus"
+                    class="code-status"
+                  >
+                    Ready
+                  </span>
+
+                </div>
+
+
+                <div class="code-toolbar-right">
+
+                  <button
+                    class="btn ghost small"
+                    onclick="formatCurrentFile()"
+                  >
+                    Format
+                  </button>
+
+                  <button
+                    class="btn ghost small"
+                    onclick="createCodeVersion()"
+                  >
+                    Save Version
+                  </button>
+
+                </div>
+
+              </div>
+
+
+              <div class="code-editor-wrap">
+
+                <div
+                  id="lineNumbers"
+                  class="line-numbers"
+                >1</div>
+
+                <textarea
+                  id="projectCode"
+                  class="code-editor"
+                  spellcheck="false"
+                  wrap="off"
+                  placeholder="// Start building..."
+                  oninput="handleCodeInput()"
+                  onscroll="syncEditorScroll()"
+                  onkeydown="handleEditorKeydown(event)"
+                ></textarea>
+
+              </div>
+
+
+              <div class="code-bottom">
+
+                <span
+                  id="codeCharacterCount"
+                  class="code-status"
+                >
+                  0 characters
+                </span>
+
+                <span
+                  id="codeSaveIndicator"
+                  class="code-status"
+                >
+                  Local
+                </span>
+
+              </div>
+
+            </div>
+
+          </div>
+
+
+          <div style="height:16px;"></div>
+
+
+          <div class="workspace-code-layout">
+
+            <div class="preview-card">
+
+              <div class="preview-header">
+
+                <span class="preview-title">
+                  Live Preview
+                </span>
+
+                <div style="display:flex;gap:6px;">
+
+                  <button
+                    class="btn secondary small"
+                    onclick="runProject()"
+                  >
+                    Refresh
+                  </button>
+
+                  <button
+                    class="btn ghost small"
+                    onclick="openPreviewNewWindow()"
+                  >
+                    New Window
+                  </button>
+
+                </div>
+
+              </div>
+
+
+              <div class="preview-frame-wrap">
+
+                <iframe
+                  id="previewFrame"
+                  title="GTX Project Preview"
+                  sandbox="allow-scripts"
+                ></iframe>
 
               </div>
 
             </div>
 
 
-            <textarea
-              id="projectCode"
-              class="code-editor"
-              spellcheck="false"
-              placeholder="// Project code will live here..."
-            ></textarea>
+            <div class="console-card">
+
+              <div class="console-header">
+
+                <span class="console-title">
+                  Console
+                </span>
+
+                <button
+                  class="btn ghost small"
+                  onclick="clearConsole()"
+                >
+                  Clear
+                </button>
+
+              </div>
+
+
+              <div
+                id="consoleOutput"
+                class="console-output"
+              ></div>
+
+            </div>
+
+          </div>
+
+
+          <div style="height:16px;"></div>
+
+
+          <div class="card">
+
+            <div class="section-header" style="margin-bottom:10px;">
+
+              <div>
+                <h2>Code Versions</h2>
+
+                <div class="status">
+                  Saved local snapshots of the project's code.
+                </div>
+              </div>
+
+              <button
+                class="btn secondary small"
+                onclick="createCodeVersion()"
+              >
+                + Save Snapshot
+              </button>
+
+            </div>
+
+
+            <div
+              id="versionList"
+              class="version-list"
+            ></div>
 
           </div>
 
         </div>
 
 
-        <!-- ACTIVITY -->
+        <!-- ==========================================
+             ACTIVITY
+             ========================================== -->
+
         <div
           id="workspace-activity"
           class="workspace-panel"
@@ -1350,9 +2285,7 @@
 
           <div class="section-header">
 
-            <h2>
-              Project Activity
-            </h2>
+            <h2>Project Activity</h2>
 
           </div>
 
@@ -1367,57 +2300,140 @@
       </section>
 
 
-      <!-- AI BUILDER -->
+      <!-- ==========================================
+           AI BUILDER
+           ========================================== -->
+
       <section id="ai" class="page">
 
         <div class="hero">
 
-          <h1>
-            AI Builder
-          </h1>
+          <h1>AI Builder</h1>
 
           <p>
-            Your interface for building AI-powered systems.
+            Your interface for building the future GTX AI system.
           </p>
 
         </div>
 
 
-        <div class="ai-container">
+        <div class="ai-layout">
 
-          <div
-            id="aiOutput"
-            class="ai-output"
-          >GTX AI Builder ready.
-Enter an instruction below to begin.</div>
+          <div class="ai-container">
+
+            <div
+              id="aiOutput"
+              class="ai-output"
+            >GTX AI Builder ready.
+Enter an instruction below to begin.
+
+V1.3 foundation:
+• Project context
+• Structured instructions
+• Code workspace awareness
+• Controlled change architecture
+• Future AI connection point</div>
 
 
-          <textarea
-            id="aiInput"
-            placeholder="Tell GTX AI what you want to build..."
-          ></textarea>
+            <textarea
+              id="aiInput"
+              placeholder="Tell GTX AI what you want to build..."
+            ></textarea>
 
 
-          <button
-            class="btn"
-            onclick="runAI()"
-          >
-            Run AI
-          </button>
+            <div style="display:flex;gap:8px;flex-wrap:wrap;">
+
+              <button
+                class="btn"
+                onclick="runAI()"
+              >
+                Run AI
+              </button>
+
+              <button
+                class="btn secondary"
+                onclick="insertProjectContextIntoAI()"
+              >
+                Use Project Context
+              </button>
+
+            </div>
+
+          </div>
+
+
+          <div class="ai-context-box">
+
+            <h3>AI Context</h3>
+
+            <div class="status" style="margin-bottom:10px;">
+              What the future GTX AI can understand from this workspace.
+            </div>
+
+
+            <div class="context-line">
+              <span>Active project</span>
+              <strong id="aiContextProject">None</strong>
+            </div>
+
+            <div class="context-line">
+              <span>Notes</span>
+              <strong id="aiContextNotes">0</strong>
+            </div>
+
+            <div class="context-line">
+              <span>Tasks</span>
+              <strong id="aiContextTasks">0</strong>
+            </div>
+
+            <div class="context-line">
+              <span>Experiments</span>
+              <strong id="aiContextExperiments">0</strong>
+            </div>
+
+            <div class="context-line">
+              <span>Code files</span>
+              <strong id="aiContextFiles">0</strong>
+            </div>
+
+            <div class="context-line">
+              <span>Code versions</span>
+              <strong id="aiContextVersions">0</strong>
+            </div>
+
+          </div>
+
+        </div>
+
+
+        <div style="height:18px;"></div>
+
+
+        <div class="notice">
+
+          <strong>AI Builder foundation — V1.3</strong>
+
+          <br>
+
+          The local interface does not claim to be an active
+          autonomous AI agent. It prepares the data model,
+          permissions boundary, project context, and change
+          workflow that a future GTX AI connection can use.
 
         </div>
 
       </section>
 
 
-      <!-- WORKSHOP -->
+      <!-- ==========================================
+           WORKSHOP
+           ========================================== -->
+
       <section id="workshop" class="page">
 
         <div class="hero">
 
-          <h1>
-            Workshop
-          </h1>
+          <h1>Workshop</h1>
 
           <p>
             Tools and systems for building your ideas.
@@ -1430,13 +2446,9 @@ Enter an instruction below to begin.</div>
 
           <div class="card">
 
-            <div class="card-icon">
-              📝
-            </div>
+            <div class="card-icon">📝</div>
 
-            <h2>
-              Notes
-            </h2>
+            <h2>Notes</h2>
 
             <p>
               Capture ideas, plans, and project information.
@@ -1454,13 +2466,9 @@ Enter an instruction below to begin.</div>
 
           <div class="card">
 
-            <div class="card-icon">
-              ✅
-            </div>
+            <div class="card-icon">✅</div>
 
-            <h2>
-              Tasks
-            </h2>
+            <h2>Tasks</h2>
 
             <p>
               Organize the work that needs to be completed.
@@ -1478,13 +2486,9 @@ Enter an instruction below to begin.</div>
 
           <div class="card">
 
-            <div class="card-icon">
-              🧪
-            </div>
+            <div class="card-icon">🧪</div>
 
-            <h2>
-              Experiments
-            </h2>
+            <h2>Experiments</h2>
 
             <p>
               Test new concepts and prototypes.
@@ -1502,13 +2506,30 @@ Enter an instruction below to begin.</div>
 
           <div class="card">
 
-            <div class="card-icon">
-              🧠
-            </div>
+            <div class="card-icon">💻</div>
 
-            <h2>
-              AI Layers
-            </h2>
+            <h2>Code Workspace</h2>
+
+            <p>
+              Build and preview HTML, CSS, and JavaScript
+              inside a project.
+            </p>
+
+            <button
+              class="btn secondary"
+              onclick="openFirstProjectTab('code')"
+            >
+              Open Code
+            </button>
+
+          </div>
+
+
+          <div class="card">
+
+            <div class="card-icon">🧠</div>
+
+            <h2>AI Layers</h2>
 
             <p>
               Prepare the architecture for the GTX AI system.
@@ -1523,22 +2544,44 @@ Enter an instruction below to begin.</div>
 
           </div>
 
+
+          <div class="card">
+
+            <div class="card-icon">🕘</div>
+
+            <h2>Versions</h2>
+
+            <p>
+              Save snapshots of project code and restore
+              earlier development states.
+            </p>
+
+            <button
+              class="btn secondary"
+              onclick="openFirstProjectTab('code')"
+            >
+              Open Versions
+            </button>
+
+          </div>
+
         </div>
 
       </section>
 
 
-      <!-- SETTINGS -->
+      <!-- ==========================================
+           SETTINGS
+           ========================================== -->
+
       <section id="settings" class="page">
 
         <div class="hero">
 
-          <h1>
-            Settings
-          </h1>
+          <h1>Settings</h1>
 
           <p>
-            Manage your GTX Workshop workspace.
+            Manage your GTX Workshop workspace and development data.
           </p>
 
         </div>
@@ -1572,7 +2615,7 @@ Enter an instruction below to begin.</div>
               </div>
 
               <div class="setting-description">
-                Version 1.2
+                Version 1.3
               </div>
 
             </div>
@@ -1589,9 +2632,36 @@ Enter an instruction below to begin.</div>
               </div>
 
               <div class="setting-description">
-                Project information is currently stored
-                locally in this browser.
+                Project information is stored locally in this browser.
+                V1.3 automatically migrates older V1.2 project structures
+                when required.
               </div>
+
+            </div>
+
+            <div class="settings-actions">
+
+              <button
+                class="btn secondary small"
+                onclick="exportAllData()"
+              >
+                Export Data
+              </button>
+
+              <button
+                class="btn secondary small"
+                onclick="triggerImport()"
+              >
+                Import Data
+              </button>
+
+              <input
+                id="importFile"
+                type="file"
+                accept=".json,application/json"
+                style="display:none;"
+                onchange="importAllData(event)"
+              >
 
             </div>
 
@@ -1620,6 +2690,34 @@ Enter an instruction below to begin.</div>
             class="history-list"
           ></div>
 
+
+          <div style="height:20px;"></div>
+
+
+          <div class="setting">
+
+            <div>
+
+              <div class="setting-title">
+                Local Workspace Reset
+              </div>
+
+              <div class="setting-description">
+                Permanently remove GTX Workshop projects and activity
+                from this browser.
+              </div>
+
+            </div>
+
+            <button
+              class="btn danger small"
+              onclick="resetWorkspace()"
+            >
+              Reset Workspace
+            </button>
+
+          </div>
+
         </div>
 
       </section>
@@ -1631,421 +2729,938 @@ Enter an instruction below to begin.</div>
 </div>
 
 
+<!-- ==========================================
+     PROJECT CONTEXT MODAL
+     ========================================== -->
+
+<div
+  id="contextModal"
+  class="modal-backdrop"
+  onclick="closeModalOnBackdrop(event, 'contextModal')"
+>
+
+  <div class="modal">
+
+    <div class="modal-header">
+
+      <h2>Project Context</h2>
+
+      <button
+        class="close-btn"
+        onclick="closeModal('contextModal')"
+      >
+        ×
+      </button>
+
+    </div>
+
+
+    <div id="contextModalContent"></div>
+
+  </div>
+
+</div>
+
+
+<!-- ==========================================
+     VERSION MODAL
+     ========================================== -->
+
+<div
+  id="versionModal"
+  class="modal-backdrop"
+  onclick="closeModalOnBackdrop(event, 'versionModal')"
+>
+
+  <div class="modal">
+
+    <div class="modal-header">
+
+      <h2>Code Versions</h2>
+
+      <button
+        class="close-btn"
+        onclick="closeModal('versionModal')"
+      >
+        ×
+      </button>
+
+    </div>
+
+
+    <div class="notice">
+      Restoring a version replaces the current HTML, CSS,
+      and JavaScript files with the selected snapshot.
+    </div>
+
+
+    <div
+      id="versionModalList"
+      class="version-list"
+    ></div>
+
+  </div>
+
+</div>
+
+
+<!-- ==========================================
+     TOASTS
+     ========================================== -->
+
+<div
+  id="toastContainer"
+  class="toast-container"
+></div>
+
+
 <script>
 
-  /* ==========================================
-     GTX WORKSHOP V1.2
-     Based on GTX Workshop V1.1
-     ========================================== */
+/* =========================================================
+   GTX WORKSHOP V1.3
+   ---------------------------------------------------------
+   V1.2 baseline preserved and expanded.
+
+   V1.3 systems:
+   - Project context
+   - V1.2 data migration
+   - Multi-file code workspace
+   - HTML / CSS / JS
+   - Local live preview
+   - Console bridge
+   - Version snapshots
+   - Restore
+   - AI Builder foundation
+   - Import / export
+   - Search
+   - Responsive interface
+   - Activity tracking
+   - Development history
+   ========================================================= */
 
 
-  /* WORKSHOP VERSION */
+/* =========================================================
+   CORE CONFIG
+   ========================================================= */
 
-  const WORKSHOP_VERSION = "1.2";
+const WORKSHOP_VERSION = "1.3";
 
+const STORAGE_KEYS = {
+  projects: "gtxProjects",
+  activities: "gtxWorkshopActivities",
+  version: "gtxWorkshopVersion",
+  settings: "gtxWorkshopSettings"
+};
 
-  /* PAGE NAMES */
+const pageNames = {
 
-  const pageNames = {
+  home: "Home Dashboard",
 
-    home: "Home Dashboard",
+  projects: "Projects",
 
-    projects: "Projects",
+  "new-project": "Create Project",
 
-    "new-project": "Create Project",
+  workspace: "Project Workspace",
 
-    workspace: "Project Workspace",
+  ai: "AI Builder",
 
-    ai: "AI Builder",
+  workshop: "Workshop",
 
-    workshop: "Workshop",
+  settings: "Settings"
 
-    settings: "Settings"
-
-  };
-
-
-  /* CURRENT PROJECT */
-
-  let currentProjectId = null;
-
-
-  /* ==========================================
-     PAGE NAVIGATION
-     ========================================== */
-
-  function showPage(pageId, button) {
-
-    document
-      .querySelectorAll(".page")
-      .forEach(page => {
-
-        page.classList.remove("active");
-
-      });
+};
 
 
-    const page =
-      document.getElementById(pageId);
+/* =========================================================
+   CURRENT STATE
+   ========================================================= */
+
+let currentProjectId = null;
+
+let currentFileName = "index.html";
+
+let codeDirty = false;
+
+let lastPreviewDocument = "";
 
 
-    if (page) {
+/* =========================================================
+   UTILITY
+   ========================================================= */
 
-      page.classList.add("active");
+function nowString() {
 
-    }
+  return new Date().toLocaleString();
 
-
-    document
-      .querySelectorAll(".nav button")
-      .forEach(btn => {
-
-        btn.classList.remove("active");
-
-      });
+}
 
 
-    if (button) {
+function uid(prefix = "id") {
 
-      button.classList.add("active");
+  return (
+    prefix +
+    "_" +
+    Date.now().toString(36) +
+    "_" +
+    Math.random().toString(36).slice(2, 8)
+  );
 
-    }
+}
 
 
-    document
-      .getElementById("pageTitle")
-      .textContent =
+function escapeHTML(text) {
+
+  const div =
+    document.createElement("div");
+
+  div.textContent =
+    String(text ?? "");
+
+  return div.innerHTML;
+
+}
+
+
+function safeText(value, fallback = "") {
+
+  if (
+    value === undefined ||
+    value === null
+  ) {
+
+    return fallback;
+
+  }
+
+  return String(value);
+
+}
+
+
+/* =========================================================
+   TOAST / STATUS
+   ========================================================= */
+
+function setSystemStatus(message) {
+
+  const element =
+    document.getElementById("systemStatus");
+
+  if (element) {
+
+    element.textContent =
+      message;
+
+  }
+
+}
+
+
+function toast(
+  message,
+  type = "info"
+) {
+
+  const container =
+    document.getElementById(
+      "toastContainer"
+    );
+
+  if (!container) {
+    return;
+  }
+
+  const item =
+    document.createElement("div");
+
+  item.className =
+    "toast " + type;
+
+  item.textContent =
+    message;
+
+  container.appendChild(item);
+
+  setTimeout(() => {
+
+    item.remove();
+
+  }, 3200);
+
+}
+
+
+/* =========================================================
+   PAGE NAVIGATION
+   ========================================================= */
+
+function showPage(
+  pageId,
+  button = null
+) {
+
+  document
+    .querySelectorAll(".page")
+    .forEach(page => {
+
+      page.classList.remove("active");
+
+    });
+
+
+  const page =
+    document.getElementById(pageId);
+
+
+  if (page) {
+
+    page.classList.add("active");
+
+  }
+
+
+  document
+    .querySelectorAll(".nav button")
+    .forEach(btn => {
+
+      btn.classList.remove("active");
+
+    });
+
+
+  if (button) {
+
+    button.classList.add("active");
+
+  }
+
+
+  document
+    .getElementById("pageTitle")
+    .textContent =
       pageNames[pageId] ||
       "GTX Workshop";
 
 
-    if (pageId === "projects") {
+  if (pageId === "projects") {
 
-      renderProjects();
-
-    }
-
-
-    if (pageId === "home") {
-
-      updateProjectCount();
-
-      updateActivityCount();
-
-    }
-
-
-    if (pageId === "settings") {
-
-      renderDevelopmentHistory();
-
-    }
+    renderProjects();
 
   }
 
 
-  function showPageById(pageId) {
+  if (pageId === "home") {
 
-    const buttons =
-      document.querySelectorAll(".nav button");
-
-
-    let matchingButton = null;
-
-
-    buttons.forEach(button => {
-
-      const text =
-        button.textContent
-          .toLowerCase();
-
-
-      if (
-        pageId === "ai" &&
-        text.includes("ai builder")
-      ) {
-
-        matchingButton = button;
-
-      }
-
-
-      else if (
-        pageId === "projects" &&
-        text.includes("projects")
-      ) {
-
-        matchingButton = button;
-
-      }
-
-
-      else if (
-        pageId === "workshop" &&
-        text.includes("workshop")
-      ) {
-
-        matchingButton = button;
-
-      }
-
-
-      else if (
-        pageId === "settings" &&
-        text.includes("settings")
-      ) {
-
-        matchingButton = button;
-
-      }
-
-
-      else if (
-        pageId === "home" &&
-        text.includes("home")
-      ) {
-
-        matchingButton = button;
-
-      }
-
-    });
-
-
-    showPage(
-      pageId,
-      matchingButton
-    );
-
-  }
-
-
-  /* ==========================================
-     LOCAL STORAGE HELPERS
-     ========================================== */
-
-  function getProjects() {
-
-    const saved =
-      localStorage.getItem("gtxProjects");
-
-
-    if (!saved) {
-
-      return [];
-
-    }
-
-
-    try {
-
-      const projects =
-        JSON.parse(saved);
-
-
-      return projects.map(
-        project => {
-
-          if (!project.notes) {
-            project.notes = [];
-          }
-
-          if (!project.tasks) {
-            project.tasks = [];
-          }
-
-          if (!project.experiments) {
-            project.experiments = [];
-          }
-
-          if (
-            typeof project.code !== "string"
-          ) {
-            project.code = "";
-          }
-
-          if (!project.activity) {
-            project.activity = [];
-          }
-
-          return project;
-
-        }
-      );
-
-    }
-
-    catch {
-
-      return [];
-
-    }
-
-  }
-
-
-  function saveProjects(projects) {
-
-    localStorage.setItem(
-      "gtxProjects",
-      JSON.stringify(projects)
-    );
-
-  }
-
-
-  function getActivities() {
-
-    const saved =
-      localStorage.getItem(
-        "gtxWorkshopActivities"
-      );
-
-
-    if (!saved) {
-
-      return [];
-
-    }
-
-
-    try {
-
-      return JSON.parse(saved);
-
-    }
-
-    catch {
-
-      return [];
-
-    }
-
-  }
-
-
-  function saveActivities(activities) {
-
-    localStorage.setItem(
-      "gtxWorkshopActivities",
-      JSON.stringify(activities)
-    );
-
-  }
-
-
-  /* ==========================================
-     ACTIVITY SYSTEM
-     ========================================== */
-
-  function addActivity(
-    action,
-    projectId = null
-  ) {
-
-    const activities =
-      getActivities();
-
-
-    activities.unshift({
-
-      id: Date.now(),
-
-      action: action,
-
-      projectId: projectId,
-
-      date: new Date().toLocaleString()
-
-    });
-
-
-    if (activities.length > 200) {
-
-      activities.splice(200);
-
-    }
-
-
-    saveActivities(activities);
+    updateProjectCount();
 
     updateActivityCount();
 
   }
 
 
-  function updateActivityCount() {
+  if (pageId === "settings") {
 
-    const count =
-      getActivities().length;
-
-
-    const element =
-      document.getElementById(
-        "activityCount"
-      );
-
-
-    if (element) {
-
-      element.textContent =
-        count === 1
-          ? "1 activity recorded."
-          : count +
-            " activities recorded.";
-
-    }
+    renderDevelopmentHistory();
 
   }
 
 
-  /* ==========================================
-     CREATE PROJECT
-     ========================================== */
+  if (pageId === "ai") {
 
-  function createProject() {
+    updateAIContext();
 
-    const name =
-      document
-        .getElementById("projectName")
-        .value
-        .trim();
+  }
 
 
-    const description =
-      document
-        .getElementById("projectDescription")
-        .value
-        .trim();
+  if (pageId === "workspace") {
+
+    renderWorkspace();
+
+  }
+
+}
 
 
-    if (!name) {
+function showPageById(pageId) {
 
-      alert(
-        "Please enter a project name."
-      );
+  const buttons =
+    document.querySelectorAll(
+      ".nav button"
+    );
 
-      return;
+
+  let matchingButton = null;
+
+
+  buttons.forEach(button => {
+
+    const text =
+      button.textContent
+        .toLowerCase();
+
+
+    if (
+      pageId === "ai" &&
+      text.includes("ai builder")
+    ) {
+
+      matchingButton = button;
+
+    }
+
+    else if (
+      pageId === "projects" &&
+      text.includes("projects")
+    ) {
+
+      matchingButton = button;
+
+    }
+
+    else if (
+      pageId === "workshop" &&
+      text.includes("workshop")
+    ) {
+
+      matchingButton = button;
+
+    }
+
+    else if (
+      pageId === "settings" &&
+      text.includes("settings")
+    ) {
+
+      matchingButton = button;
+
+    }
+
+    else if (
+      pageId === "home" &&
+      text.includes("home")
+    ) {
+
+      matchingButton = button;
+
+    }
+
+  });
+
+
+  showPage(
+    pageId,
+    matchingButton
+  );
+
+}
+
+
+/* =========================================================
+   LOCAL STORAGE
+   ========================================================= */
+
+function getProjects() {
+
+  const saved =
+    localStorage.getItem(
+      STORAGE_KEYS.projects
+    );
+
+
+  if (!saved) {
+
+    return [];
+
+  }
+
+
+  try {
+
+    const projects =
+      JSON.parse(saved);
+
+
+    if (!Array.isArray(projects)) {
+
+      return [];
 
     }
 
 
-    const projects =
-      getProjects();
+    return projects.map(
+      migrateProject
+    );
+
+  }
+
+  catch {
+
+    return [];
+
+  }
+
+}
 
 
-    const project = {
+function saveProjects(projects) {
 
-      id: Date.now(),
+  localStorage.setItem(
+    STORAGE_KEYS.projects,
+    JSON.stringify(projects)
+  );
 
-      name: name,
+}
+
+
+function getActivities() {
+
+  const saved =
+    localStorage.getItem(
+      STORAGE_KEYS.activities
+    );
+
+
+  if (!saved) {
+
+    return [];
+
+  }
+
+
+  try {
+
+    const activities =
+      JSON.parse(saved);
+
+
+    return Array.isArray(
+      activities
+    )
+      ? activities
+      : [];
+
+  }
+
+  catch {
+
+    return [];
+
+  }
+
+}
+
+
+function saveActivities(
+  activities
+) {
+
+  localStorage.setItem(
+    STORAGE_KEYS.activities,
+    JSON.stringify(activities)
+  );
+
+}
+
+
+/* =========================================================
+   PROJECT MIGRATION
+   ========================================================= */
+
+function createDefaultCodeFiles(
+  legacyCode = ""
+) {
+
+  return {
+
+    "index.html":
+      legacyCode ||
+      `<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>GTX Project</title>
+</head>
+<body>
+
+  <main>
+    <h1>GTX Project</h1>
+    <p>Start building.</p>
+  </main>
+
+</body>
+</html>`,
+
+    "style.css":
+      `body {
+  margin: 0;
+  font-family: Arial, sans-serif;
+  background: #f5f5f5;
+  color: #111;
+}
+
+main {
+  max-width: 900px;
+  margin: 80px auto;
+  padding: 20px;
+}`,
+
+    "script.js":
+      `console.log("GTX Project loaded.");`
+
+  };
+
+}
+
+
+function createDefaultProjectData() {
+
+  return {
+
+    codeFiles:
+      createDefaultCodeFiles(""),
+
+    activeFile:
+      "index.html",
+
+    codeVersions: [],
+
+    context: {
+
+      purpose: "",
+
+      instructions: "",
+
+      tags: []
+
+    }
+
+  };
+
+}
+
+
+function migrateProject(
+  project
+) {
+
+  const p = {
+    ...project
+  };
+
+
+  if (!p.notes) {
+
+    p.notes = [];
+
+  }
+
+
+  if (!p.tasks) {
+
+    p.tasks = [];
+
+  }
+
+
+  if (!p.experiments) {
+
+    p.experiments = [];
+
+  }
+
+
+  if (!p.activity) {
+
+    p.activity = [];
+
+  }
+
+
+  if (
+    typeof p.code !== "string"
+  ) {
+
+    p.code = "";
+
+  }
+
+
+  if (!p.codeFiles) {
+
+    p.codeFiles =
+      createDefaultCodeFiles(
+        p.code
+      );
+
+  }
+
+
+  if (
+    typeof p.codeFiles !== "object"
+  ) {
+
+    p.codeFiles =
+      createDefaultCodeFiles(
+        p.code
+      );
+
+  }
+
+
+  if (
+    !p.codeFiles["index.html"]
+  ) {
+
+    p.codeFiles["index.html"] =
+      p.code || "";
+
+  }
+
+
+  if (
+    !p.codeFiles["style.css"]
+  ) {
+
+    p.codeFiles["style.css"] =
+      "";
+
+  }
+
+
+  if (
+    !p.codeFiles["script.js"]
+  ) {
+
+    p.codeFiles["script.js"] =
+      "";
+
+  }
+
+
+  if (!p.activeFile) {
+
+    p.activeFile =
+      "index.html";
+
+  }
+
+
+  if (!Array.isArray(
+    p.codeVersions
+  )) {
+
+    p.codeVersions = [];
+
+  }
+
+
+  if (!p.context) {
+
+    p.context = {
+
+      purpose: "",
+
+      instructions: "",
+
+      tags: []
+
+    };
+
+  }
+
+
+  if (!Array.isArray(
+    p.context.tags
+  )) {
+
+    p.context.tags = [];
+
+  }
+
+
+  if (
+    typeof p.createdAt !==
+    "string"
+  ) {
+
+    p.createdAt =
+      nowString();
+
+  }
+
+
+  return p;
+
+}
+
+
+function runMigration() {
+
+  const version =
+    localStorage.getItem(
+      STORAGE_KEYS.version
+    );
+
+
+  const projects =
+    getProjects();
+
+
+  saveProjects(projects);
+
+
+  localStorage.setItem(
+    STORAGE_KEYS.version,
+    WORKSHOP_VERSION
+  );
+
+
+  if (!version) {
+
+    return;
+
+  }
+
+
+  if (version !== WORKSHOP_VERSION) {
+
+    addActivity(
+      "Workspace migrated to GTX Workshop V1.3."
+    );
+
+  }
+
+}
+
+
+/* =========================================================
+   ACTIVITY SYSTEM
+   ========================================================= */
+
+function addActivity(
+  action,
+  projectId = null
+) {
+
+  const activities =
+    getActivities();
+
+
+  activities.unshift({
+
+    id:
+      uid("activity"),
+
+    action:
+      action,
+
+    projectId:
+      projectId,
+
+    date:
+      nowString()
+
+  });
+
+
+  if (
+    activities.length > 300
+  ) {
+
+    activities.splice(300);
+
+  }
+
+
+  saveActivities(
+    activities
+  );
+
+
+  updateActivityCount();
+
+}
+
+
+function updateActivityCount() {
+
+  const count =
+    getActivities().length;
+
+
+  const element =
+    document.getElementById(
+      "activityCount"
+    );
+
+
+  if (element) {
+
+    element.textContent =
+      count === 1
+        ? "1 activity recorded."
+        : count +
+          " activities recorded.";
+
+  }
+
+}
+
+
+/* =========================================================
+   CREATE PROJECT
+   ========================================================= */
+
+function createProject() {
+
+  const name =
+    document
+      .getElementById("projectName")
+      .value
+      .trim();
+
+
+  const description =
+    document
+      .getElementById(
+        "projectDescription"
+      )
+      .value
+      .trim();
+
+
+  if (!name) {
+
+    toast(
+      "Please enter a project name.",
+      "error"
+    );
+
+    return;
+
+  }
+
+
+  const projects =
+    getProjects();
+
+
+  const project =
+    migrateProject({
+
+      id:
+        Date.now(),
+
+      name:
+        name,
 
       description:
         description ||
         "No description yet.",
 
       createdAt:
-        new Date().toLocaleString(),
+        nowString(),
 
       notes: [],
 
@@ -2055,454 +3670,658 @@ Enter an instruction below to begin.</div>
 
       code: "",
 
-      activity: []
+      activity: [],
 
-    };
+      codeFiles:
+        createDefaultCodeFiles(""),
 
+      activeFile:
+        "index.html",
 
-    projects.push(project);
+      codeVersions: [],
 
+      context: {
 
-    saveProjects(projects);
+        purpose: "",
 
+        instructions: "",
 
-    document
-      .getElementById("projectName")
-      .value = "";
+        tags: []
 
-
-    document
-      .getElementById("projectDescription")
-      .value = "";
-
-
-    addProjectActivity(
-      project.id,
-      "Project created."
-    );
-
-
-    addActivity(
-      "Created project: " +
-      project.name,
-      project.id
-    );
-
-
-    renderProjects();
-
-
-    showPageById("projects");
-
-
-    updateProjectCount();
-
-  }
-
-
-  /* ==========================================
-     DISPLAY PROJECTS
-     ========================================== */
-
-  function renderProjects() {
-
-    const container =
-      document.getElementById(
-        "projectList"
-      );
-
-
-    const projects =
-      getProjects();
-
-
-    container.innerHTML = "";
-
-
-    if (projects.length === 0) {
-
-      container.innerHTML = `
-
-        <div class="empty">
-
-          <h2>
-            No projects yet
-          </h2>
-
-          <p>
-            Create your first GTX Workshop project.
-          </p>
-
-        </div>
-
-      `;
-
-
-      updateProjectCount();
-
-      return;
-
-    }
-
-
-    projects.forEach(project => {
-
-      const card =
-        document.createElement(
-          "div"
-        );
-
-
-      card.className =
-        "project-card";
-
-
-      card.innerHTML = `
-
-        <h3>
-          ${escapeHTML(project.name)}
-        </h3>
-
-        <p>
-          ${escapeHTML(project.description)}
-        </p>
-
-        <div class="item-meta">
-          Created:
-          ${escapeHTML(project.createdAt || "Unknown")}
-        </div>
-
-        <div class="project-actions">
-
-          <button
-            class="btn secondary"
-            onclick="openProject(${project.id})"
-          >
-            Open
-          </button>
-
-          <button
-            class="btn danger"
-            onclick="deleteProject(${project.id})"
-          >
-            Delete
-          </button>
-
-        </div>
-
-      `;
-
-
-      container.appendChild(card);
+      }
 
     });
 
 
-    updateProjectCount();
-
-  }
+  projects.push(project);
 
 
-  /* ==========================================
-     OPEN PROJECT
-     ========================================== */
-
-  function openProject(id) {
-
-    const projects =
-      getProjects();
+  saveProjects(
+    projects
+  );
 
 
-    const project =
-      projects.find(
-        project =>
-          project.id === id
-      );
+  document
+    .getElementById(
+      "projectName"
+    )
+    .value = "";
 
 
-    if (!project) {
-
-      return;
-
-    }
-
-
-    currentProjectId = id;
+  document
+    .getElementById(
+      "projectDescription"
+    )
+    .value = "";
 
 
-    document
-      .getElementById(
-        "workspaceProjectName"
-      )
-      .textContent =
-      project.name;
+  addProjectActivity(
+    project.id,
+    "Project created."
+  );
 
 
-    document
-      .getElementById(
-        "workspaceProjectDescription"
-      )
-      .textContent =
-      project.description;
+  addActivity(
+    "Created project: " +
+    project.name,
+    project.id
+  );
 
 
-    renderWorkspace();
+  currentProjectId =
+    project.id;
 
 
-    showPageById("workspace");
+  renderProjects();
+
+  updateProjectCount();
+
+  showPageById(
+    "projects"
+  );
 
 
-    showWorkspaceTab("overview");
+  toast(
+    "Project created.",
+    "success"
+  );
+
+}
 
 
-    addActivity(
-      "Opened project: " +
-      project.name,
-      project.id
-    );
+/* =========================================================
+   PROJECT DISPLAY
+   ========================================================= */
 
-  }
+function renderProjects() {
 
-
-  /* ==========================================
-     DELETE PROJECT
-     ========================================== */
-
-  function deleteProject(id) {
-
-    const projects =
-      getProjects();
-
-
-    const project =
-      projects.find(
-        project =>
-          project.id === id
-      );
-
-
-    if (!project) {
-
-      return;
-
-    }
-
-
-    const confirmed =
-      confirm(
-        "Delete this project?"
-      );
-
-
-    if (!confirmed) {
-
-      return;
-
-    }
-
-
-    const remaining =
-      projects.filter(
-        project =>
-          project.id !== id
-      );
-
-
-    saveProjects(remaining);
-
-
-    addActivity(
-      "Deleted project: " +
-      project.name
+  const container =
+    document.getElementById(
+      "projectList"
     );
 
 
-    if (
-      currentProjectId === id
-    ) {
-
-      currentProjectId = null;
-
-    }
+  const searchInput =
+    document.getElementById(
+      "projectSearch"
+    );
 
 
-    renderProjects();
+  const search =
+    searchInput
+      ? searchInput.value
+          .trim()
+          .toLowerCase()
+      : "";
+
+
+  const projects =
+    getProjects()
+      .filter(project => {
+
+        if (!search) {
+          return true;
+        }
+
+        return (
+          safeText(project.name)
+            .toLowerCase()
+            .includes(search) ||
+          safeText(project.description)
+            .toLowerCase()
+            .includes(search)
+        );
+
+      });
+
+
+  container.innerHTML = "";
+
+
+  if (projects.length === 0) {
+
+    container.innerHTML = `
+
+      <div class="empty">
+
+        <h2>
+          No projects found
+        </h2>
+
+        <p>
+          ${
+            search
+              ? "Try another search."
+              : "Create your first GTX Workshop project."
+          }
+        </p>
+
+      </div>
+
+    `;
+
 
     updateProjectCount();
 
+    return;
+
   }
 
 
-  /* ==========================================
-     PROJECT COUNT
-     ========================================== */
+  projects.forEach(project => {
 
-  function updateProjectCount() {
-
-    const count =
-      getProjects().length;
-
-
-    const text =
-      count === 1
-        ? "1 project created."
-        : count +
-          " projects created.";
-
-
-    const element =
-      document.getElementById(
-        "projectCount"
+    const card =
+      document.createElement(
+        "div"
       );
 
 
-    if (element) {
-
-      element.textContent =
-        text;
-
-    }
-
-  }
+    card.className =
+      "project-card";
 
 
-  /* ==========================================
-     WORKSPACE
-     ========================================== */
-
-  function getCurrentProject() {
-
-    if (
-      currentProjectId === null
-    ) {
-
-      return null;
-
-    }
-
-
-    return getProjects().find(
-      project =>
-        project.id ===
-        currentProjectId
-    ) || null;
-
-  }
-
-
-  function updateCurrentProject(
-    updatedProject
-  ) {
-
-    const projects =
-      getProjects();
-
-
-    const index =
-      projects.findIndex(
-        project =>
-          project.id ===
-          updatedProject.id
-      );
-
-
-    if (index === -1) {
-
-      return;
-
-    }
-
-
-    projects[index] =
-      updatedProject;
-
-
-    saveProjects(projects);
-
-  }
-
-
-  function renderWorkspace() {
-
-    const project =
-      getCurrentProject();
-
-
-    if (!project) {
-
-      return;
-
-    }
-
-
-    document
-      .getElementById(
-        "workspaceProjectName"
-      )
-      .textContent =
-      project.name;
-
-
-    document
-      .getElementById(
-        "workspaceProjectDescription"
-      )
-      .textContent =
-      project.description;
-
-
-    renderNotes();
-
-    renderTasks();
-
-    renderExperiments();
-
-    loadProjectCode();
-
-    renderProjectActivity();
-
-    updateWorkspaceStats();
-
-  }
-
-
-  function updateWorkspaceStats() {
-
-    const project =
-      getCurrentProject();
-
-
-    if (!project) {
-
-      return;
-
-    }
-
-
-    const notes =
-      project.notes.length;
+    const files =
+      Object.keys(
+        project.codeFiles || {}
+      ).length;
 
 
     const tasks =
       project.tasks.length;
 
 
-    const completedTasks =
+    const completed =
       project.tasks.filter(
         task =>
           task.completed
       ).length;
 
 
-    const experiments =
-      project.experiments.length;
+    card.innerHTML = `
+
+      <h3>
+        ${escapeHTML(project.name)}
+      </h3>
+
+      <p>
+        ${escapeHTML(project.description)}
+      </p>
+
+      <div class="item-meta">
+        Created:
+        ${escapeHTML(
+          project.createdAt || "Unknown"
+        )}
+      </div>
+
+      <div class="project-badges">
+
+        <span class="badge">
+          📝 ${project.notes.length}
+        </span>
+
+        <span class="badge">
+          ✅ ${completed}/${tasks}
+        </span>
+
+        <span class="badge">
+          🧪 ${project.experiments.length}
+        </span>
+
+        <span class="badge">
+          💻 ${files} files
+        </span>
+
+      </div>
+
+      <div class="project-actions">
+
+        <button
+          class="btn secondary"
+          onclick="openProject(${project.id})"
+        >
+          Open
+        </button>
+
+        <button
+          class="btn danger"
+          onclick="deleteProject(${project.id})"
+        >
+          Delete
+        </button>
+
+      </div>
+
+    `;
 
 
-    document
-      .getElementById(
-        "workspaceStats"
-      )
-      .textContent =
+    container.appendChild(card);
+
+  });
+
+
+  updateProjectCount();
+
+}
+
+
+/* =========================================================
+   OPEN PROJECT
+   ========================================================= */
+
+function openProject(id) {
+
+  const projects =
+    getProjects();
+
+
+  const project =
+    projects.find(
+      project =>
+        project.id === id
+    );
+
+
+  if (!project) {
+
+    toast(
+      "Project could not be found.",
+      "error"
+    );
+
+    return;
+
+  }
+
+
+  currentProjectId =
+    id;
+
+
+  currentFileName =
+    project.activeFile ||
+    "index.html";
+
+
+  document
+    .getElementById(
+      "workspaceProjectName"
+    )
+    .textContent =
+    project.name;
+
+
+  document
+    .getElementById(
+      "workspaceProjectDescription"
+    )
+    .textContent =
+    project.description;
+
+
+  renderWorkspace();
+
+  updateAIContext();
+
+  showPageById(
+    "workspace"
+  );
+
+
+  showWorkspaceTab(
+    "overview"
+  );
+
+
+  addActivity(
+    "Opened project: " +
+    project.name,
+    project.id
+  );
+
+
+  setSystemStatus(
+    "Project opened"
+  );
+
+}
+
+
+/* =========================================================
+   DELETE PROJECT
+   ========================================================= */
+
+function deleteProject(id) {
+
+  const projects =
+    getProjects();
+
+
+  const project =
+    projects.find(
+      project =>
+        project.id === id
+    );
+
+
+  if (!project) {
+
+    return;
+
+  }
+
+
+  const confirmed =
+    confirm(
+      "Delete this project permanently?"
+    );
+
+
+  if (!confirmed) {
+
+    return;
+
+  }
+
+
+  const remaining =
+    projects.filter(
+      project =>
+        project.id !== id
+    );
+
+
+  saveProjects(
+    remaining
+  );
+
+
+  addActivity(
+    "Deleted project: " +
+    project.name
+  );
+
+
+  if (
+    currentProjectId === id
+  ) {
+
+    currentProjectId =
+      null;
+
+  }
+
+
+  renderProjects();
+
+  updateProjectCount();
+
+
+  toast(
+    "Project deleted.",
+    "success"
+  );
+
+}
+
+
+/* =========================================================
+   PROJECT COUNT
+   ========================================================= */
+
+function updateProjectCount() {
+
+  const count =
+    getProjects().length;
+
+
+  const element =
+    document.getElementById(
+      "projectCount"
+    );
+
+
+  const homeNumber =
+    document.getElementById(
+      "homeProjectNumber"
+    );
+
+
+  if (element) {
+
+    element.textContent =
+      count === 1
+        ? "1 project created."
+        : count +
+          " projects created.";
+
+  }
+
+
+  if (homeNumber) {
+
+    homeNumber.textContent =
+      count;
+
+  }
+
+}
+
+
+/* =========================================================
+   CURRENT PROJECT
+   ========================================================= */
+
+function getCurrentProject() {
+
+  if (
+    currentProjectId === null
+  ) {
+
+    return null;
+
+  }
+
+
+  return getProjects().find(
+    project =>
+      project.id ===
+      currentProjectId
+  ) || null;
+
+}
+
+
+function updateCurrentProject(
+  updatedProject
+) {
+
+  const projects =
+    getProjects();
+
+
+  const index =
+    projects.findIndex(
+      project =>
+        project.id ===
+        updatedProject.id
+    );
+
+
+  if (index === -1) {
+
+    return;
+
+  }
+
+
+  projects[index] =
+    migrateProject(
+      updatedProject
+    );
+
+
+  saveProjects(
+    projects
+  );
+
+}
+
+
+/* =========================================================
+   WORKSPACE
+   ========================================================= */
+
+function renderWorkspace() {
+
+  const project =
+    getCurrentProject();
+
+
+  if (!project) {
+
+    return;
+
+  }
+
+
+  document
+    .getElementById(
+      "workspaceProjectName"
+    )
+    .textContent =
+    project.name;
+
+
+  document
+    .getElementById(
+      "workspaceProjectDescription"
+    )
+    .textContent =
+    project.description;
+
+
+  const meta =
+    document.getElementById(
+      "workspaceProjectMeta"
+    );
+
+
+  meta.innerHTML = `
+
+    <span class="badge">
+      Project ID: ${escapeHTML(
+        String(project.id)
+      )}
+    </span>
+
+    <span class="badge">
+      Created ${escapeHTML(
+        project.createdAt
+      )}
+    </span>
+
+    <span class="badge">
+      ${Object.keys(
+        project.codeFiles || {}
+      ).length} code files
+    </span>
+
+  `;
+
+
+  renderNotes();
+
+  renderTasks();
+
+  renderExperiments();
+
+  renderProjectActivity();
+
+  updateWorkspaceStats();
+
+  renderCodeFiles();
+
+  loadCurrentFile();
+
+  renderCodeVersions();
+
+  updateAIContext();
+
+}
+
+
+/* =========================================================
+   PROJECT STATS
+   ========================================================= */
+
+function updateWorkspaceStats() {
+
+  const project =
+    getCurrentProject();
+
+
+  if (!project) {
+
+    return;
+
+  }
+
+
+  const notes =
+    project.notes.length;
+
+
+  const tasks =
+    project.tasks.length;
+
+
+  const completedTasks =
+    project.tasks.filter(
+      task =>
+        task.completed
+    ).length;
+
+
+  const experiments =
+    project.experiments.length;
+
+
+  const files =
+    Object.keys(
+      project.codeFiles || {}
+    ).length;
+
+
+  const versions =
+    project.codeVersions.length;
+
+
+  document
+    .getElementById(
+      "workspaceStats"
+    )
+    .textContent =
       notes +
       " notes • " +
       tasks +
@@ -2510,331 +4329,1066 @@ Enter an instruction below to begin.</div>
       completedTasks +
       " completed) • " +
       experiments +
-      " experiments.";
+      " experiments • " +
+      files +
+      " code files • " +
+      versions +
+      " saved versions.";
 
-  }
-
-
-  /* ==========================================
-     WORKSPACE TABS
-     ========================================== */
-
-  function showWorkspaceTab(
-    tabId,
-    button = null
-  ) {
-
-    document
-      .querySelectorAll(
-        ".workspace-panel"
-      )
-      .forEach(panel => {
-
-        panel.classList.remove(
-          "active"
-        );
-
-      });
+}
 
 
-    const panel =
-      document.getElementById(
-        "workspace-" +
-        tabId
-      );
+/* =========================================================
+   WORKSPACE TABS
+   ========================================================= */
 
+function showWorkspaceTab(
+  tabId,
+  button = null
+) {
 
-    if (panel) {
+  document
+    .querySelectorAll(
+      ".workspace-panel"
+    )
+    .forEach(panel => {
 
-      panel.classList.add(
+      panel.classList.remove(
         "active"
       );
-
-    }
-
-
-    document
-      .querySelectorAll(
-        ".workspace-tab"
-      )
-      .forEach(tab => {
-
-        tab.classList.remove(
-          "active"
-        );
-
-      });
-
-
-    if (button) {
-
-      button.classList.add(
-        "active"
-      );
-
-    }
-
-    else {
-
-      const tabs =
-        document.querySelectorAll(
-          ".workspace-tab"
-        );
-
-
-      tabs.forEach(tab => {
-
-        if (
-          tab.textContent
-            .toLowerCase()
-            .includes(
-              tabId === "overview"
-                ? "overview"
-                : tabId
-            )
-        ) {
-
-          tab.classList.add(
-            "active"
-          );
-
-        }
-
-      });
-
-    }
-
-
-    if (tabId === "notes") {
-
-      renderNotes();
-
-    }
-
-
-    if (tabId === "tasks") {
-
-      renderTasks();
-
-    }
-
-
-    if (tabId === "experiments") {
-
-      renderExperiments();
-
-    }
-
-
-    if (tabId === "activity") {
-
-      renderProjectActivity();
-
-    }
-
-
-    if (tabId === "code") {
-
-      loadProjectCode();
-
-    }
-
-  }
-
-
-  /* ==========================================
-     NOTES
-     ========================================== */
-
-  function showNoteForm() {
-
-    document
-      .getElementById(
-        "noteForm"
-      )
-      .style.display =
-      "block";
-
-  }
-
-
-  function hideNoteForm() {
-
-    document
-      .getElementById(
-        "noteForm"
-      )
-      .style.display =
-      "none";
-
-  }
-
-
-  function addNote() {
-
-    const project =
-      getCurrentProject();
-
-
-    if (!project) {
-
-      return;
-
-    }
-
-
-    const title =
-      document
-        .getElementById(
-          "noteTitle"
-        )
-        .value
-        .trim();
-
-
-    const content =
-      document
-        .getElementById(
-          "noteContent"
-        )
-        .value
-        .trim();
-
-
-    if (!title) {
-
-      alert(
-        "Please enter a note title."
-      );
-
-      return;
-
-    }
-
-
-    project.notes.push({
-
-      id: Date.now(),
-
-      title: title,
-
-      content:
-        content ||
-        "No content yet.",
-
-      createdAt:
-        new Date().toLocaleString()
 
     });
 
 
-    updateCurrentProject(
-      project
+  const panel =
+    document.getElementById(
+      "workspace-" +
+      tabId
     );
 
 
-    addProjectActivity(
-      project.id,
-      "Added note: " +
-      title
+  if (panel) {
+
+    panel.classList.add(
+      "active"
     );
-
-
-    addActivity(
-      "Added note to " +
-      project.name +
-      ": " +
-      title,
-      project.id
-    );
-
-
-    document
-      .getElementById(
-        "noteTitle"
-      )
-      .value = "";
-
-
-    document
-      .getElementById(
-        "noteContent"
-      )
-      .value = "";
-
-
-    hideNoteForm();
-
-    renderNotes();
-
-    updateWorkspaceStats();
 
   }
 
 
-  function renderNotes() {
+  document
+    .querySelectorAll(
+      ".workspace-tab"
+    )
+    .forEach(tab => {
 
-    const container =
-      document.getElementById(
-        "notesList"
+      tab.classList.remove(
+        "active"
+      );
+
+    });
+
+
+  if (button) {
+
+    button.classList.add(
+      "active"
+    );
+
+  }
+
+  else {
+
+    const tabs =
+      document.querySelectorAll(
+        ".workspace-tab"
       );
 
 
-    const project =
-      getCurrentProject();
+    tabs.forEach(tab => {
+
+      const text =
+        tab.textContent
+          .toLowerCase();
 
 
-    if (!container) {
+      if (
+        (
+          tabId === "overview" &&
+          text.includes("overview")
+        ) ||
+        (
+          tabId === "notes" &&
+          text.includes("notes")
+        ) ||
+        (
+          tabId === "tasks" &&
+          text.includes("tasks")
+        ) ||
+        (
+          tabId === "experiments" &&
+          text.includes("experiments")
+        ) ||
+        (
+          tabId === "code" &&
+          text.includes("code")
+        ) ||
+        (
+          tabId === "activity" &&
+          text.includes("activity")
+        )
+      ) {
 
-      return;
+        tab.classList.add(
+          "active"
+        );
 
-    }
+      }
 
+    });
 
-    if (!project) {
-
-      container.innerHTML = `
-
-        <div class="empty">
-          Open a project to view notes.
-        </div>
-
-      `;
-
-      return;
-
-    }
-
-
-    container.innerHTML = "";
-
-
-    if (
-      project.notes.length === 0
-    ) {
-
-      container.innerHTML = `
-
-        <div class="empty">
-
-          <h2>
-            No notes yet
-          </h2>
-
-          <p>
-            Add your first piece of project information.
-          </p>
-
-        </div>
-
-      `;
-
-      return;
-
-    }
+  }
 
 
-    project.notes.forEach(note => {
+  if (tabId === "notes") {
+
+    renderNotes();
+
+  }
+
+
+  if (tabId === "tasks") {
+
+    renderTasks();
+
+  }
+
+
+  if (tabId === "experiments") {
+
+    renderExperiments();
+
+  }
+
+
+  if (tabId === "activity") {
+
+    renderProjectActivity();
+
+  }
+
+
+  if (tabId === "code") {
+
+    renderCodeFiles();
+
+    loadCurrentFile();
+
+    renderCodeVersions();
+
+    runProject();
+
+  }
+
+}
+
+
+/* =========================================================
+   NOTES
+   ========================================================= */
+
+function showNoteForm() {
+
+  document
+    .getElementById(
+      "noteForm"
+    )
+    .style.display =
+    "block";
+
+}
+
+
+function hideNoteForm() {
+
+  document
+    .getElementById(
+      "noteForm"
+    )
+    .style.display =
+    "none";
+
+}
+
+
+function addNote() {
+
+  const project =
+    getCurrentProject();
+
+
+  if (!project) {
+
+    return;
+
+  }
+
+
+  const title =
+    document
+      .getElementById(
+        "noteTitle"
+      )
+      .value
+      .trim();
+
+
+  const content =
+    document
+      .getElementById(
+        "noteContent"
+      )
+      .value
+      .trim();
+
+
+  if (!title) {
+
+    toast(
+      "Please enter a note title.",
+      "error"
+    );
+
+    return;
+
+  }
+
+
+  project.notes.push({
+
+    id:
+      Date.now(),
+
+    title:
+      title,
+
+    content:
+      content ||
+      "No content yet.",
+
+    createdAt:
+      nowString()
+
+  });
+
+
+  updateCurrentProject(
+    project
+  );
+
+
+  addProjectActivity(
+    project.id,
+    "Added note: " +
+    title
+  );
+
+
+  addActivity(
+    "Added note to " +
+    project.name +
+    ": " +
+    title,
+    project.id
+  );
+
+
+  document
+    .getElementById(
+      "noteTitle"
+    )
+    .value = "";
+
+
+  document
+    .getElementById(
+      "noteContent"
+    )
+    .value = "";
+
+
+  hideNoteForm();
+
+  renderNotes();
+
+  updateWorkspaceStats();
+
+  updateAIContext();
+
+
+  toast(
+    "Note saved.",
+    "success"
+  );
+
+}
+
+
+function renderNotes() {
+
+  const container =
+    document.getElementById(
+      "notesList"
+    );
+
+
+  const project =
+    getCurrentProject();
+
+
+  if (!container) {
+
+    return;
+
+  }
+
+
+  if (!project) {
+
+    container.innerHTML = `
+
+      <div class="empty">
+        Open a project to view notes.
+      </div>
+
+    `;
+
+    return;
+
+  }
+
+
+  container.innerHTML = "";
+
+
+  if (
+    project.notes.length === 0
+  ) {
+
+    container.innerHTML = `
+
+      <div class="empty">
+
+        <h2>
+          No notes yet
+        </h2>
+
+        <p>
+          Add your first piece of project information.
+        </p>
+
+      </div>
+
+    `;
+
+    return;
+
+  }
+
+
+  project.notes.forEach(note => {
+
+    const item =
+      document.createElement(
+        "div"
+      );
+
+
+    item.className =
+      "item";
+
+
+    item.innerHTML = `
+
+      <h3>
+        ${escapeHTML(note.title)}
+      </h3>
+
+      <p>
+        ${escapeHTML(note.content)}
+      </p>
+
+      <div class="item-meta">
+        ${escapeHTML(
+          note.createdAt
+        )}
+      </div>
+
+      <div class="item-actions">
+
+        <button
+          class="btn danger small"
+          onclick="deleteNote(${note.id})"
+        >
+          Delete
+        </button>
+
+      </div>
+
+    `;
+
+
+    container.appendChild(item);
+
+  });
+
+}
+
+
+function deleteNote(id) {
+
+  const project =
+    getCurrentProject();
+
+
+  if (!project) {
+
+    return;
+
+  }
+
+
+  const note =
+    project.notes.find(
+      note =>
+        note.id === id
+    );
+
+
+  if (!note) {
+
+    return;
+
+  }
+
+
+  project.notes =
+    project.notes.filter(
+      note =>
+        note.id !== id
+    );
+
+
+  updateCurrentProject(
+    project
+  );
+
+
+  addProjectActivity(
+    project.id,
+    "Deleted note: " +
+    note.title
+  );
+
+
+  renderNotes();
+
+  updateWorkspaceStats();
+
+  updateAIContext();
+
+}
+
+
+/* =========================================================
+   TASKS
+   ========================================================= */
+
+function showTaskForm() {
+
+  document
+    .getElementById(
+      "taskForm"
+    )
+    .style.display =
+    "block";
+
+}
+
+
+function hideTaskForm() {
+
+  document
+    .getElementById(
+      "taskForm"
+    )
+    .style.display =
+    "none";
+
+}
+
+
+function addTask() {
+
+  const project =
+    getCurrentProject();
+
+
+  if (!project) {
+
+    return;
+
+  }
+
+
+  const title =
+    document
+      .getElementById(
+        "taskTitle"
+      )
+      .value
+      .trim();
+
+
+  const description =
+    document
+      .getElementById(
+        "taskDescription"
+      )
+      .value
+      .trim();
+
+
+  if (!title) {
+
+    toast(
+      "Please enter a task.",
+      "error"
+    );
+
+    return;
+
+  }
+
+
+  project.tasks.push({
+
+    id:
+      Date.now(),
+
+    title:
+      title,
+
+    description:
+      description ||
+      "No description yet.",
+
+    completed:
+      false,
+
+    createdAt:
+      nowString()
+
+  });
+
+
+  updateCurrentProject(
+    project
+  );
+
+
+  addProjectActivity(
+    project.id,
+    "Added task: " +
+    title
+  );
+
+
+  addActivity(
+    "Added task to " +
+    project.name +
+    ": " +
+    title,
+    project.id
+  );
+
+
+  document
+    .getElementById(
+      "taskTitle"
+    )
+    .value = "";
+
+
+  document
+    .getElementById(
+      "taskDescription"
+    )
+    .value = "";
+
+
+  hideTaskForm();
+
+  renderTasks();
+
+  updateWorkspaceStats();
+
+  updateAIContext();
+
+
+  toast(
+    "Task added.",
+    "success"
+  );
+
+}
+
+
+function renderTasks() {
+
+  const container =
+    document.getElementById(
+      "tasksList"
+    );
+
+
+  const project =
+    getCurrentProject();
+
+
+  if (!container) {
+
+    return;
+
+  }
+
+
+  if (!project) {
+
+    container.innerHTML = `
+
+      <div class="empty">
+        Open a project to view tasks.
+      </div>
+
+    `;
+
+    return;
+
+  }
+
+
+  container.innerHTML = "";
+
+
+  if (
+    project.tasks.length === 0
+  ) {
+
+    container.innerHTML = `
+
+      <div class="empty">
+
+        <h2>
+          No tasks yet
+        </h2>
+
+        <p>
+          Add the work that needs to be completed.
+        </p>
+
+      </div>
+
+    `;
+
+    return;
+
+  }
+
+
+  project.tasks.forEach(task => {
+
+    const item =
+      document.createElement(
+        "div"
+      );
+
+
+    item.className =
+      "item" +
+      (
+        task.completed
+          ? " completed"
+          : ""
+      );
+
+
+    item.innerHTML = `
+
+      <h3>
+        ${escapeHTML(task.title)}
+      </h3>
+
+      <p>
+        ${escapeHTML(task.description)}
+      </p>
+
+      <div class="item-meta">
+        ${escapeHTML(
+          task.createdAt
+        )}
+      </div>
+
+      <div class="item-actions">
+
+        <button
+          class="btn small"
+          onclick="toggleTask(${task.id})"
+        >
+          ${
+            task.completed
+              ? "Mark Incomplete"
+              : "Complete"
+          }
+        </button>
+
+        <button
+          class="btn danger small"
+          onclick="deleteTask(${task.id})"
+        >
+          Delete
+        </button>
+
+      </div>
+
+    `;
+
+
+    container.appendChild(item);
+
+  });
+
+}
+
+
+function toggleTask(id) {
+
+  const project =
+    getCurrentProject();
+
+
+  if (!project) {
+
+    return;
+
+  }
+
+
+  const task =
+    project.tasks.find(
+      task =>
+        task.id === id
+    );
+
+
+  if (!task) {
+
+    return;
+
+  }
+
+
+  task.completed =
+    !task.completed;
+
+
+  updateCurrentProject(
+    project
+  );
+
+
+  addProjectActivity(
+    project.id,
+    task.completed
+      ? "Completed task: " +
+        task.title
+      : "Reopened task: " +
+        task.title
+  );
+
+
+  renderTasks();
+
+  updateWorkspaceStats();
+
+  updateAIContext();
+
+}
+
+
+function deleteTask(id) {
+
+  const project =
+    getCurrentProject();
+
+
+  if (!project) {
+
+    return;
+
+  }
+
+
+  const task =
+    project.tasks.find(
+      task =>
+        task.id === id
+    );
+
+
+  if (!task) {
+
+    return;
+
+  }
+
+
+  project.tasks =
+    project.tasks.filter(
+      task =>
+        task.id !== id
+    );
+
+
+  updateCurrentProject(
+    project
+  );
+
+
+  addProjectActivity(
+    project.id,
+    "Deleted task: " +
+    task.title
+  );
+
+
+  renderTasks();
+
+  updateWorkspaceStats();
+
+  updateAIContext();
+
+}
+
+
+/* =========================================================
+   EXPERIMENTS
+   ========================================================= */
+
+function showExperimentForm() {
+
+  document
+    .getElementById(
+      "experimentForm"
+    )
+    .style.display =
+    "block";
+
+}
+
+
+function hideExperimentForm() {
+
+  document
+    .getElementById(
+      "experimentForm"
+    )
+    .style.display =
+    "none";
+
+}
+
+
+function addExperiment() {
+
+  const project =
+    getCurrentProject();
+
+
+  if (!project) {
+
+    return;
+
+  }
+
+
+  const title =
+    document
+      .getElementById(
+        "experimentTitle"
+      )
+      .value
+      .trim();
+
+
+  const description =
+    document
+      .getElementById(
+        "experimentDescription"
+      )
+      .value
+      .trim();
+
+
+  if (!title) {
+
+    toast(
+      "Please enter an experiment name.",
+      "error"
+    );
+
+    return;
+
+  }
+
+
+  project.experiments.push({
+
+    id:
+      Date.now(),
+
+    title:
+      title,
+
+    description:
+      description ||
+      "No description yet.",
+
+    status:
+      "Planned",
+
+    createdAt:
+      nowString()
+
+  });
+
+
+  updateCurrentProject(
+    project
+  );
+
+
+  addProjectActivity(
+    project.id,
+    "Created experiment: " +
+    title
+  );
+
+
+  addActivity(
+    "Created experiment in " +
+    project.name +
+    ": " +
+    title,
+    project.id
+  );
+
+
+  document
+    .getElementById(
+      "experimentTitle"
+    )
+    .value = "";
+
+
+  document
+    .getElementById(
+      "experimentDescription"
+    )
+    .value = "";
+
+
+  hideExperimentForm();
+
+  renderExperiments();
+
+  updateWorkspaceStats();
+
+  updateAIContext();
+
+
+  toast(
+    "Experiment created.",
+    "success"
+  );
+
+}
+
+
+function renderExperiments() {
+
+  const container =
+    document.getElementById(
+      "experimentsList"
+    );
+
+
+  const project =
+    getCurrentProject();
+
+
+  if (!container) {
+
+    return;
+
+  }
+
+
+  if (!project) {
+
+    container.innerHTML = `
+
+      <div class="empty">
+        Open a project to view experiments.
+      </div>
+
+    `;
+
+    return;
+
+  }
+
+
+  container.innerHTML = "";
+
+
+  if (
+    project.experiments.length === 0
+  ) {
+
+    container.innerHTML = `
+
+      <div class="empty">
+
+        <h2>
+          No experiments yet
+        </h2>
+
+        <p>
+          Create an experiment to test a concept or prototype.
+        </p>
+
+      </div>
+
+    `;
+
+    return;
+
+  }
+
+
+  project.experiments.forEach(
+    experiment => {
 
       const item =
         document.createElement(
@@ -2849,22 +5403,40 @@ Enter an instruction below to begin.</div>
       item.innerHTML = `
 
         <h3>
-          ${escapeHTML(note.title)}
+          ${escapeHTML(
+            experiment.title
+          )}
         </h3>
 
         <p>
-          ${escapeHTML(note.content)}
+          ${escapeHTML(
+            experiment.description
+          )}
         </p>
 
         <div class="item-meta">
-          ${escapeHTML(note.createdAt)}
+          Status:
+          ${escapeHTML(
+            experiment.status
+          )}
+          •
+          ${escapeHTML(
+            experiment.createdAt
+          )}
         </div>
 
         <div class="item-actions">
 
           <button
+            class="btn small"
+            onclick="toggleExperimentStatus(${experiment.id})"
+          >
+            Change Status
+          </button>
+
+          <button
             class="btn danger small"
-            onclick="deleteNote(${note.id})"
+            onclick="deleteExperiment(${experiment.id})"
           >
             Delete
           </button>
@@ -2876,259 +5448,1599 @@ Enter an instruction below to begin.</div>
 
       container.appendChild(item);
 
-    });
+    }
+  );
+
+}
+
+
+function toggleExperimentStatus(
+  id
+) {
+
+  const project =
+    getCurrentProject();
+
+
+  if (!project) {
+
+    return;
 
   }
 
 
-  function deleteNote(id) {
-
-    const project =
-      getCurrentProject();
-
-
-    if (!project) {
-
-      return;
-
-    }
+  const experiment =
+    project.experiments.find(
+      experiment =>
+        experiment.id === id
+    );
 
 
-    const note =
-      project.notes.find(
-        note =>
-          note.id === id
+  if (!experiment) {
+
+    return;
+
+  }
+
+
+  const statuses = [
+    "Planned",
+    "Running",
+    "Completed"
+  ];
+
+
+  const currentIndex =
+    statuses.indexOf(
+      experiment.status
+    );
+
+
+  experiment.status =
+    statuses[
+      (
+        currentIndex + 1
+      ) %
+      statuses.length
+    ];
+
+
+  updateCurrentProject(
+    project
+  );
+
+
+  addProjectActivity(
+    project.id,
+    "Changed experiment status: " +
+    experiment.title +
+    " → " +
+    experiment.status
+  );
+
+
+  renderExperiments();
+
+  updateWorkspaceStats();
+
+}
+
+
+function deleteExperiment(
+  id
+) {
+
+  const project =
+    getCurrentProject();
+
+
+  if (!project) {
+
+    return;
+
+  }
+
+
+  const experiment =
+    project.experiments.find(
+      experiment =>
+        experiment.id === id
+    );
+
+
+  if (!experiment) {
+
+    return;
+
+  }
+
+
+  project.experiments =
+    project.experiments.filter(
+      experiment =>
+        experiment.id !== id
+    );
+
+
+  updateCurrentProject(
+    project
+  );
+
+
+  addProjectActivity(
+    project.id,
+    "Deleted experiment: " +
+    experiment.title
+  );
+
+
+  renderExperiments();
+
+  updateWorkspaceStats();
+
+  updateAIContext();
+
+}
+
+
+/* =========================================================
+   CODE FILE SYSTEM
+   ========================================================= */
+
+function getCodeFiles() {
+
+  const project =
+    getCurrentProject();
+
+
+  if (!project) {
+
+    return {};
+
+  }
+
+
+  if (!project.codeFiles) {
+
+    project.codeFiles =
+      createDefaultCodeFiles(
+        project.code || ""
       );
-
-
-    if (!note) {
-
-      return;
-
-    }
-
-
-    project.notes =
-      project.notes.filter(
-        note =>
-          note.id !== id
-      );
-
 
     updateCurrentProject(
       project
     );
 
+  }
 
-    addProjectActivity(
-      project.id,
-      "Deleted note: " +
-      note.title
+
+  return project.codeFiles;
+
+}
+
+
+function renderCodeFiles() {
+
+  const container =
+    document.getElementById(
+      "fileList"
     );
 
 
-    renderNotes();
+  if (!container) {
 
-    updateWorkspaceStats();
+    return;
 
   }
 
 
-  /* ==========================================
-     TASKS
-     ========================================== */
-
-  function showTaskForm() {
-
-    document
-      .getElementById(
-        "taskForm"
-      )
-      .style.display =
-      "block";
-
-  }
+  const files =
+    getCodeFiles();
 
 
-  function hideTaskForm() {
-
-    document
-      .getElementById(
-        "taskForm"
-      )
-      .style.display =
-      "none";
-
-  }
+  container.innerHTML = "";
 
 
-  function addTask() {
+  Object.keys(files).forEach(
+    fileName => {
 
-    const project =
-      getCurrentProject();
-
-
-    if (!project) {
-
-      return;
-
-    }
+      const button =
+        document.createElement(
+          "button"
+        );
 
 
-    const title =
-      document
-        .getElementById(
-          "taskTitle"
-        )
-        .value
-        .trim();
+      button.className =
+        "file-btn" +
+        (
+          fileName ===
+          currentFileName
+            ? " active"
+            : ""
+        );
 
 
-    const description =
-      document
-        .getElementById(
-          "taskDescription"
-        )
-        .value
-        .trim();
+      const icon =
+        fileName.endsWith(".html")
+          ? "🌐"
+          : fileName.endsWith(".css")
+            ? "🎨"
+            : fileName.endsWith(".js")
+              ? "⚡"
+              : "📄";
 
 
-    if (!title) {
+      button.innerHTML = `
 
-      alert(
-        "Please enter a task."
-      );
-
-      return;
-
-    }
-
-
-    project.tasks.push({
-
-      id: Date.now(),
-
-      title: title,
-
-      description:
-        description ||
-        "No description yet.",
-
-      completed: false,
-
-      createdAt:
-        new Date().toLocaleString()
-
-    });
-
-
-    updateCurrentProject(
-      project
-    );
-
-
-    addProjectActivity(
-      project.id,
-      "Added task: " +
-      title
-    );
-
-
-    addActivity(
-      "Added task to " +
-      project.name +
-      ": " +
-      title,
-      project.id
-    );
-
-
-    document
-      .getElementById(
-        "taskTitle"
-      )
-      .value = "";
-
-
-    document
-      .getElementById(
-        "taskDescription"
-      )
-      .value = "";
-
-
-    hideTaskForm();
-
-    renderTasks();
-
-    updateWorkspaceStats();
-
-  }
-
-
-  function renderTasks() {
-
-    const container =
-      document.getElementById(
-        "tasksList"
-      );
-
-
-    const project =
-      getCurrentProject();
-
-
-    if (!container) {
-
-      return;
-
-    }
-
-
-    if (!project) {
-
-      container.innerHTML = `
-
-        <div class="empty">
-          Open a project to view tasks.
-        </div>
+        <span>
+          <span class="file-icon">
+            ${icon}
+          </span>
+          ${escapeHTML(fileName)}
+        </span>
 
       `;
 
+
+      button.onclick =
+        () => selectCodeFile(
+          fileName
+        );
+
+
+      container.appendChild(
+        button
+      );
+
+    }
+  );
+
+
+  const codeFileName =
+    document.getElementById(
+      "codeFileName"
+    );
+
+
+  if (codeFileName) {
+
+    codeFileName.textContent =
+      currentFileName;
+
+  }
+
+}
+
+
+function selectCodeFile(
+  fileName
+) {
+
+  if (codeDirty) {
+
+    saveCurrentFile(
+      false
+    );
+
+  }
+
+
+  currentFileName =
+    fileName;
+
+
+  const project =
+    getCurrentProject();
+
+
+  if (project) {
+
+    project.activeFile =
+      fileName;
+
+    updateCurrentProject(
+      project
+    );
+
+  }
+
+
+  renderCodeFiles();
+
+  loadCurrentFile();
+
+
+  setSystemStatus(
+    "Editing " +
+    fileName
+  );
+
+}
+
+
+function loadCurrentFile() {
+
+  const editor =
+    document.getElementById(
+      "projectCode"
+    );
+
+
+  if (!editor) {
+
+    return;
+
+  }
+
+
+  const files =
+    getCodeFiles();
+
+
+  editor.value =
+    files[currentFileName] ||
+    "";
+
+
+  codeDirty =
+    false;
+
+
+  updateEditorMeta();
+
+  updateLineNumbers();
+
+
+  const indicator =
+    document.getElementById(
+      "codeSaveIndicator"
+    );
+
+
+  if (indicator) {
+
+    indicator.textContent =
+      "Local";
+
+  }
+
+
+  const status =
+    document.getElementById(
+      "codeStatus"
+    );
+
+
+  if (status) {
+
+    status.textContent =
+      "Loaded";
+
+  }
+
+}
+
+
+/* =========================================================
+   LEGACY CODE COMPATIBILITY
+   ========================================================= */
+
+function loadProjectCode() {
+
+  loadCurrentFile();
+
+}
+
+
+function saveProjectCode() {
+
+  saveCurrentFile();
+
+}
+
+
+function saveCurrentFile(
+  showToast = true
+) {
+
+  const project =
+    getCurrentProject();
+
+
+  const editor =
+    document.getElementById(
+      "projectCode"
+    );
+
+
+  if (
+    !project ||
+    !editor
+  ) {
+
+    return;
+
+  }
+
+
+  if (!project.codeFiles) {
+
+    project.codeFiles =
+      createDefaultCodeFiles(
+        project.code || ""
+      );
+
+  }
+
+
+  project.codeFiles[
+    currentFileName
+  ] =
+    editor.value;
+
+
+  project.activeFile =
+    currentFileName;
+
+
+  /*
+    Preserve the V1.2 legacy code property.
+    The HTML file becomes the legacy representation.
+  */
+
+  if (
+    currentFileName ===
+    "index.html"
+  ) {
+
+    project.code =
+      editor.value;
+
+  }
+
+
+  updateCurrentProject(
+    project
+  );
+
+
+  codeDirty =
+    false;
+
+
+  const status =
+    document.getElementById(
+      "codeStatus"
+    );
+
+
+  const indicator =
+    document.getElementById(
+      "codeSaveIndicator"
+    );
+
+
+  if (status) {
+
+    status.textContent =
+      "Saved locally";
+
+  }
+
+
+  if (indicator) {
+
+    indicator.textContent =
+      "Saved";
+
+  }
+
+
+  updateLineNumbers();
+
+  updateEditorMeta();
+
+  updateWorkspaceStats();
+
+  updateAIContext();
+
+
+  if (showToast) {
+
+    toast(
+      currentFileName +
+      " saved.",
+      "success"
+    );
+
+  }
+
+}
+
+
+function handleCodeInput() {
+
+  codeDirty =
+    true;
+
+
+  updateEditorMeta();
+
+  updateLineNumbers();
+
+
+  const status =
+    document.getElementById(
+      "codeStatus"
+    );
+
+
+  const indicator =
+    document.getElementById(
+      "codeSaveIndicator"
+    );
+
+
+  if (status) {
+
+    status.textContent =
+      "Unsaved changes";
+
+  }
+
+
+  if (indicator) {
+
+    indicator.textContent =
+      "Unsaved";
+
+  }
+
+}
+
+
+function updateEditorMeta() {
+
+  const editor =
+    document.getElementById(
+      "projectCode"
+    );
+
+
+  const counter =
+    document.getElementById(
+      "codeCharacterCount"
+    );
+
+
+  if (
+    editor &&
+    counter
+  ) {
+
+    counter.textContent =
+      editor.value.length +
+      " characters";
+
+  }
+
+}
+
+
+/* =========================================================
+   LINE NUMBERS
+   ========================================================= */
+
+function updateLineNumbers() {
+
+  const editor =
+    document.getElementById(
+      "projectCode"
+    );
+
+
+  const numbers =
+    document.getElementById(
+      "lineNumbers"
+    );
+
+
+  if (
+    !editor ||
+    !numbers
+  ) {
+
+    return;
+
+  }
+
+
+  const lines =
+    editor.value.split("\n").length;
+
+
+  let output = "";
+
+
+  for (
+    let i = 1;
+    i <= lines;
+    i++
+  ) {
+
+    output +=
+      i +
+      "\n";
+
+  }
+
+
+  numbers.textContent =
+    output;
+
+}
+
+
+function syncEditorScroll() {
+
+  const editor =
+    document.getElementById(
+      "projectCode"
+    );
+
+
+  const numbers =
+    document.getElementById(
+      "lineNumbers"
+    );
+
+
+  if (
+    editor &&
+    numbers
+  ) {
+
+    numbers.scrollTop =
+      editor.scrollTop;
+
+  }
+
+}
+
+
+/* =========================================================
+   EDITOR KEYBOARD SUPPORT
+   ========================================================= */
+
+function handleEditorKeydown(
+  event
+) {
+
+  const editor =
+    event.target;
+
+
+  if (
+    event.key ===
+    "Tab"
+  ) {
+
+    event.preventDefault();
+
+
+    const start =
+      editor.selectionStart;
+
+
+    const end =
+      editor.selectionEnd;
+
+
+    editor.value =
+      editor.value.substring(
+        0,
+        start
+      ) +
+      "  " +
+      editor.value.substring(
+        end
+      );
+
+
+    editor.selectionStart =
+      editor.selectionEnd =
+      start + 2;
+
+
+    handleCodeInput();
+
+  }
+
+
+  if (
+    (
+      event.ctrlKey ||
+      event.metaKey
+    ) &&
+    event.key.toLowerCase() ===
+    "s"
+  ) {
+
+    event.preventDefault();
+
+    saveCurrentFile();
+
+  }
+
+}
+
+
+/* =========================================================
+   ADD CODE FILE
+   ========================================================= */
+
+function addCodeFile() {
+
+  const project =
+    getCurrentProject();
+
+
+  if (!project) {
+
+    return;
+
+  }
+
+
+  const name =
+    prompt(
+      "Enter the new file name:",
+      "component.js"
+    );
+
+
+  if (!name) {
+
+    return;
+
+  }
+
+
+  const cleanName =
+    name.trim();
+
+
+  if (!cleanName) {
+
+    return;
+
+  }
+
+
+  if (
+    project.codeFiles[
+      cleanName
+    ]
+  ) {
+
+    toast(
+      "A file with that name already exists.",
+      "error"
+    );
+
+    return;
+
+  }
+
+
+  project.codeFiles[
+    cleanName
+  ] = "";
+
+
+  project.activeFile =
+    cleanName;
+
+
+  updateCurrentProject(
+    project
+  );
+
+
+  currentFileName =
+    cleanName;
+
+
+  renderCodeFiles();
+
+  loadCurrentFile();
+
+  updateWorkspaceStats();
+
+  updateAIContext();
+
+
+  addProjectActivity(
+    project.id,
+    "Created code file: " +
+    cleanName
+  );
+
+
+  toast(
+    "File created.",
+    "success"
+  );
+
+}
+
+
+/* =========================================================
+   CODE FORMATTING
+   ========================================================= */
+
+function formatCurrentFile() {
+
+  const editor =
+    document.getElementById(
+      "projectCode"
+    );
+
+
+  if (!editor) {
+
+    return;
+
+  }
+
+
+  let code =
+    editor.value;
+
+
+  /*
+    Lightweight formatter.
+    It intentionally avoids destructive language parsing.
+  */
+
+  if (
+    currentFileName.endsWith(
+      ".json"
+    )
+  ) {
+
+    try {
+
+      code =
+        JSON.stringify(
+          JSON.parse(code),
+          null,
+          2
+        );
+
+    }
+
+    catch {
+
+      toast(
+        "JSON could not be formatted.",
+        "error"
+      );
+
       return;
 
     }
 
+  }
 
-    container.innerHTML = "";
+  else {
+
+    code =
+      code
+        .replace(
+          /\r\n/g,
+          "\n"
+        )
+        .replace(
+          /[ \t]+$/gm,
+          ""
+        );
+
+  }
+
+
+  editor.value =
+    code;
+
+
+  handleCodeInput();
+
+
+  toast(
+    "Basic formatting applied.",
+    "success"
+  );
+
+}
+
+
+/* =========================================================
+   LIVE PREVIEW
+   ========================================================= */
+
+function buildPreviewDocument() {
+
+  const project =
+    getCurrentProject();
+
+
+  if (!project) {
+
+    return "";
+
+  }
+
+
+  const files =
+    project.codeFiles ||
+    createDefaultCodeFiles(
+      project.code || ""
+    );
+
+
+  const html =
+    files["index.html"] ||
+    "";
+
+
+  const css =
+    files["style.css"] ||
+    "";
+
+
+  const js =
+    files["script.js"] ||
+    "";
+
+
+  /*
+    CSS and JS are injected into the HTML document.
+    External local file references are intentionally not
+    fetched from the parent page.
+  */
+
+  let documentHTML =
+    html;
+
+
+  if (!documentHTML.trim()) {
+
+    documentHTML = `
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>GTX Preview</title>
+</head>
+<body></body>
+</html>`;
+
+  }
+
+
+  const styleTag =
+    `<style>${css}</style>`;
+
+
+  const bridge =
+    `
+<script>
+(function () {
+
+  function send(type, args) {
+
+    try {
+
+      parent.postMessage({
+
+        source: "GTX_WORKSHOP_PREVIEW",
+
+        type: type,
+
+        args: args
+
+      }, "*");
+
+    }
+
+    catch (e) {}
+
+  }
+
+  const originalLog =
+    console.log.bind(console);
+
+  const originalWarn =
+    console.warn.bind(console);
+
+  const originalError =
+    console.error.bind(console);
+
+  console.log = function () {
+
+    originalLog.apply(console, arguments);
+
+    send(
+      "log",
+      Array.from(arguments).map(
+        value => {
+
+          try {
+
+            return typeof value === "string"
+              ? value
+              : JSON.stringify(value);
+
+          }
+
+          catch {
+
+            return String(value);
+
+          }
+
+        }
+      )
+    );
+
+  };
+
+  console.warn = function () {
+
+    originalWarn.apply(console, arguments);
+
+    send(
+      "warn",
+      Array.from(arguments).map(
+        value => String(value)
+      )
+    );
+
+  };
+
+  console.error = function () {
+
+    originalError.apply(console, arguments);
+
+    send(
+      "error",
+      Array.from(arguments).map(
+        value => String(value)
+      )
+    );
+
+  };
+
+  window.addEventListener(
+    "error",
+    function (event) {
+
+      send(
+        "error",
+        [
+          event.message ||
+          "Unknown runtime error"
+        ]
+      );
+
+    }
+  );
+
+})();
+<\/script>
+`;
+
+
+  const scriptTag =
+    `<script>${js.replace(
+      /<\/script>/gi,
+      "<\\/script>"
+    )}<\/script>`;
+
+
+  if (
+    /<\/head>/i.test(
+      documentHTML
+    )
+  ) {
+
+    documentHTML =
+      documentHTML.replace(
+        /<\/head>/i,
+        styleTag +
+        bridge +
+        "</head>"
+      );
+
+  }
+
+  else {
+
+    documentHTML =
+      styleTag +
+      bridge +
+      documentHTML;
+
+  }
+
+
+  if (
+    /<\/body>/i.test(
+      documentHTML
+    )
+  ) {
+
+    documentHTML =
+      documentHTML.replace(
+        /<\/body>/i,
+        scriptTag +
+        "</body>"
+      );
+
+  }
+
+  else {
+
+    documentHTML +=
+      scriptTag;
+
+  }
+
+
+  return documentHTML;
+
+}
+
+
+function runProject() {
+
+  const project =
+    getCurrentProject();
+
+
+  if (!project) {
+
+    return;
+
+  }
+
+
+  if (codeDirty) {
+
+    saveCurrentFile(
+      false
+    );
+
+  }
+
+
+  const frame =
+    document.getElementById(
+      "previewFrame"
+    );
+
+
+  if (!frame) {
+
+    return;
+
+  }
+
+
+  clearConsole();
+
+
+  const documentHTML =
+    buildPreviewDocument();
+
+
+  lastPreviewDocument =
+    documentHTML;
+
+
+  frame.srcdoc =
+    documentHTML;
+
+
+  consoleLog(
+    "Preview refreshed.",
+    "success"
+  );
+
+
+  setSystemStatus(
+    "Preview running"
+  );
+
+}
+
+
+function openPreviewNewWindow() {
+
+  const project =
+    getCurrentProject();
+
+
+  if (!project) {
+
+    return;
+
+  }
+
+
+  if (codeDirty) {
+
+    saveCurrentFile(
+      false
+    );
+
+  }
+
+
+  const documentHTML =
+    buildPreviewDocument();
+
+
+  const blob =
+    new Blob(
+      [
+        documentHTML
+      ],
+      {
+        type:
+          "text/html"
+      }
+    );
+
+
+  const url =
+    URL.createObjectURL(
+      blob
+    );
+
+
+  const windowRef =
+    window.open(
+      url,
+      "_blank"
+    );
+
+
+  if (!windowRef) {
+
+    toast(
+      "The browser blocked the preview window.",
+      "error"
+    );
+
+  }
+
+
+  setTimeout(
+    () => {
+      URL.revokeObjectURL(
+        url
+      );
+    },
+    60000
+  );
+
+}
+
+
+/* =========================================================
+   CONSOLE
+   ========================================================= */
+
+function clearConsole() {
+
+  const output =
+    document.getElementById(
+      "consoleOutput"
+    );
+
+
+  if (output) {
+
+    output.innerHTML = "";
+
+  }
+
+}
+
+
+function consoleLog(
+  message,
+  type = "info"
+) {
+
+  const output =
+    document.getElementById(
+      "consoleOutput"
+    );
+
+
+  if (!output) {
+
+    return;
+
+  }
+
+
+  const line =
+    document.createElement(
+      "div"
+    );
+
+
+  line.className =
+    "console-line " +
+    type;
+
+
+  line.textContent =
+    "[" +
+    new Date().toLocaleTimeString() +
+    "] " +
+    message;
+
+
+  output.appendChild(
+    line
+  );
+
+
+  output.scrollTop =
+    output.scrollHeight;
+
+}
+
+
+window.addEventListener(
+  "message",
+  event => {
+
+    const data =
+      event.data;
 
 
     if (
-      project.tasks.length === 0
+      !data ||
+      data.source !==
+      "GTX_WORKSHOP_PREVIEW"
     ) {
-
-      container.innerHTML = `
-
-        <div class="empty">
-
-          <h2>
-            No tasks yet
-          </h2>
-
-          <p>
-            Add the work that needs to be completed.
-          </p>
-
-        </div>
-
-      `;
 
       return;
 
     }
 
 
-    project.tasks.forEach(task => {
+    const args =
+      Array.isArray(
+        data.args
+      )
+        ? data.args
+        : [];
+
+
+    const message =
+      args.join(" ");
+
+
+    if (
+      data.type ===
+      "error"
+    ) {
+
+      consoleLog(
+        message,
+        "error"
+      );
+
+    }
+
+    else if (
+      data.type ===
+      "warn"
+    ) {
+
+      consoleLog(
+        message,
+        "info"
+      );
+
+    }
+
+    else {
+
+      consoleLog(
+        message,
+        "info"
+      );
+
+    }
+
+  }
+);
+
+
+/* =========================================================
+   CODE VERSIONS
+   ========================================================= */
+
+function createCodeVersion() {
+
+  const project =
+    getCurrentProject();
+
+
+  if (!project) {
+
+    return;
+
+  }
+
+
+  if (codeDirty) {
+
+    saveCurrentFile(
+      false
+    );
+
+  }
+
+
+  const label =
+    prompt(
+      "Version name:",
+      "Development snapshot"
+    );
+
+
+  if (
+    label === null
+  ) {
+
+    return;
+
+  }
+
+
+  const version =
+    {
+
+      id:
+        uid("version"),
+
+      label:
+        label.trim() ||
+        "Untitled snapshot",
+
+      createdAt:
+        nowString(),
+
+      files:
+        JSON.parse(
+          JSON.stringify(
+            project.codeFiles
+          )
+        )
+
+    };
+
+
+  project.codeVersions.unshift(
+    version
+  );
+
+
+  if (
+    project.codeVersions.length >
+    50
+  ) {
+
+    project.codeVersions =
+      project.codeVersions.slice(
+        0,
+        50
+      );
+
+  }
+
+
+  updateCurrentProject(
+    project
+  );
+
+
+  addProjectActivity(
+    project.id,
+    "Saved code version: " +
+    version.label
+  );
+
+
+  renderCodeVersions();
+
+  updateAIContext();
+
+
+  toast(
+    "Code snapshot saved.",
+    "success"
+  );
+
+}
+
+
+function renderCodeVersions() {
+
+  const project =
+    getCurrentProject();
+
+
+  const container =
+    document.getElementById(
+      "versionList"
+    );
+
+
+  if (
+    !project ||
+    !container
+  ) {
+
+    return;
+
+  }
+
+
+  const versions =
+    project.codeVersions ||
+    [];
+
+
+  container.innerHTML = "";
+
+
+  if (
+    versions.length === 0
+  ) {
+
+    container.innerHTML = `
+
+      <div class="empty" style="padding:35px 20px;">
+
+        <h3>
+          No versions yet
+        </h3>
+
+        <p>
+          Save a snapshot when you reach an important development state.
+        </p>
+
+      </div>
+
+    `;
+
+    return;
+
+  }
+
+
+  versions.forEach(
+    version => {
 
       const item =
         document.createElement(
@@ -3137,758 +7049,415 @@ Enter an instruction below to begin.</div>
 
 
       item.className =
-        "item" +
-        (
-          task.completed
-            ? " completed"
-            : ""
-        );
+        "version-entry";
+
+
+      const fileCount =
+        Object.keys(
+          version.files || {}
+        ).length;
 
 
       item.innerHTML = `
 
-        <h3>
-          ${escapeHTML(task.title)}
-        </h3>
+        <div class="version-entry-header">
+
+          <span class="version-entry-title">
+            ${escapeHTML(
+              version.label
+            )}
+          </span>
+
+          <span class="version-entry-meta">
+            ${escapeHTML(
+              version.createdAt
+            )}
+          </span>
+
+        </div>
+
+        <div class="version-entry-description">
+          ${fileCount} files saved in this snapshot.
+        </div>
+
+        <button
+          class="btn secondary small"
+          onclick="restoreCodeVersion('${version.id}')"
+        >
+          Restore
+        </button>
+
+      `;
+
+
+      container.appendChild(
+        item
+      );
+
+    }
+  );
+
+}
+
+
+function openVersionManager() {
+
+  const modal =
+    document.getElementById(
+      "versionModal"
+    );
+
+
+  const container =
+    document.getElementById(
+      "versionModalList"
+    );
+
+
+  const project =
+    getCurrentProject();
+
+
+  if (
+    !modal ||
+    !container ||
+    !project
+  ) {
+
+    return;
+
+  }
+
+
+  container.innerHTML = "";
+
+
+  const versions =
+    project.codeVersions ||
+    [];
+
+
+  if (
+    versions.length === 0
+  ) {
+
+    container.innerHTML = `
+
+      <div class="empty" style="padding:35px 20px;">
+        No saved versions yet.
+      </div>
+
+    `;
+
+  }
+
+
+  versions.forEach(
+    version => {
+
+      const item =
+        document.createElement(
+          "div"
+        );
+
+
+      item.className =
+        "version-entry";
+
+
+      item.innerHTML = `
+
+        <div class="version-entry-header">
+
+          <span class="version-entry-title">
+            ${escapeHTML(
+              version.label
+            )}
+          </span>
+
+          <span class="version-entry-meta">
+            ${escapeHTML(
+              version.createdAt
+            )}
+          </span>
+
+        </div>
+
+        <div class="version-entry-description">
+          ${
+            Object.keys(
+              version.files || {}
+            ).length
+          } files
+        </div>
+
+        <button
+          class="btn secondary small"
+          onclick="restoreCodeVersion('${version.id}'); closeModal('versionModal');"
+        >
+          Restore
+        </button>
+
+      `;
+
+
+      container.appendChild(
+        item
+      );
+
+    }
+  );
+
+
+  modal.classList.add(
+    "active"
+  );
+
+}
+
+
+function restoreCodeVersion(
+  versionId
+) {
+
+  const project =
+    getCurrentProject();
+
+
+  if (!project) {
+
+    return;
+
+  }
+
+
+  const version =
+    project.codeVersions.find(
+      item =>
+        item.id === versionId
+    );
+
+
+  if (!version) {
+
+    return;
+
+  }
+
+
+  const confirmed =
+    confirm(
+      "Restore this code version? Current code will be replaced."
+    );
+
+
+  if (!confirmed) {
+
+    return;
+
+  }
+
+
+  project.codeFiles =
+    JSON.parse(
+      JSON.stringify(
+        version.files
+      )
+    );
+
+
+  project.code =
+    project.codeFiles[
+      "index.html"
+    ] || "";
+
+
+  project.activeFile =
+    project.codeFiles[
+      currentFileName
+    ]
+      ? currentFileName
+      : "index.html";
+
+
+  currentFileName =
+    project.activeFile;
+
+
+  updateCurrentProject(
+    project
+  );
+
+
+  codeDirty =
+    false;
+
+
+  renderCodeFiles();
+
+  loadCurrentFile();
+
+  renderCodeVersions();
+
+  updateWorkspaceStats();
+
+  updateAIContext();
+
+  runProject();
+
+
+  addProjectActivity(
+    project.id,
+    "Restored code version: " +
+    version.label
+  );
+
+
+  toast(
+    "Code version restored.",
+    "success"
+  );
+
+}
+
+
+/* =========================================================
+   PROJECT ACTIVITY
+   ========================================================= */
+
+function addProjectActivity(
+  projectId,
+  message
+) {
+
+  const projects =
+    getProjects();
+
+
+  const project =
+    projects.find(
+      project =>
+        project.id ===
+        projectId
+    );
+
+
+  if (!project) {
+
+    return;
+
+  }
+
+
+  if (!project.activity) {
+
+    project.activity = [];
+
+  }
+
+
+  project.activity.unshift({
+
+    id:
+      uid("project_activity"),
+
+    message:
+      message,
+
+    date:
+      nowString()
+
+  });
+
+
+  if (
+    project.activity.length >
+    150
+  ) {
+
+    project.activity.splice(
+      150
+    );
+
+  }
+
+
+  updateCurrentProject(
+    project
+  );
+
+}
+
+
+function renderProjectActivity() {
+
+  const container =
+    document.getElementById(
+      "projectActivityList"
+    );
+
+
+  const project =
+    getCurrentProject();
+
+
+  if (!container) {
+
+    return;
+
+  }
+
+
+  if (!project) {
+
+    container.innerHTML = `
+
+      <div class="empty">
+        Open a project to view activity.
+      </div>
+
+    `;
+
+    return;
+
+  }
+
+
+  container.innerHTML = "";
+
+
+  const activity =
+    project.activity ||
+    [];
+
+
+  if (
+    activity.length === 0
+  ) {
+
+    container.innerHTML = `
+
+      <div class="empty">
+
+        <h2>
+          No activity yet
+        </h2>
 
         <p>
-          ${escapeHTML(task.description)}
+          Project activity will appear here.
         </p>
 
-        <div class="item-meta">
-          ${escapeHTML(task.createdAt)}
-        </div>
+      </div>
 
-        <div class="item-actions">
+    `;
 
-          <button
-            class="btn small"
-            onclick="toggleTask(${task.id})"
-          >
-            ${
-              task.completed
-                ? "Mark Incomplete"
-                : "Complete"
-            }
-          </button>
-
-          <button
-            class="btn danger small"
-            onclick="deleteTask(${task.id})"
-          >
-            Delete
-          </button>
-
-        </div>
-
-      `;
-
-
-      container.appendChild(item);
-
-    });
+    return;
 
   }
 
 
-  function toggleTask(id) {
-
-    const project =
-      getCurrentProject();
-
-
-    if (!project) {
-
-      return;
-
-    }
-
-
-    const task =
-      project.tasks.find(
-        task =>
-          task.id === id
-      );
-
-
-    if (!task) {
-
-      return;
-
-    }
-
-
-    task.completed =
-      !task.completed;
-
-
-    updateCurrentProject(
-      project
-    );
-
-
-    addProjectActivity(
-      project.id,
-      task.completed
-        ? "Completed task: " +
-          task.title
-        : "Reopened task: " +
-          task.title
-    );
-
-
-    renderTasks();
-
-    updateWorkspaceStats();
-
-  }
-
-
-  function deleteTask(id) {
-
-    const project =
-      getCurrentProject();
-
-
-    if (!project) {
-
-      return;
-
-    }
-
-
-    const task =
-      project.tasks.find(
-        task =>
-          task.id === id
-      );
-
-
-    if (!task) {
-
-      return;
-
-    }
-
-
-    project.tasks =
-      project.tasks.filter(
-        task =>
-          task.id !== id
-      );
-
-
-    updateCurrentProject(
-      project
-    );
-
-
-    addProjectActivity(
-      project.id,
-      "Deleted task: " +
-      task.title
-    );
-
-
-    renderTasks();
-
-    updateWorkspaceStats();
-
-  }
-
-
-  /* ==========================================
-     EXPERIMENTS
-     ========================================== */
-
-  function showExperimentForm() {
-
-    document
-      .getElementById(
-        "experimentForm"
-      )
-      .style.display =
-      "block";
-
-  }
-
-
-  function hideExperimentForm() {
-
-    document
-      .getElementById(
-        "experimentForm"
-      )
-      .style.display =
-      "none";
-
-  }
-
-
-  function addExperiment() {
-
-    const project =
-      getCurrentProject();
-
-
-    if (!project) {
-
-      return;
-
-    }
-
-
-    const title =
-      document
-        .getElementById(
-          "experimentTitle"
-        )
-        .value
-        .trim();
-
-
-    const description =
-      document
-        .getElementById(
-          "experimentDescription"
-        )
-        .value
-        .trim();
-
-
-    if (!title) {
-
-      alert(
-        "Please enter an experiment name."
-      );
-
-      return;
-
-    }
-
-
-    project.experiments.push({
-
-      id: Date.now(),
-
-      title: title,
-
-      description:
-        description ||
-        "No description yet.",
-
-      status: "Planned",
-
-      createdAt:
-        new Date().toLocaleString()
-
-    });
-
-
-    updateCurrentProject(
-      project
-    );
-
-
-    addProjectActivity(
-      project.id,
-      "Created experiment: " +
-      title
-    );
-
-
-    addActivity(
-      "Created experiment in " +
-      project.name +
-      ": " +
-      title,
-      project.id
-    );
-
-
-    document
-      .getElementById(
-        "experimentTitle"
-      )
-      .value = "";
-
-
-    document
-      .getElementById(
-        "experimentDescription"
-      )
-      .value = "";
-
-
-    hideExperimentForm();
-
-    renderExperiments();
-
-    updateWorkspaceStats();
-
-  }
-
-
-  function renderExperiments() {
-
-    const container =
-      document.getElementById(
-        "experimentsList"
-      );
-
-
-    const project =
-      getCurrentProject();
-
-
-    if (!container) {
-
-      return;
-
-    }
-
-
-    if (!project) {
-
-      container.innerHTML = `
-
-        <div class="empty">
-          Open a project to view experiments.
-        </div>
-
-      `;
-
-      return;
-
-    }
-
-
-    container.innerHTML = "";
-
-
-    if (
-      project.experiments.length === 0
-    ) {
-
-      container.innerHTML = `
-
-        <div class="empty">
-
-          <h2>
-            No experiments yet
-          </h2>
-
-          <p>
-            Create an experiment to test a concept or prototype.
-          </p>
-
-        </div>
-
-      `;
-
-      return;
-
-    }
-
-
-    project.experiments.forEach(
-      experiment => {
-
-        const item =
-          document.createElement(
-            "div"
-          );
-
-
-        item.className =
-          "item";
-
-
-        item.innerHTML = `
-
-          <h3>
-            ${escapeHTML(experiment.title)}
-          </h3>
-
-          <p>
-            ${escapeHTML(experiment.description)}
-          </p>
-
-          <div class="item-meta">
-            Status:
-            ${escapeHTML(experiment.status)}
-            •
-            ${escapeHTML(experiment.createdAt)}
-          </div>
-
-          <div class="item-actions">
-
-            <button
-              class="btn small"
-              onclick="toggleExperimentStatus(${experiment.id})"
-            >
-              Change Status
-            </button>
-
-            <button
-              class="btn danger small"
-              onclick="deleteExperiment(${experiment.id})"
-            >
-              Delete
-            </button>
-
-          </div>
-
-        `;
-
-
-        container.appendChild(item);
-
-      }
-    );
-
-  }
-
-
-  function toggleExperimentStatus(
-    id
-  ) {
-
-    const project =
-      getCurrentProject();
-
-
-    if (!project) {
-
-      return;
-
-    }
-
-
-    const experiment =
-      project.experiments.find(
-        experiment =>
-          experiment.id === id
-      );
-
-
-    if (!experiment) {
-
-      return;
-
-    }
-
-
-    const statuses = [
-      "Planned",
-      "Running",
-      "Completed"
-    ];
-
-
-    const currentIndex =
-      statuses.indexOf(
-        experiment.status
-      );
-
-
-    experiment.status =
-      statuses[
-        (currentIndex + 1) %
-        statuses.length
-      ];
-
-
-    updateCurrentProject(
-      project
-    );
-
-
-    addProjectActivity(
-      project.id,
-      "Changed experiment status: " +
-      experiment.title +
-      " → " +
-      experiment.status
-    );
-
-
-    renderExperiments();
-
-  }
-
-
-  function deleteExperiment(id) {
-
-    const project =
-      getCurrentProject();
-
-
-    if (!project) {
-
-      return;
-
-    }
-
-
-    const experiment =
-      project.experiments.find(
-        experiment =>
-          experiment.id === id
-      );
-
-
-    if (!experiment) {
-
-      return;
-
-    }
-
-
-    project.experiments =
-      project.experiments.filter(
-        experiment =>
-          experiment.id !== id
-      );
-
-
-    updateCurrentProject(
-      project
-    );
-
-
-    addProjectActivity(
-      project.id,
-      "Deleted experiment: " +
-      experiment.title
-    );
-
-
-    renderExperiments();
-
-    updateWorkspaceStats();
-
-  }
-
-
-  /* ==========================================
-     PROJECT CODE
-     ========================================== */
-
-  function loadProjectCode() {
-
-    const project =
-      getCurrentProject();
-
-
-    const editor =
-      document.getElementById(
-        "projectCode"
-      );
-
-
-    if (!project || !editor) {
-
-      return;
-
-    }
-
-
-    editor.value =
-      project.code || "";
-
-
-    document
-      .getElementById(
-        "codeStatus"
-      )
-      .textContent =
-      "Local project code loaded.";
-
-  }
-
-
-  function saveProjectCode() {
-
-    const project =
-      getCurrentProject();
-
-
-    const editor =
-      document.getElementById(
-        "projectCode"
-      );
-
-
-    if (!project || !editor) {
-
-      return;
-
-    }
-
-
-    project.code =
-      editor.value;
-
-
-    updateCurrentProject(
-      project
-    );
-
-
-    addProjectActivity(
-      project.id,
-      "Saved project code."
-    );
-
-
-    addActivity(
-      "Saved code in " +
-      project.name,
-      project.id
-    );
-
-
-    document
-      .getElementById(
-        "codeStatus"
-      )
-      .textContent =
-      "Code saved locally.";
-
-  }
-
-
-  /* ==========================================
-     PROJECT ACTIVITY
-     ========================================== */
-
-  function addProjectActivity(
-    projectId,
-    message
-  ) {
-
-    const projects =
-      getProjects();
-
-
-    const project =
-      projects.find(
-        project =>
-          project.id ===
-          projectId
-      );
-
-
-    if (!project) {
-
-      return;
-
-    }
-
-
-    if (!project.activity) {
-
-      project.activity = [];
-
-    }
-
-
-    project.activity.unshift({
-
-      id: Date.now(),
-
-      message: message,
-
-      date:
-        new Date().toLocaleString()
-
-    });
-
-
-    if (
-      project.activity.length > 100
-    ) {
-
-      project.activity.splice(
-        100
-      );
-
-    }
-
-
-    updateCurrentProject(
-      project
-    );
-
-  }
-
-
-  function renderProjectActivity() {
-
-    const container =
-      document.getElementById(
-        "projectActivityList"
-      );
-
-
-    const project =
-      getCurrentProject();
-
-
-    if (!container) {
-
-      return;
-
-    }
-
-
-    if (!project) {
-
-      container.innerHTML = `
-
-        <div class="empty">
-          Open a project to view activity.
-        </div>
-
-      `;
-
-      return;
-
-    }
-
-
-    container.innerHTML = "";
-
-
-    const activity =
-      project.activity || [];
-
-
-    if (activity.length === 0) {
-
-      container.innerHTML = `
-
-        <div class="empty">
-
-          <h2>
-            No activity yet
-          </h2>
-
-          <p>
-            Project activity will appear here.
-          </p>
-
-        </div>
-
-      `;
-
-      return;
-
-    }
-
-
-    activity.forEach(entry => {
+  activity.forEach(
+    entry => {
 
       const item =
         document.createElement(
@@ -3903,238 +7472,1083 @@ Enter an instruction below to begin.</div>
       item.innerHTML = `
 
         <strong>
-          ${escapeHTML(entry.message)}
+          ${escapeHTML(
+            entry.message
+          )}
         </strong>
 
         <span>
-          ${escapeHTML(entry.date)}
+          ${escapeHTML(
+            entry.date
+          )}
         </span>
 
       `;
 
 
-      container.appendChild(item);
+      container.appendChild(
+        item
+      );
 
-    });
+    }
+  );
 
-  }
+}
 
 
-  /* ==========================================
-     WORKSHOP SHORTCUTS
-     ========================================== */
+/* =========================================================
+   WORKSHOP SHORTCUTS
+   ========================================================= */
 
-  function openFirstProjectTab(
-    tab
+function openFirstProjectTab(
+  tab
+) {
+
+  const projects =
+    getProjects();
+
+
+  if (
+    projects.length === 0
   ) {
 
-    const projects =
-      getProjects();
-
-
-    if (
-      projects.length === 0
-    ) {
-
-      alert(
-        "Create a project first."
-      );
-
-
-      showPageById(
-        "new-project"
-      );
-
-
-      return;
-
-    }
-
-
-    openProject(
-      projects[0].id
+    toast(
+      "Create a project first.",
+      "error"
     );
 
 
-    setTimeout(
-      () => {
-
-        showWorkspaceTab(tab);
-
-      },
-      50
+    showPageById(
+      "new-project"
     );
+
+
+    return;
 
   }
 
 
-  /* ==========================================
-     BASIC AI PLACEHOLDER
-     ========================================== */
-
-  function runAI() {
-
-    const input =
-      document
-        .getElementById(
-          "aiInput"
-        )
-        .value
-        .trim();
+  openProject(
+    projects[0].id
+  );
 
 
-    const output =
-      document.getElementById(
-        "aiOutput"
+  setTimeout(
+    () => {
+
+      showWorkspaceTab(
+        tab
       );
 
+    },
+    50
+  );
 
-    if (!input) {
+}
 
-      output.textContent =
-        "Enter an instruction first.";
 
-      return;
+/* =========================================================
+   PROJECT CONTEXT
+   ========================================================= */
 
+function buildProjectContext(
+  project
+) {
+
+  if (!project) {
+
+    return null;
+
+  }
+
+
+  return {
+
+    id:
+      project.id,
+
+    name:
+      project.name,
+
+    description:
+      project.description,
+
+    createdAt:
+      project.createdAt,
+
+    context:
+      project.context || {},
+
+    notes:
+      project.notes.map(
+        note => ({
+          title:
+            note.title,
+
+          content:
+            note.content
+
+        })
+      ),
+
+    tasks:
+      project.tasks.map(
+        task => ({
+          title:
+            task.title,
+
+          description:
+            task.description,
+
+          completed:
+            task.completed
+
+        })
+      ),
+
+    experiments:
+      project.experiments.map(
+        experiment => ({
+          title:
+            experiment.title,
+
+          description:
+            experiment.description,
+
+          status:
+            experiment.status
+
+        })
+      ),
+
+    codeFiles:
+      Object.keys(
+        project.codeFiles || {}
+      ),
+
+    codeVersions:
+      project.codeVersions.map(
+        version => ({
+          label:
+            version.label,
+
+          createdAt:
+            version.createdAt
+        })
+      )
+
+  };
+
+}
+
+
+function openProjectContextModal() {
+
+  const project =
+    getCurrentProject();
+
+
+  const modal =
+    document.getElementById(
+      "contextModal"
+    );
+
+
+  const content =
+    document.getElementById(
+      "contextModalContent"
+    );
+
+
+  if (
+    !project ||
+    !modal ||
+    !content
+  ) {
+
+    return;
+
+  }
+
+
+  const context =
+    project.context || {};
+
+
+  content.innerHTML = `
+
+    <div class="item">
+
+      <h3>
+        ${escapeHTML(
+          project.name
+        )}
+      </h3>
+
+      <p>
+        ${escapeHTML(
+          project.description
+        )}
+      </p>
+
+    </div>
+
+
+    <div style="height:10px;"></div>
+
+
+    <div class="context-line">
+      <span>Purpose</span>
+      <strong>
+        ${
+          escapeHTML(
+            context.purpose ||
+            "Not defined"
+          )
+        }
+      </strong>
+    </div>
+
+
+    <div class="context-line">
+      <span>AI instructions</span>
+      <strong>
+        ${
+          context.instructions
+            ? "Configured"
+            : "Not configured"
+        }
+      </strong>
+    </div>
+
+
+    <div class="context-line">
+      <span>Notes</span>
+      <strong>
+        ${project.notes.length}
+      </strong>
+    </div>
+
+
+    <div class="context-line">
+      <span>Tasks</span>
+      <strong>
+        ${project.tasks.length}
+      </strong>
+    </div>
+
+
+    <div class="context-line">
+      <span>Experiments</span>
+      <strong>
+        ${project.experiments.length}
+      </strong>
+    </div>
+
+
+    <div class="context-line">
+      <span>Code files</span>
+      <strong>
+        ${
+          Object.keys(
+            project.codeFiles || {}
+          ).length
+        }
+      </strong>
+    </div>
+
+
+    <div style="height:15px;"></div>
+
+
+    <label>
+      Project purpose
+    </label>
+
+    <textarea
+      id="contextPurpose"
+      placeholder="What is this project trying to accomplish?"
+    >${escapeHTML(
+      context.purpose || ""
+    )}</textarea>
+
+
+    <label>
+      AI project instructions
+    </label>
+
+    <textarea
+      id="contextInstructions"
+      placeholder="Instructions the future GTX AI should understand about this project..."
+    >${escapeHTML(
+      context.instructions || ""
+    )}</textarea>
+
+
+    <button
+      class="btn"
+      onclick="saveProjectContext()"
+    >
+      Save Context
+    </button>
+
+  `;
+
+
+  modal.classList.add(
+    "active"
+  );
+
+}
+
+
+function saveProjectContext() {
+
+  const project =
+    getCurrentProject();
+
+
+  if (!project) {
+
+    return;
+
+  }
+
+
+  const purpose =
+    document
+      .getElementById(
+        "contextPurpose"
+      )
+      .value
+      .trim();
+
+
+  const instructions =
+    document
+      .getElementById(
+        "contextInstructions"
+      )
+      .value
+      .trim();
+
+
+  project.context = {
+
+    ...(project.context || {}),
+
+    purpose:
+      purpose,
+
+    instructions:
+      instructions
+
+  };
+
+
+  updateCurrentProject(
+    project
+  );
+
+
+  addProjectActivity(
+    project.id,
+    "Updated project AI context."
+  );
+
+
+  updateAIContext();
+
+  closeModal(
+    "contextModal"
+  );
+
+
+  toast(
+    "Project context saved.",
+    "success"
+  );
+
+}
+
+
+/* =========================================================
+   AI BUILDER FOUNDATION
+   ========================================================= */
+
+function updateAIContext() {
+
+  const project =
+    getCurrentProject();
+
+
+  const projectElement =
+    document.getElementById(
+      "aiContextProject"
+    );
+
+
+  const notesElement =
+    document.getElementById(
+      "aiContextNotes"
+    );
+
+
+  const tasksElement =
+    document.getElementById(
+      "aiContextTasks"
+    );
+
+
+  const experimentsElement =
+    document.getElementById(
+      "aiContextExperiments"
+    );
+
+
+  const filesElement =
+    document.getElementById(
+      "aiContextFiles"
+    );
+
+
+  const versionsElement =
+    document.getElementById(
+      "aiContextVersions"
+    );
+
+
+  if (!project) {
+
+    if (projectElement) {
+      projectElement.textContent =
+        "None";
     }
 
+    if (notesElement) {
+      notesElement.textContent =
+        "0";
+    }
+
+    if (tasksElement) {
+      tasksElement.textContent =
+        "0";
+    }
+
+    if (experimentsElement) {
+      experimentsElement.textContent =
+        "0";
+    }
+
+    if (filesElement) {
+      filesElement.textContent =
+        "0";
+    }
+
+    if (versionsElement) {
+      versionsElement.textContent =
+        "0";
+    }
+
+    return;
+
+  }
+
+
+  if (projectElement) {
+
+    projectElement.textContent =
+      project.name;
+
+  }
+
+
+  if (notesElement) {
+
+    notesElement.textContent =
+      project.notes.length;
+
+  }
+
+
+  if (tasksElement) {
+
+    tasksElement.textContent =
+      project.tasks.length;
+
+  }
+
+
+  if (experimentsElement) {
+
+    experimentsElement.textContent =
+      project.experiments.length;
+
+  }
+
+
+  if (filesElement) {
+
+    filesElement.textContent =
+      Object.keys(
+        project.codeFiles || {}
+      ).length;
+
+  }
+
+
+  if (versionsElement) {
+
+    versionsElement.textContent =
+      project.codeVersions.length;
+
+  }
+
+}
+
+
+function runAI() {
+
+  const input =
+    document
+      .getElementById(
+        "aiInput"
+      )
+      .value
+      .trim();
+
+
+  const output =
+    document.getElementById(
+      "aiOutput"
+    );
+
+
+  if (!input) {
 
     output.textContent =
-      "GTX AI Builder received your instruction.\n\n" +
+      "Enter an instruction first.";
 
-      "Instruction:\n" +
-
-      input +
-
-      "\n\n" +
-
-      "AI connection is not connected yet.\n\n" +
-
-      "V1.2 prepares the Workshop structure that the future GTX AI can use for project context, notes, tasks, experiments, code, and development history.";
+    return;
 
   }
 
 
-  /* ==========================================
-     DEVELOPMENT HISTORY
-     ========================================== */
-
-  const developmentHistory = [
-
-    {
-      version: "V0.0",
-      date: "Initial Foundation",
-      description:
-        "The original starting point for the GTX Workshop concept and its development structure."
-    },
+  const project =
+    getCurrentProject();
 
 
-    {
-      version: "V1.0",
-      date: "GTX Workshop V1.0",
-      description:
-        "Created the first GTX Workshop interface with navigation, Projects, AI Builder, Workshop, and Settings."
-    },
+  let contextSummary =
+    "No project selected.";
 
 
-    {
-      version: "V1.1",
-      date: "GTX Workshop V1.1",
-      description:
-        "Introduced functional project workspaces with Notes, Tasks, Experiments, Code, project Activity, local storage, and the foundation for future GTX AI coding integration."
-    },
+  if (project) {
+
+    contextSummary =
+      [
+        "Project: " +
+          project.name,
+
+        "Description: " +
+          project.description,
+
+        "Notes: " +
+          project.notes.length,
+
+        "Tasks: " +
+          project.tasks.length,
+
+        "Experiments: " +
+          project.experiments.length,
+
+        "Code files: " +
+          Object.keys(
+            project.codeFiles || {}
+          ).length,
+
+        "Code versions: " +
+          project.codeVersions.length,
+
+        "Purpose: " +
+          (
+            project.context?.purpose ||
+            "Not defined"
+          )
+
+      ].join("\n");
+
+  }
 
 
-    {
-      version: "V1.2",
-      date: "GTX Workshop V1.2",
-      description:
-        "Added the read-only Development History system so the Workshop can display its own development milestones."
-    }
+  output.textContent =
+    "GTX AI Builder received your instruction.\n\n" +
 
-  ];
+    "Instruction:\n" +
 
+    input +
 
-  function renderDevelopmentHistory() {
+    "\n\n" +
 
-    const container =
-      document.getElementById(
-        "developmentHistoryList"
-      );
+    "Available project context:\n" +
 
+    contextSummary +
 
-    if (!container) {
+    "\n\n" +
 
-      return;
+    "GTX AI connection status:\n" +
 
-    }
+    "Local foundation only.\n\n" +
 
+    "V1.3 prepares the structured context and controlled " +
+    "change architecture required for a future GTX AI " +
+    "connection. No external AI model is being called by " +
+    "this local file.";
 
-    container.innerHTML = "";
-
-
-    developmentHistory.forEach(
-      entry => {
-
-        const item =
-          document.createElement(
-            "div"
-          );
+}
 
 
-        item.className =
-          "history-entry";
+function insertProjectContextIntoAI() {
+
+  const input =
+    document.getElementById(
+      "aiInput"
+    );
 
 
-        item.innerHTML = `
-
-          <div class="history-version">
-            ${escapeHTML(entry.version)}
-          </div>
-
-          <div class="history-date">
-            ${escapeHTML(entry.date)}
-          </div>
-
-          <div class="history-description">
-            ${escapeHTML(entry.description)}
-          </div>
-
-        `;
+  const project =
+    getCurrentProject();
 
 
-        container.appendChild(item);
+  if (!project) {
 
+    toast(
+      "Open a project first.",
+      "error"
+    );
+
+    return;
+
+  }
+
+
+  const context =
+    buildProjectContext(
+      project
+    );
+
+
+  input.value =
+    "Use this project context to help me:\n\n" +
+    JSON.stringify(
+      context,
+      null,
+      2
+    );
+
+
+  input.focus();
+
+
+  toast(
+    "Project context inserted.",
+    "success"
+  );
+
+}
+
+
+function openAIForProject() {
+
+  showPageById(
+    "ai"
+  );
+
+
+  updateAIContext();
+
+}
+
+
+/* =========================================================
+   IMPORT / EXPORT
+   ========================================================= */
+
+function exportAllData() {
+
+  const data = {
+
+    workshop:
+      "GTX Workshop",
+
+    version:
+      WORKSHOP_VERSION,
+
+    exportedAt:
+      nowString(),
+
+    projects:
+      getProjects(),
+
+    activities:
+      getActivities()
+
+  };
+
+
+  const blob =
+    new Blob(
+      [
+        JSON.stringify(
+          data,
+          null,
+          2
+        )
+      ],
+      {
+        type:
+          "application/json"
       }
     );
 
-  }
+
+  const url =
+    URL.createObjectURL(
+      blob
+    );
 
 
-  /* ==========================================
-     SECURITY
-     ========================================== */
+  const link =
+    document.createElement(
+      "a"
+    );
 
-  function escapeHTML(text) {
 
-    const div =
-      document.createElement(
-        "div"
+  link.href =
+    url;
+
+
+  link.download =
+    "gtx-workshop-backup-v" +
+    WORKSHOP_VERSION +
+    ".json";
+
+
+  document.body.appendChild(
+    link
+  );
+
+
+  link.click();
+
+  link.remove();
+
+
+  setTimeout(
+    () => {
+      URL.revokeObjectURL(
+        url
       );
+    },
+    1000
+  );
 
 
-    div.textContent =
-      text;
+  toast(
+    "Workspace data exported.",
+    "success"
+  );
+
+}
 
 
-    return div.innerHTML;
+function exportCurrentProject() {
+
+  const project =
+    getCurrentProject();
+
+
+  if (!project) {
+
+    return;
 
   }
 
 
-  /* ==========================================
-     STARTUP
-     ========================================== */
+  const blob =
+    new Blob(
+      [
+        JSON.stringify(
+          {
+            workshop:
+              "GTX Workshop",
+
+            version:
+              WORKSHOP_VERSION,
+
+            exportedAt:
+              nowString(),
+
+            project:
+              project
+          },
+          null,
+          2
+        )
+      ],
+      {
+        type:
+          "application/json"
+      }
+    );
+
+
+  const url =
+    URL.createObjectURL(
+      blob
+    );
+
+
+  const link =
+    document.createElement(
+      "a"
+    );
+
+
+  link.href =
+    url;
+
+
+  link.download =
+    (
+      project.name
+        .replace(
+          /[^a-z0-9]+/gi,
+          "-"
+        )
+        .replace(
+          /^-|-$/g,
+          ""
+        ) ||
+      "gtx-project"
+    ) +
+    ".json";
+
+
+  document.body.appendChild(
+    link
+  );
+
+
+  link.click();
+
+  link.remove();
+
+
+  setTimeout(
+    () => {
+      URL.revokeObjectURL(
+        url
+      );
+    },
+    1000
+  );
+
+
+  toast(
+    "Project exported.",
+    "success"
+  );
+
+}
+
+
+function triggerImport() {
+
+  document
+    .getElementById(
+      "importFile"
+    )
+    .click();
+
+}
+
+
+function importAllData(
+  event
+) {
+
+  const file =
+    event.target.files?.[0];
+
+
+  if (!file) {
+
+    return;
+
+  }
+
+
+  const reader =
+    new FileReader();
+
+
+  reader.onload =
+    function () {
+
+      try {
+
+        const data =
+          JSON.parse(
+            reader.result
+          );
+
+
+        if (
+          !data ||
+          !Array.isArray(
+            data.projects
+          )
+        ) {
+
+          throw new Error(
+            "Invalid GTX Workshop backup."
+          );
+
+        }
+
+
+        const importedProjects =
+          data.projects.map(
+            migrateProject
+          );
+
+
+        const importedActivities =
+          Array.isArray(
+            data.activities
+          )
+            ? data.activities
+            : [];
+
+
+        const confirmed =
+          confirm(
+            "Import this backup? Existing local projects and activities will be replaced."
+          );
+
+
+        if (!confirmed) {
+
+          return;
+
+        }
+
+
+        saveProjects(
+          importedProjects
+        );
+
+
+        saveActivities(
+          importedActivities
+        );
+
+
+        currentProjectId =
+          null;
+
+
+        currentFileName =
+          "index.html";
+
+
+        renderProjects();
+
+        updateProjectCount();
+
+        updateActivityCount();
+
+        updateAIContext();
+
+
+        toast(
+          "Workspace backup imported.",
+          "success"
+        );
+
+
+        addActivity(
+          "Imported a GTX Workshop backup."
+        );
+
+      }
+
+      catch (error) {
+
+        toast(
+          "Import failed: " +
+          error.message,
+          "error"
+        );
+
+      }
+
+      finally {
+
+        event.target.value =
+          "";
+
+      }
+
+    };
+
+
+  reader.readAsText(
+    file
+  );
+
+}
+
+
+/* =========================================================
+   RESET
+   ========================================================= */
+
+function resetWorkspace() {
+
+  const confirmed =
+    confirm(
+      "This will permanently delete all local GTX Workshop projects and activity. Continue?"
+    );
+
+
+  if (!confirmed) {
+
+    return;
+
+  }
+
+
+  localStorage.removeItem(
+    STORAGE_KEYS.projects
+  );
+
+  localStorage.removeItem(
+    STORAGE_KEYS.activities
+  );
+
+  localStorage.removeItem(
+    STORAGE_KEYS.version
+  );
+
+
+  currentProjectId =
+    null;
+
+
+  currentFileName =
+    "index.html";
+
 
   renderProjects();
 
@@ -4142,6 +8556,276 @@ Enter an instruction below to begin.</div>
 
   updateActivityCount();
 
+  updateAIContext();
+
+
+  showPageById(
+    "home"
+  );
+
+
+  toast(
+    "Workspace reset.",
+    "success"
+  );
+
+}
+
+
+/* =========================================================
+   DEVELOPMENT HISTORY
+   ========================================================= */
+
+const developmentHistory = [
+
+  {
+
+    version:
+      "V0.0",
+
+    date:
+      "Initial Foundation",
+
+    description:
+      "The original starting point for the GTX Workshop concept and its development structure."
+
+  },
+
+
+  {
+
+    version:
+      "V1.0",
+
+    date:
+      "GTX Workshop V1.0",
+
+    description:
+      "Created the first GTX Workshop interface with navigation, Projects, AI Builder, Workshop, and Settings."
+
+  },
+
+
+  {
+
+    version:
+      "V1.1",
+
+    date:
+      "GTX Workshop V1.1",
+
+    description:
+      "Introduced functional project workspaces with Notes, Tasks, Experiments, Code, project Activity, local storage, and the foundation for future GTX AI coding integration."
+
+  },
+
+
+  {
+
+    version:
+      "V1.2",
+
+    date:
+      "GTX Workshop V1.2",
+
+    description:
+      "Added the read-only Development History system so the Workshop can display its own development milestones."
+
+  },
+
+
+  {
+
+    version:
+      "V1.3",
+
+    date:
+      "GTX Workshop V1.3",
+
+    description:
+      "Expanded the Workshop into a more complete local development environment with multi-file HTML/CSS/JavaScript coding, live preview, isolated project execution, console output, code versions and restore, structured project context, AI Builder foundation, data migration, import/export, project search, improved activity systems, responsive behavior, and expanded development architecture."
+
+  }
+
+];
+
+
+function renderDevelopmentHistory() {
+
+  const container =
+    document.getElementById(
+      "developmentHistoryList"
+    );
+
+
+  if (!container) {
+
+    return;
+
+  }
+
+
+  container.innerHTML = "";
+
+
+  developmentHistory.forEach(
+    entry => {
+
+      const item =
+        document.createElement(
+          "div"
+        );
+
+
+      item.className =
+        "history-entry";
+
+
+      item.innerHTML = `
+
+        <div class="history-version">
+          ${escapeHTML(
+            entry.version
+          )}
+        </div>
+
+        <div class="history-date">
+          ${escapeHTML(
+            entry.date
+          )}
+        </div>
+
+        <div class="history-description">
+          ${escapeHTML(
+            entry.description
+          )}
+        </div>
+
+      `;
+
+
+      container.appendChild(
+        item
+      );
+
+    }
+  );
+
+}
+
+
+/* =========================================================
+   MODALS
+   ========================================================= */
+
+function closeModal(
+  modalId
+) {
+
+  const modal =
+    document.getElementById(
+      modalId
+    );
+
+
+  if (modal) {
+
+    modal.classList.remove(
+      "active"
+    );
+
+  }
+
+}
+
+
+function closeModalOnBackdrop(
+  event,
+  modalId
+) {
+
+  if (
+    event.target.id ===
+    modalId
+  ) {
+
+    closeModal(
+      modalId
+    );
+
+  }
+
+}
+
+
+/* =========================================================
+   KEYBOARD SHORTCUTS
+   ========================================================= */
+
+document.addEventListener(
+  "keydown",
+  event => {
+
+    if (
+      event.key ===
+      "Escape"
+    ) {
+
+      closeModal(
+        "contextModal"
+      );
+
+      closeModal(
+        "versionModal"
+      );
+
+    }
+
+  }
+);
+
+
+/* =========================================================
+   STARTUP
+   ========================================================= */
+
+runMigration();
+
+renderProjects();
+
+updateProjectCount();
+
+updateActivityCount();
+
+renderDevelopmentHistory();
+
+updateAIContext();
+
+setSystemStatus(
+  "Workspace Ready"
+);
+
+
+/* =========================================================
+   INITIAL LOCAL CODE PREVIEW
+   ========================================================= */
+
+window.addEventListener(
+  "load",
+  () => {
+
+    /*
+      V1.3 intentionally does not automatically create a
+      project. Existing V1.2 projects remain untouched except
+      for the structural migration described above.
+    */
+
+    setSystemStatus(
+      "Workspace Ready"
+    );
+
+  }
+);
 
 </script>
 
